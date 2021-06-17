@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# FOR CURRENT PROJECT
+geckodriver.log
+log.txt
+log.txt.*
+pwned_screenshots/
+backup/
+SMS_TOKEN.txt
+*.sqlite
