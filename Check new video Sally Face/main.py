@@ -30,7 +30,7 @@ def get_yt_video_list() -> List[str]:
 
 run_notification_job(
     'Sally Face',
-    'video',
+    DIR,
     get_yt_video_list,
     notified_by_sms=True,
     format_current_items='Текущий список видео (%s): %s',

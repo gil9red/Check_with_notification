@@ -32,7 +32,7 @@ def get_items() -> List[str]:
 
 run_notification_job(
     'Богиня благословляет этот прекрасный мир',
-    'seasons',
+    DIR,
     get_items,
     notified_by_sms=True,
     format_current_items='Текущий список сезонов (%s): %s',

@@ -22,7 +22,7 @@ from third_party.online_anidub_com.get_video_list import search_video_list
 
 run_notification_job(
     'My Hero Academia',
-    'video',
+    DIR,
     lambda: search_video_list('Моя геройская академия'),
     notified_by_sms=True,
     notify_when_empty=False,  # Парсер не всегда правильно работает из-за прокси, поэтому не уведомляем о проблемах

@@ -136,3 +136,4 @@ pwned_screenshots/
 backup/
 SMS_TOKEN.txt
 *.sqlite
+saved.json

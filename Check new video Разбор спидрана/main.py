@@ -27,7 +27,7 @@ def get_yt_video_list():
 
 run_notification_job(
     'Разбор спидрана! [Naritsa]',
-    'video',
+    DIR,
     get_yt_video_list,
     notified_by_sms=True,
     timeout={'days': 1},

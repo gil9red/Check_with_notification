@@ -28,7 +28,7 @@ def get_yt_video_list():
 
 run_notification_job(
     'BadComedian',
-    'video',
+    DIR,
     get_yt_video_list,
     notified_by_sms=True,
     timeout={'days': 1},

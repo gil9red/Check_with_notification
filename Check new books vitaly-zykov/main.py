@@ -22,7 +22,7 @@ from third_party.vitaly_zykov_ru_knigi__get_books import get_books
 
 run_notification_job(
     'Новые книги Виталия Зыкова',
-    DIR / 'books',
+    DIR,
     get_books,
     notified_by_sms=True,
     format_current_items='Текущий список книг (%s): %s',

@@ -30,7 +30,7 @@ def get_yt_video_list():
 
 run_notification_job(
     'Gorgeous Freeman',
-    'video',
+    DIR,
     get_yt_video_list,
     notified_by_sms=True,
     format_current_items='Текущий список видео (%s): %s',

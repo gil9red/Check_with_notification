@@ -25,7 +25,7 @@ from third_party.bigfishgames_com__hidden_object.find__Spirits_of_Mystery__CE im
 
 run_notification_job(
     'Spirits of Mystery',
-    'games',
+    DIR,
     get_games,
     notified_by_sms=True,
     format_current_items='Текущий список игр (%s): %s',

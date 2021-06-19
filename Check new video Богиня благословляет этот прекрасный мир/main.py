@@ -24,7 +24,7 @@ from third_party.online_anidub_com.get_video_list import search_video_list
 
 run_notification_job(
     'Богиня благословляет этот прекрасный мир',
-    'video',
+    DIR,
     lambda: search_video_list('Богиня благословляет этот прекрасный мир'),
     notified_by_sms=True,
     notify_when_empty=False,  # На сайте пока отсутствуют серии, поэтому не считаем их отсутствие проблемой

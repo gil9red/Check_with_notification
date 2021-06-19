@@ -25,7 +25,7 @@ from third_party.bigfishgames_com__hidden_object.find__Sable_Maze__CE import get
 
 run_notification_job(
     'Sable Maze',
-    'games',
+    DIR,
     get_games,
     notified_by_sms=True,
     format_current_items='Текущий список игр (%s): %s',

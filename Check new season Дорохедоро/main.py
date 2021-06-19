@@ -22,7 +22,7 @@ from third_party.get_seasons_anime_Dorohedoro import get_seasons
 
 run_notification_job(
     'Дорохедоро',
-    'seasons',
+    DIR,
     get_seasons,
     notified_by_sms=True,
     format_current_items='Текущий список сезонов (%s): %s',

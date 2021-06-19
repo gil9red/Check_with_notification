@@ -56,7 +56,7 @@ def get_chapters() -> List[str]:
 
 run_notification_job(
     'Манга Berserk',
-    'chapters',
+    DIR,
     get_chapters,
     notified_by_sms=True,
     timeout={'days': 1},

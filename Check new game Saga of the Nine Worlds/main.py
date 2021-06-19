@@ -25,7 +25,7 @@ from third_party.bigfishgames_com__hidden_object.find__Saga_of_the_Nine_Worlds__
 
 run_notification_job(
     'Saga of the Nine Worlds',
-    'games',
+    DIR,
     get_games,
     notified_by_sms=True,
     format_current_items='Текущий список игр (%s): %s',

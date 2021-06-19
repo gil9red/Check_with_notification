@@ -15,3 +15,5 @@ SMS_TOKEN = os.environ.get('SMS_TOKEN') or SMS_TOKEN_FILE_NAME.read_text('utf-8'
 
 # <API_ID>:<PHONE>
 API_ID, TO = SMS_TOKEN.split(':')
+
+FILE_NAME_SAVED = 'saved.json'

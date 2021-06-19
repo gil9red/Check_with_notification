@@ -15,8 +15,7 @@ from pathlib import Path
 
 import requests
 
-from root_config import API_ID, TO, DIR
-
+from root_config import API_ID, TO, DIR, FILE_NAME_SAVED
 
 # Добавление точки поиска для модулей в third_party
 sys.path.append(str(DIR / 'third_party'))
@@ -96,7 +95,7 @@ def simple_send_sms(text: str, log=None):
 # TODO: внутри функции оставить try/except и слать через уведомление о ошибках
 def run_notification_job(
     log__or__log_name: Union['logging.Logger', str],
-    file_name_items: Union[str, Path],
+    script_dir: Union[Path, str],
     get_new_items: Callable[[], List[str]],
     notified_by_sms=True,
     notify_when_empty=True,
@@ -113,7 +112,9 @@ def run_notification_job(
 ):
     log = log__or__log_name
     if isinstance(log, str):
-        log = get_logger(log)
+        log = get_logger(log, script_dir / 'log.txt')
+
+    file_name_items = script_dir / FILE_NAME_SAVED
 
     def save_items(items: List[str]):
         with open(file_name_items, mode='w', encoding='utf-8') as f:

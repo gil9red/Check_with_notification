@@ -22,7 +22,7 @@ from third_party.ranobehub_org_api_ranobe_92_contents__The_Legendary_Moonlight_S
 
 run_notification_job(
     'Легендарный лунный скульптор',
-    'chapters',
+    DIR,
     get_chapters,
     timeout={'days': 1},
     notified_by_sms=True,
