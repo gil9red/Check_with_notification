@@ -6,6 +6,7 @@
  * [add_notify_telegram.py](https://github.com/gil9red/SimplePyScripts/blob/e86c04660322fd2b7671d7023e565170e24f3114/telegram_notifications/add_notify_use_web.py)
  * [anivost_org.py](https://github.com/gil9red/SimplePyScripts/blob/d5437b669d700082673f1bef51aa6d1a5ed0ef0c/html_parsing/anivost_org.py)
  * [check__haveibeenpwned_com.py](https://github.com/gil9red/SimplePyScripts/blob/d798c98c50ab764d8ce4a1cad26298daf97ef67f/selenium__examples/check__haveibeenpwned_com.py)
+ * [get_seasons_anime_Dorohedoro.py](https://github.com/gil9red/SimplePyScripts/blob/fe2e2d56b2eac5a23f359898b59c6a17e937aac5/html_parsing/get_seasons_anime_Dorohedoro.py)
  * [kanobu_ru__games__collections__igry_s_podderzhkoi_rtx.py](https://github.com/gil9red/SimplePyScripts/blob/7fcc62cdc441df82c3164a86f3c82f0a219ace67/html_parsing/kanobu_ru__games__collections__igry_s_podderzhkoi_rtx.py)
  * [ranobehub_org_api_ranobe_92_contents__The_Legendary_Moonlight_Sculptor.py](https://github.com/gil9red/SimplePyScripts/blob/e4f2321c7dce4b6f20564a326f29a19285f2fa3e/html_parsing/ranobehub_org_api_ranobe_92_contents__The_Legendary_Moonlight_Sculptor.py)
  * [shorten.py](https://github.com/gil9red/SimplePyScripts/blob/cd5bf42742b2de4706a82aecb00e20ca0f043f8e/shorten.py)
