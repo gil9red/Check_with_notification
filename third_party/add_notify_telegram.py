@@ -16,7 +16,7 @@ PORT = 10016
 URL = f'http://{HOST}:{PORT}/add_notify'
 
 
-def add_notify(name: str, message: str, type = 'INFO'):
+def add_notify(name: str, message: str, type='INFO'):
     data = {
         'name': name,
         'message': message,
