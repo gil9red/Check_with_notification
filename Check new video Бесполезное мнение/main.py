@@ -23,6 +23,5 @@ run_notification_job(
     'Бесполезное мнение [Velind]',
     DIR,
     lambda: get_playlist_video_list('PLgqDz7CZ-6NbDjtcYuPFW2wb2LS7BQJMb'),
-    timeout={'days': 1},
     format=FORMAT_VIDEO,
 )

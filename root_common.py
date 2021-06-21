@@ -167,8 +167,7 @@ def run_notification_job(
     get_new_items: Callable[[], List[str]],
     notified_by_sms=True,
     notify_when_empty=True,
-    # TODO: use TimeoutWait, example TimeoutWait(days=1)
-    timeout={'weeks': 1},
+    timeout=TimeoutWait(days=1),
     timeout_exception_seconds=5 * 60,
     format: Format = FORMAT_DEFAULT,
 ):
@@ -209,7 +208,7 @@ def run_notification_job(
     while True:
         if FILE_NAME_SKIP.exists():
             log.info('Обнаружен файл "%s", пропускаю проверку.', FILE_NAME_SKIP.name)
-            wait(**timeout)
+            wait(**timeout.as_dict())
             continue
 
         try:
@@ -245,7 +244,7 @@ def run_notification_job(
                 else:
                     log.debug(format.no_new_items)
 
-            wait(**timeout)
+            wait(**timeout.as_dict())
 
         except:
             log.exception(format.on_exception)

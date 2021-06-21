@@ -16,7 +16,7 @@ from pathlib import Path
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
-from root_common import run_notification_job, FORMAT_VIDEO
+from root_common import run_notification_job, TimeoutWait, FORMAT_VIDEO
 from third_party.online_anidub_com.get_video_list import search_video_list
 
 
@@ -25,6 +25,6 @@ run_notification_job(
     DIR,
     lambda: search_video_list('Моя геройская академия'),
     notify_when_empty=False,  # Парсер не всегда правильно работает из-за прокси, поэтому не уведомляем о проблемах
-    timeout={'days': 3},
+    timeout=TimeoutWait(days=3),
     format=FORMAT_VIDEO,
 )

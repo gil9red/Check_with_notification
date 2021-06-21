@@ -23,6 +23,5 @@ run_notification_job(
     'История серии Final Fantasy [StopGame]',
     DIR,
     lambda: get_playlist_video_list('PLZfhqd1-Hl3DnNDG-x6SgDqlBJee-50E1'),
-    timeout={'days': 1},
     format=FORMAT_VIDEO,
 )

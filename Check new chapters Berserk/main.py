@@ -24,6 +24,5 @@ run_notification_job(
     'Манга Berserk',
     DIR,
     get_chapters,
-    timeout={'days': 1},
     format=FORMAT_CHAPTER,
 )

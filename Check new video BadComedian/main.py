@@ -23,6 +23,5 @@ run_notification_job(
     'BadComedian',
     DIR,
     lambda: get_playlist_video_list('PL471DC4C544B5A1B9'),
-    timeout={'days': 1},
     format=FORMAT_VIDEO,
 )

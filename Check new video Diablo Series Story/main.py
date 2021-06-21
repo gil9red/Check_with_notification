@@ -23,6 +23,5 @@ run_notification_job(
     'История серии Diablo [StopGame]',
     DIR,
     lambda: get_playlist_video_list('PLZfhqd1-Hl3DtfKRjleAWB-zYJ-pj7apK'),
-    timeout={'days': 3},
     format=FORMAT_VIDEO,
 )

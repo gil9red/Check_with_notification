@@ -18,7 +18,7 @@ ROOT_DIR = DIR.parent
 
 sys.path.append(str(ROOT_DIR))  # Путь к папке выше
 
-from root_common import run_notification_job, FORMAT_VIDEO
+from root_common import run_notification_job, TimeoutWait, FORMAT_VIDEO
 from third_party.online_anidub_com.get_video_list import search_video_list
 
 
@@ -27,6 +27,6 @@ run_notification_job(
     DIR,
     lambda: search_video_list('Богиня благословляет этот прекрасный мир'),
     notify_when_empty=False,  # На сайте пока отсутствуют серии, поэтому не считаем их отсутствие проблемой
-    timeout={'weeks': 2},
+    timeout=TimeoutWait(weeks=3),
     format=FORMAT_VIDEO,
 )

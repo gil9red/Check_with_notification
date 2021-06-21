@@ -34,6 +34,5 @@ run_notification_job(
     'Рик и Морти',
     DIR,
     get_video_list,
-    timeout={'days': 1},
     format=FORMAT_VIDEO,
 )

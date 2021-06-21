@@ -23,6 +23,5 @@ run_notification_job(
     'Разбор полётов [StopGame]',
     DIR,
     lambda: get_playlist_video_list('PLZfhqd1-Hl3BKhWwCgmqtENSlearqLlAV'),
-    timeout={'days': 1},
     format=FORMAT_VIDEO,
 )

@@ -23,6 +23,5 @@ run_notification_job(
     'Страшно, вырубай! [StopGame]',
     DIR,
     lambda: get_playlist_video_list('PLZfhqd1-Hl3CdAaP_DVgU2tpBSVLBNICD'),
-    timeout={'days': 1},
     format=FORMAT_VIDEO,
 )
