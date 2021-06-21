@@ -231,7 +231,6 @@ def run_notification_job(
                 new_items = set(items) - set(current_items)
                 if new_items:
                     current_items = items
-                    save_items(current_items)
 
                     for item in new_items:
                         text = format.new_item % item
@@ -239,6 +238,9 @@ def run_notification_job(
 
                         if notified_by_sms:
                             simple_send_sms(text, log)
+
+                    # Сохраняем после отправки уведомлений
+                    save_items(current_items)
 
                 else:
                     log.debug(format.no_new_items)
