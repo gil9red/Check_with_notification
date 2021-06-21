@@ -10,7 +10,7 @@ import sys
 import time
 
 from logging.handlers import RotatingFileHandler
-from typing import Callable, List, Union
+from typing import Callable, List, Union, NamedTuple, Dict
 from pathlib import Path
 
 import requests
@@ -22,6 +22,69 @@ sys.path.append(str(DIR / 'third_party'))
 
 from third_party.wait import wait
 from third_party.add_notify_telegram import add_notify
+from third_party.youtube_com__get_video_list import get_video_list
+
+
+class Format(NamedTuple):
+    first_start_detected: str = 'Обнаружен первый запуск'
+    current_items: str = 'Текущий список (%s): %s'
+    get_items: str = 'Запрос списка'
+    items: str = 'Список (%s): %s'
+    new_item: str = 'Появился новый элемент "%s"'
+    no_new_items: str = 'Новых элементов нет'
+    on_exception: str = 'Ошибка:'
+    on_exception_next_attempt: str = 'Через 5 минут попробую снова...'
+
+
+FORMAT_DEFAULT = Format()
+FORMAT_VIDEO = Format(
+    current_items='Текущий список видео (%s): %s',
+    get_items='Запрос видео',
+    items='Список видео (%s): %s',
+    new_item='Новое видео "%s"',
+    no_new_items='Изменений нет',
+)
+FORMAT_GAME = Format(
+    current_items='Текущий список игр (%s): %s',
+    get_items='Запрос списка игр',
+    items='Список игр (%s): %s',
+    new_item='Появилась новая игра "%s"',
+    no_new_items='Новых игр нет',
+)
+FORMAT_SEASON = Format(
+    current_items='Текущий список сезонов (%s): %s',
+    get_items='Запрос сезонов',
+    items='Список сезонов (%s): %s',
+    new_item='Новый сезон "%s"',
+    no_new_items='Изменений нет',
+)
+FORMAT_CHAPTER = Format(
+    current_items='Текущий список глав (%s): %s',
+    get_items='Запрос списка глав',
+    items='Список глав (%s): %s',
+    new_item='Лунный скульптор: "%s"',
+    no_new_items='Новых глав нет',
+)
+FORMAT_BOOK = Format(
+    current_items='Текущий список книг (%s): %s',
+    get_items='Запрос списка книг',
+    items='Список книг (%s): %s',
+    new_item='Появилась новая книга: "%s"',
+    no_new_items='Новых книг нет',
+)
+
+
+class TimeoutWait(NamedTuple):
+    days: int = 0
+    seconds: int = 0
+    microseconds: int = 0
+    milliseconds: int = 0
+    minutes: int = 0
+    hours: int = 0
+    weeks: int = 0
+
+    def as_dict(self) -> Dict[str, int]:
+        return dict(self._asdict())
 
 
 def get_logger(name, file='log.txt', encoding='utf-8', log_stdout=True, log_file=True) -> 'logging.Logger':
@@ -41,6 +104,11 @@ def get_logger(name, file='log.txt', encoding='utf-8', log_stdout=True, log_file
         log.addHandler(sh)
 
     return log
+
+
+def get_playlist_video_list(playlist_id: str):
+    url = 'https://www.youtube.com/playlist?list=' + playlist_id
+    return get_video_list(url)
 
 
 # TODO: мб переменовать?
@@ -99,22 +167,20 @@ def run_notification_job(
     get_new_items: Callable[[], List[str]],
     notified_by_sms=True,
     notify_when_empty=True,
+    # TODO: use TimeoutWait, example TimeoutWait(days=1)
     timeout={'weeks': 1},
     timeout_exception_seconds=5 * 60,
-    format_first_start_detected='Обнаружен первый запуск',
-    format_current_items='Текущий список (%s): %s',
-    format_get_items='Запрос списка',
-    format_items='Список (%s): %s',
-    format_new_item='Появился новый элемент "%s"',
-    format_no_new_items='Новых элементов нет',
-    format_on_exception='Ошибка:',
-    format_on_exception_next_attempt='Через 5 минут попробую снова...',
+    format: Format = FORMAT_DEFAULT,
 ):
     log = log__or__log_name
     if isinstance(log, str):
         log = get_logger(log, script_dir / 'log.txt')
 
     file_name_items = script_dir / FILE_NAME_SAVED
+
+    # Если не существует или пустой
+    if not file_name_items.exists() or not file_name_items.stat().st_size:
+        log.debug(format.first_start_detected)
 
     def save_items(items: List[str]):
         with open(file_name_items, mode='w', encoding='utf-8') as f:
@@ -134,11 +200,11 @@ def run_notification_job(
         except:
             return []
 
-    FILE_NAME_SKIP = Path('skip')
+    FILE_NAME_SKIP = script_dir / 'skip'
 
     # Загрузка текущего списка из файла
     current_items = read_items()
-    log.debug(format_current_items, len(current_items), current_items)
+    log.debug(format.current_items, len(current_items), current_items)
 
     while True:
         if FILE_NAME_SKIP.exists():
@@ -147,19 +213,17 @@ def run_notification_job(
             continue
 
         try:
-            log.debug(format_get_items)
+            log.debug(format.get_items)
 
             items = get_new_items()
             # TODO: временно
             if not items and notify_when_empty:
                 add_notify(name=log.name, message='Вернулся пустой список!', type='ERROR')
 
-            log.debug(format_items, len(items), items)
+            log.debug(format.items, len(items), items)
 
             # Если текущих список пустой
             if not current_items:
-                log.debug(format_first_start_detected)
-
                 current_items = items
                 save_items(current_items)
 
@@ -170,20 +234,20 @@ def run_notification_job(
                     save_items(current_items)
 
                     for item in new_items:
-                        text = format_new_item % item
+                        text = format.new_item % item
                         log.debug(text)
 
                         if notified_by_sms:
                             simple_send_sms(text, log)
 
                 else:
-                    log.debug(format_no_new_items)
+                    log.debug(format.no_new_items)
 
             wait(**timeout)
 
         except:
-            log.exception(format_on_exception)
-            log.debug(format_on_exception_next_attempt)
+            log.exception(format.on_exception)
+            log.debug(format.on_exception_next_attempt)
 
             # Wait <timeout_exception_seconds> before next attempt
             time.sleep(timeout_exception_seconds)

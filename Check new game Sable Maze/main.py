@@ -19,7 +19,7 @@ ROOT_DIR = DIR.parent
 sys.path.append(str(ROOT_DIR))  # Путь к папке выше
 sys.path.append(str(ROOT_DIR / 'third_party' / 'bigfishgames_com__hidden_object'))
 
-from root_common import run_notification_job
+from root_common import run_notification_job, FORMAT_GAME
 from third_party.bigfishgames_com__hidden_object.find__Sable_Maze__CE import get_games
 
 
@@ -27,10 +27,5 @@ run_notification_job(
     'Sable Maze',
     DIR,
     get_games,
-    notified_by_sms=True,
-    format_current_items='Текущий список игр (%s): %s',
-    format_get_items='Запрос списка игр',
-    format_items='Список игр (%s): %s',
-    format_new_item='Появилась новая игра "%s"',
-    format_no_new_items='Новых игр нет',
+    format=FORMAT_GAME,
 )
