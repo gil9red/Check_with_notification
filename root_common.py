@@ -8,6 +8,7 @@ import json
 import logging
 import sys
 import time
+import traceback
 
 from logging.handlers import RotatingFileHandler
 from typing import Callable, List, Union, NamedTuple, Dict
@@ -168,6 +169,18 @@ def send_telegram_notification(name: str, message: str, type='INFO'):
 
         # Пробрасываем ошибку, чтобы она не прошла незаметно для скриптов
         raise e
+
+
+def log_uncaught_exceptions(ex_cls, ex, tb):
+    text = f'{ex_cls.__name__}: {ex}:\n'
+    text += ''.join(traceback.format_tb(tb))
+
+    print(text)
+    send_telegram_notification('root_common.py', text, 'ERROR')
+    sys.exit(1)
+
+
+sys.excepthook = log_uncaught_exceptions
 
 
 def run_notification_job(
