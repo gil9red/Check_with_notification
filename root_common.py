@@ -32,6 +32,8 @@ class Format(NamedTuple):
     items: str = 'Список (%s): %s'
     new_item: str = 'Появился новый элемент "%s"'
     no_new_items: str = 'Новых элементов нет'
+    when_empty_items: str = 'Вернулся пустой список!'
+    file_skip_exists: str = 'Обнаружен файл "%s", пропускаю проверку.'
     on_exception: str = 'Ошибка:'
     on_exception_next_attempt: str = 'Через 5 минут попробую снова...'
 
@@ -207,7 +209,7 @@ def run_notification_job(
 
     while True:
         if FILE_NAME_SKIP.exists():
-            log.info('Обнаружен файл "%s", пропускаю проверку.', FILE_NAME_SKIP.name)
+            log.info(format.file_skip_exists, FILE_NAME_SKIP.name)
             wait(**timeout.as_dict())
             continue
 
@@ -215,9 +217,8 @@ def run_notification_job(
             log.debug(format.get_items)
 
             items = get_new_items()
-            # TODO: временно
             if not items and notify_when_empty:
-                add_notify(name=log.name, message='Вернулся пустой список!', type='ERROR')
+                add_notify(name=log.name, message=format.when_empty_items, type='ERROR')
 
             log.debug(format.items, len(items), items)
 
