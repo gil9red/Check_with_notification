@@ -201,15 +201,15 @@ def run_notification_job(
         except:
             return []
 
-    FILE_NAME_SKIP = script_dir / 'skip'
+    file_name_skip = script_dir / 'skip'
 
     # Загрузка текущего списка из файла
     current_items = read_items()
     log.debug(format.current_items, len(current_items), current_items)
 
     while True:
-        if FILE_NAME_SKIP.exists():
-            log.info(format.file_skip_exists, FILE_NAME_SKIP.name)
+        if file_name_skip.exists():
+            log.info(format.file_skip_exists, file_name_skip.name)
             wait(**timeout.as_dict())
             continue
 
