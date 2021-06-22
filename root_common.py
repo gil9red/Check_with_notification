@@ -113,11 +113,7 @@ def get_playlist_video_list(playlist_id: str):
     return get_video_list(url)
 
 
-# TODO: мб переменовать?
 def send_sms(api_id: str, to: str, text: str, log):
-    # TODO: временно
-    add_notify(name=log.name, message=text)
-
     api_id = api_id.strip()
     to = to.strip()
 
@@ -129,7 +125,7 @@ def send_sms(api_id: str, to: str, text: str, log):
 
     if len(text) > 70:
         text = text[:70-3] + '...'
-        log.info(f'Текст sms будет сокращено, т.к. слишком длинное (больше 70 символов): {text!r}')
+        log.info(f'Текст sms будет сокращен, т.к. слишком длинное (больше 70 символов): {text!r}')
 
     # Отправляю смс на номер
     url = 'https://sms.ru/sms/send?api_id={api_id}&to={to}&text={text}'.format(
@@ -153,7 +149,6 @@ def send_sms(api_id: str, to: str, text: str, log):
             time.sleep(5 * 60)
 
 
-# TODO: мб переменовать?
 def simple_send_sms(text: str, log=None):
     # Если логгер не определен, тогда создаем свой, который логирует в консоль
     if not log:
@@ -162,12 +157,24 @@ def simple_send_sms(text: str, log=None):
     return send_sms(API_ID, TO, text, log)
 
 
-# TODO: внутри функции оставить try/except и слать через уведомление о ошибках
+def send_telegram_notification(name: str, message: str, type='INFO'):
+    try:
+        add_notify(name=name, message=message, type=type)
+    except Exception as e:
+        log = get_logger('error_send_telegram', file=str(DIR / 'errors.txt'))
+        log.exception('')
+
+        simple_send_sms(f'[Error] {e}', log)
+
+        # Пробрасываем ошибку, чтобы она не прошла незаметно для скриптов
+        raise e
+
+
 def run_notification_job(
     log__or__log_name: Union['logging.Logger', str],
     script_dir: Union[Path, str],
     get_new_items: Callable[[], List[str]],
-    notified_by_sms=True,
+    need_notification=True,
     notify_when_empty=True,
     timeout=TimeoutWait(days=1),
     timeout_exception_seconds=5 * 60,
@@ -218,7 +225,7 @@ def run_notification_job(
 
             items = get_new_items()
             if not items and notify_when_empty:
-                add_notify(name=log.name, message=format.when_empty_items, type='ERROR')
+                send_telegram_notification(log.name, format.when_empty_items, 'ERROR')
 
             log.debug(format.items, len(items), items)
 
@@ -236,8 +243,8 @@ def run_notification_job(
                         text = format.new_item % item
                         log.debug(text)
 
-                        if notified_by_sms:
-                            simple_send_sms(text, log)
+                        if need_notification:
+                            send_telegram_notification(log.name, text)
 
                     # Сохраняем после отправки уведомлений
                     save_items(current_items)
