@@ -10,7 +10,7 @@ from pathlib import Path
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
-from root_common import get_logger, wait, simple_send_sms
+from root_common import get_logger, wait, send_telegram_notification
 from third_party.kanobu_ru__games__collections__igry_s_podderzhkoi_rtx import get_games
 from db import db_create_backup, Game
 
@@ -52,7 +52,8 @@ while True:
 
             # При первом запуске не нужно информировать по СМС
             if not is_empty:
-                simple_send_sms(f'RTX: {game.name}', log)
+                text = f'RTX: {game.name}'
+                send_telegram_notification(log.name, text)
 
         if not has_new_game:
             log.debug(f'Новых игр нет')

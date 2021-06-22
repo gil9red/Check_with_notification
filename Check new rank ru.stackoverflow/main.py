@@ -20,7 +20,7 @@ from pathlib import Path
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
-from root_common import get_logger, simple_send_sms, wait
+from root_common import get_logger, send_telegram_notification, wait
 from third_party.stackoverflow_site__parsing.user_rank_and_reputation import get_user_rank_and_reputation
 
 import requests
@@ -37,7 +37,7 @@ def update_file_data(value: str):
 
 
 if __name__ == '__main__':
-    notified_by_sms = True
+    need_notification = True
 
     try:
         last_rank = open(FILE_NAME_LAST_RANK, encoding='utf-8').read()
@@ -62,15 +62,15 @@ if __name__ == '__main__':
 
             else:
                 if last_rank != rank:
-                    text = 'Изменился ранг: {} -> {} ({})'.format(last_rank, rank, reputation)
+                    text = f'Изменился ранг: {last_rank} -> {rank} ({reputation})'
                     log.debug(text)
 
                     # Обновление последнего ранга
                     last_rank = rank
                     update_file_data(last_rank)
 
-                    if notified_by_sms:
-                        simple_send_sms(text, log)
+                    if need_notification:
+                        send_telegram_notification(log.name, text)
 
                 else:
                     log.debug('Ранг не изменился')

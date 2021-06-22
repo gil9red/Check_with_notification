@@ -13,7 +13,7 @@ sys.path.append(str(DIR.parent))  # Путь к папке выше
 import feedparser
 import requests
 
-from root_common import get_logger, simple_send_sms, wait
+from root_common import get_logger, send_telegram_notification, wait
 
 
 # TODO: попробовать реализовать через run_notification_job
@@ -55,7 +55,7 @@ def save_last_feed(feed):
 
 
 if __name__ == '__main__':
-    notified_by_sms = True
+    need_notification = True
 
     # Загрузка последней новости
     try:
@@ -97,9 +97,9 @@ if __name__ == '__main__':
                     for manga in new_feeds:
                         log.debug('    ' + manga)
 
-                    if notified_by_sms:
+                    if need_notification:
                         text = 'Новые главы: {}'.format(len(new_feeds))
-                        simple_send_sms(text, log)
+                        send_telegram_notification(log.name, text)
 
                 else:
                     log.debug('Новых глав нет')

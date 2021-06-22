@@ -30,7 +30,7 @@ init_db()
 
 # NOTE: С этим флагом нужно быть осторожным при первом запуске, когда база пуста,
 # ведь на каждую добавленную взломанную игру отправится уведомление по смс
-notified_by_sms = True
+need_notification = True
 
 while True:
     try:
@@ -42,8 +42,8 @@ while True:
         games_without_denuvo = get_games_which_denuvo_is_removed()
         log.debug('games_without_denuvo (%s): %s', len(games_without_denuvo), games_without_denuvo)
 
-        changed_1 = append_list_games_which_denuvo_is_removed(games_without_denuvo, notified_by_sms)
-        changed_2 = append_list_games(games, notified_by_sms)
+        changed_1 = append_list_games_which_denuvo_is_removed(games_without_denuvo, need_notification)
+        changed_2 = append_list_games(games, need_notification)
 
         if changed_1 or changed_2:
             db_create_backup()

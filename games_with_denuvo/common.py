@@ -15,7 +15,7 @@ from pathlib import Path
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
-from root_common import get_logger, simple_send_sms
+from root_common import get_logger, send_telegram_notification
 
 
 # TODO: переименовать в common.py
@@ -104,7 +104,7 @@ def update_release_date(connect, name: str, release_date: DT.date):
     connect.execute(sql, [release_date, name])
 
 
-def append_list_games(games: [(str, DT.date, bool)], notified_by_sms=True) -> bool:
+def append_list_games(games: [(str, DT.date, bool)], need_notification=True) -> bool:
     changed = False
     connect = create_connect()
 
@@ -145,8 +145,8 @@ def append_list_games(games: [(str, DT.date, bool)], notified_by_sms=True) -> bo
                     changed = True
 
                     # При DEBUG = True, отправки смс не будет
-                    if notified_by_sms and not DEBUG:
-                        simple_send_sms(text, log)
+                    if need_notification and not DEBUG:
+                        send_telegram_notification(log.name, text)
 
             elif is_cracked:
                 text = f'Добавлена взломанная игра {name!r}'
@@ -155,8 +155,8 @@ def append_list_games(games: [(str, DT.date, bool)], notified_by_sms=True) -> bo
                 changed = True
 
                 # При DEBUG = True, отправки смс не будет
-                if notified_by_sms and not DEBUG:
-                    simple_send_sms(text, log)
+                if need_notification and not DEBUG:
+                    send_telegram_notification(log.name, text)
 
         connect.commit()
 
@@ -166,7 +166,7 @@ def append_list_games(games: [(str, DT.date, bool)], notified_by_sms=True) -> bo
     return changed
 
 
-def append_list_games_which_denuvo_is_removed(games: [str, DT.date], notified_by_sms=True) -> bool:
+def append_list_games_which_denuvo_is_removed(games: [str, DT.date], need_notification=True) -> bool:
     changed = False
     connect = create_connect()
 
@@ -197,8 +197,8 @@ def append_list_games_which_denuvo_is_removed(games: [str, DT.date], notified_by
                 changed = True
 
                 # При DEBUG = True, отправки смс не будет
-                if notified_by_sms and not DEBUG:
-                    simple_send_sms(text, log)
+                if need_notification and not DEBUG:
+                    send_telegram_notification(log.name, text)
 
             else:
                 rs_is_cracked = connect.execute('SELECT is_cracked FROM Game where name = ?', [name]).fetchone()[0]
@@ -214,8 +214,8 @@ def append_list_games_which_denuvo_is_removed(games: [str, DT.date], notified_by
                     changed = True
 
                     # При DEBUG = True, отправки смс не будет
-                    if notified_by_sms and not DEBUG:
-                        simple_send_sms(text, log)
+                    if need_notification and not DEBUG:
+                        send_telegram_notification(log.name, text)
 
         connect.commit()
 

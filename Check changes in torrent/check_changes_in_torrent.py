@@ -29,7 +29,7 @@ import requests
 from bs4 import BeautifulSoup
 from qbittorrent import Client
 
-from root_common import wait, simple_send_sms
+from root_common import wait, send_telegram_notification
 
 
 def get_rutor_torrent_download_info(torrent_url):
@@ -130,7 +130,7 @@ if __name__ == '__main__':
 
                     # Отправляю смс на номер
                     text = f"Вышла новая серия '{torrent['info']['name']}'"
-                    simple_send_sms(text)
+                    send_telegram_notification('check_changes_in_torrent', text)
 
                     # Даем 5 секунд на добавление торрента в клиент
                     time.sleep(5)
