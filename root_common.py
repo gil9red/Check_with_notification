@@ -17,7 +17,7 @@ from pathlib import Path
 import requests
 
 from format import Format, FORMAT_DEFAULT
-from root_config import API_ID, TO, DIR, FILE_NAME_SAVED
+from root_config import API_ID, TO, DIR, FILE_NAME_SAVED, DEBUG_LOGGING_CURRENT_ITEMS, DEBUG_LOGGING_GET_NEW_ITEMS
 
 # Добавление точки поиска для модулей в third_party
 sys.path.append(str(DIR / 'third_party'))
@@ -62,6 +62,16 @@ def get_logger(name, file='log.txt', encoding='utf-8', log_stdout=True, log_file
 def get_playlist_video_list(playlist_id: str):
     url = 'https://www.youtube.com/playlist?list=' + playlist_id
     return get_video_list(url)
+
+
+def get_short_repr_list(items: List[str]) -> str:
+    if len(items) <= 2:
+        return str(items)
+
+    first, last = repr(items[0]), repr(items[-1])
+
+    # Example: ['1', '2', '3'] -> ['1', ..., '3']
+    return '[' + ', ..., '.join([first, last]) + ']'
 
 
 def send_sms(api_id: str, to: str, text: str, log):
@@ -175,7 +185,9 @@ def run_notification_job(
 
     # Загрузка текущего списка из файла
     current_items = read_items()
-    log.debug(format.current_items, len(current_items), current_items)
+
+    text_current_items = current_items if DEBUG_LOGGING_CURRENT_ITEMS else get_short_repr_list(current_items)
+    log.debug(format.current_items, len(current_items), text_current_items)
 
     while True:
         if file_name_skip.exists():
@@ -190,7 +202,8 @@ def run_notification_job(
             if not items and notify_when_empty:
                 send_telegram_notification(log.name, format.when_empty_items, 'ERROR')
 
-            log.debug(format.items, len(items), items)
+            text_items = items if DEBUG_LOGGING_GET_NEW_ITEMS else get_short_repr_list(items)
+            log.debug(format.items, len(items), text_items)
 
             # Если текущих список пустой
             if not current_items:
