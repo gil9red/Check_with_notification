@@ -18,7 +18,8 @@ ROOT_DIR = DIR.parent
 
 sys.path.append(str(ROOT_DIR))  # Путь к папке выше
 
-from root_common import run_notification_job, TimeoutWait, FORMAT_VIDEO
+from format import FORMAT_VIDEO
+from root_common import run_notification_job, TimeoutWait
 from third_party.online_anidub_com.get_video_list import search_video_list
 
 

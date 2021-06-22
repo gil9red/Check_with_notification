@@ -21,7 +21,8 @@ import requests
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
-from root_common import run_notification_job, FORMAT_SEASON
+from format import FORMAT_SEASON
+from root_common import run_notification_job
 
 
 def get_items() -> List[str]:

@@ -16,7 +16,8 @@ from pathlib import Path
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
-from root_common import run_notification_job, FORMAT_CHAPTER
+from format import FORMAT_CHAPTER
+from root_common import run_notification_job
 from third_party.risens_team__berserk import get_chapters
 
 

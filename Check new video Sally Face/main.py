@@ -17,7 +17,8 @@ from typing import List
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
-from root_common import run_notification_job, FORMAT_VIDEO
+from format import FORMAT_VIDEO
+from root_common import run_notification_job
 from third_party.youtube_com__get_video_list import get_video_list
 
 

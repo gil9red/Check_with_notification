@@ -19,7 +19,8 @@ ROOT_DIR = DIR.parent
 sys.path.append(str(ROOT_DIR))  # Путь к папке выше
 sys.path.append(str(ROOT_DIR / 'third_party' / 'bigfishgames_com__hidden_object'))
 
-from root_common import run_notification_job, FORMAT_GAME
+from format import FORMAT_GAME
+from root_common import run_notification_job
 from third_party.bigfishgames_com__hidden_object.find__Saga_of_the_Nine_Worlds__CE import get_games
 
 
