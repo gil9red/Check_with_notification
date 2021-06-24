@@ -8,6 +8,9 @@ from typing import NamedTuple
 
 
 class Format(NamedTuple):
+    on_start: str = 'Запуск'
+    on_start_check: str = 'Запуск проверки'
+    on_finish_check: str = 'Завершение проверки\n'
     first_start_detected: str = 'Обнаружен первый запуск'
     current_items: str = 'Текущий список (%s): %s'
     get_items: str = 'Запрос списка'

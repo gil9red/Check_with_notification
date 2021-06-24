@@ -143,6 +143,26 @@ def log_uncaught_exceptions(ex_cls, ex, tb):
 sys.excepthook = log_uncaught_exceptions
 
 
+def read_items(file_name_items: Path) -> List[str]:
+    try:
+        with open(file_name_items, encoding='utf-8') as f:
+            obj = json.load(f)
+
+            # Должен быть список, но если в файле будет что-то другое -- это будет неправильно
+            if not isinstance(obj, list):
+                return []
+
+            return obj
+
+    except:
+        return []
+
+
+def save_items(file_name_items: Path, items: List[str]):
+    with open(file_name_items, mode='w', encoding='utf-8') as f:
+        json.dump(items, f, ensure_ascii=False, indent=4)
+
+
 def run_notification_job(
     log__or__log_name: Union['logging.Logger', str],
     script_dir: Union[Path, str],
@@ -157,45 +177,31 @@ def run_notification_job(
     if isinstance(log, str):
         log = get_logger(log, script_dir / 'log.txt')
 
+    log.debug(format.on_start)
+
     file_name_items = script_dir / FILE_NAME_SAVED
 
     # Если не существует или пустой
     if not file_name_items.exists() or not file_name_items.stat().st_size:
         log.debug(format.first_start_detected)
 
-    def save_items(items: List[str]):
-        with open(file_name_items, mode='w', encoding='utf-8') as f:
-            json.dump(items, f, ensure_ascii=False, indent=4)
-
-    def read_items() -> List[str]:
-        try:
-            with open(file_name_items, encoding='utf-8') as f:
-                obj = json.load(f)
-
-                # Должен быть список, но если в файле будет что-то другое -- это будет неправильно
-                if not isinstance(obj, list):
-                    return []
-
-                return obj
-
-        except:
-            return []
-
     file_name_skip = script_dir / 'skip'
 
     # Загрузка текущего списка из файла
-    current_items = read_items()
+    current_items = read_items(file_name_items)
 
     text_current_items = current_items if DEBUG_LOGGING_CURRENT_ITEMS else get_short_repr_list(current_items)
     log.debug(format.current_items, len(current_items), text_current_items)
 
     while True:
-        if file_name_skip.exists():
-            log.info(format.file_skip_exists, file_name_skip.name)
-            wait(**timeout.as_dict())
-            continue
-
         try:
+            log.debug(format.on_start_check)
+
+            if file_name_skip.exists():
+                log.info(format.file_skip_exists, file_name_skip.name)
+                wait(**timeout.as_dict())
+                continue
+
             log.debug(format.get_items)
 
             items = get_new_items()
@@ -208,7 +214,7 @@ def run_notification_job(
             # Если текущих список пустой
             if not current_items:
                 current_items = items
-                save_items(current_items)
+                save_items(file_name_items, current_items)
 
             else:
                 new_items = set(items) - set(current_items)
@@ -223,10 +229,12 @@ def run_notification_job(
                             send_telegram_notification(log.name, text)
 
                     # Сохраняем после отправки уведомлений
-                    save_items(current_items)
+                    save_items(file_name_items, current_items)
 
                 else:
                     log.debug(format.no_new_items)
+
+            log.debug(format.on_finish_check)
 
             wait(**timeout.as_dict())
 
