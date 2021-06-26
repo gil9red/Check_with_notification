@@ -57,7 +57,7 @@ while True:
                 text = f'RTX: {game.name}'
                 send_telegram_notification(log.name, text)
 
-        if not has_new_game:
+        if not has_new_game and games:
             log.debug(f'Новых игр нет')
 
         wait(weeks=1)
