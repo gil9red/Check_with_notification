@@ -131,12 +131,16 @@ def send_telegram_notification(name: str, message: str, type='INFO'):
         raise e
 
 
+def send_telegram_notification_error(name: str, message: str):
+    send_telegram_notification(name, message, 'ERROR')
+
+
 def log_uncaught_exceptions(ex_cls, ex, tb):
     text = f'{ex_cls.__name__}: {ex}:\n'
     text += ''.join(traceback.format_tb(tb))
 
     print(text)
-    send_telegram_notification('root_common.py', text, 'ERROR')
+    send_telegram_notification_error('root_common.py', text)
     sys.exit(1)
 
 
@@ -206,7 +210,7 @@ def run_notification_job(
 
             items = get_new_items()
             if not items and notify_when_empty:
-                send_telegram_notification(log.name, format.when_empty_items, 'ERROR')
+                send_telegram_notification_error(log.name, format.when_empty_items)
 
             text_items = items if DEBUG_LOGGING_GET_NEW_ITEMS else get_short_repr_list(items)
             log.debug(format.items, len(items), text_items)
