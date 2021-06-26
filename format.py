@@ -49,7 +49,7 @@ FORMAT_CHAPTER = Format(
     current_items='Текущий список глав (%s): %s',
     get_items='Запрос списка глав',
     items='Список глав (%s): %s',
-    new_item='Лунный скульптор: "%s"',
+    new_item='Новая глава: "%s"',
     no_new_items='Новых глав нет',
 )
 FORMAT_BOOK = Format(
