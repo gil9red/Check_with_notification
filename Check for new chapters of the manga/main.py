@@ -6,6 +6,7 @@ __author__ = 'ipetrash'
 
 import sys
 from pathlib import Path
+from typing import List
 
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
@@ -22,12 +23,11 @@ from root_common import get_logger, send_telegram_notification, wait
 log = get_logger('Новые главы манги')
 
 
-# TODO: typing
-def get_feeds_by_manga_chapters(url_rss: str) -> list:
+def get_feeds_by_manga_chapters(url_rss: str) -> List[str]:
     rss_text = requests.get(url_rss).text
     feed = feedparser.parse(rss_text)
 
-    feeds = list()
+    feeds = []
 
     for entry in feed.entries:
         title = entry.title
