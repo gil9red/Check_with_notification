@@ -10,12 +10,11 @@ from pathlib import Path
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
-from root_common import get_logger, wait, send_telegram_notification
+from format import FORMAT_GAME
+from root_common import get_logger, wait, send_telegram_notification, send_telegram_notification_error
 from third_party.kanobu_ru__games__collections__igry_s_podderzhkoi_rtx import get_games
 from db import db_create_backup, Game
 
-
-# TODO: ругаться в телеграм если список игр пришел пустым
 
 log = get_logger("Игры с RTX")
 
@@ -34,6 +33,9 @@ while True:
 
         games = get_games()
         log.debug(f'Обработка {len(games)} игр')
+
+        if not games:
+            send_telegram_notification_error(log.name, FORMAT_GAME.when_empty_items)
 
         for game in games:
             game_db, created = Game.get_or_create(
