@@ -18,8 +18,6 @@ from third_party.check__haveibeenpwned_com import do_check
 import requests
 
 
-# TODO: попробовать реализовать через run_notification_job
-
 log = get_logger('Проверка через pwned')
 
 

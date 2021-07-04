@@ -10,8 +10,6 @@ __author__ = 'ipetrash'
 """
 
 
-# TODO: попробовать реализовать через run_notification_job
-
 import sys
 import time
 

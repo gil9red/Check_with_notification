@@ -26,7 +26,6 @@ import requests
 log = get_logger('Черный клевер')
 
 
-# TODO: попробовать реализовать через run_notification_job
 def get_last_value() -> str:
     last_value = get_last_series('https://anivost.org/24-chernyy-klever.html')
     return str(last_value)
