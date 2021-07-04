@@ -64,14 +64,12 @@ def get_playlist_video_list(playlist_id: str):
     return get_video_list(url)
 
 
-def get_short_repr_list(items: List[str]) -> str:
-    if len(items) <= 2:
+def get_short_repr_list(items: List) -> str:
+    if len(items) <= 4:
         return str(items)
 
-    first, last = repr(items[0]), repr(items[-1])
-
-    # Example: ['1', '2', '3'] -> ['1', ..., '3']
-    return '[' + ', ..., '.join([first, last]) + ']'
+    first, last = list(map(repr, items[:3])), repr(items[-1])
+    return '[' + ', '.join(first) + ', ..., ' + ', '.join(last) + ']'
 
 
 def send_sms(api_id: str, to: str, text: str, log):
@@ -248,3 +246,21 @@ def run_notification_job(
 
             # Wait <timeout_exception_seconds> before next attempt
             time.sleep(timeout_exception_seconds)
+
+
+if __name__ == '__main__':
+    try:
+        items = get_short_repr_list([])
+        assert items == '[]'
+
+        items = get_short_repr_list([1, 2, 3])
+        assert items == '[1, 2, 3]'
+
+        items = get_short_repr_list([1, 2, 3, 4])
+        assert items == '[1, 2, 3, 4]'
+
+        items = get_short_repr_list([1, 2, 3, 4, 5])
+        assert items == '[1, 2, 3, ..., 5]'
+
+    except:
+        print(traceback.format_exc())
