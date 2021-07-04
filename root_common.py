@@ -69,7 +69,7 @@ def get_short_repr_list(items: List) -> str:
         return str(items)
 
     first, last = list(map(repr, items[:3])), repr(items[-1])
-    return '[' + ', '.join(first) + ', ..., ' + ', '.join(last) + ']'
+    return '[' + ', '.join(first) + ', ..., ' + last + ']'
 
 
 def send_sms(api_id: str, to: str, text: str, log):
