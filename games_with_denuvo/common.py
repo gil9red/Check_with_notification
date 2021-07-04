@@ -18,23 +18,10 @@ sys.path.append(str(DIR.parent))  # Путь к папке выше
 from root_common import get_logger, send_telegram_notification
 
 
-# TODO: переименовать в common.py
-# TODO: нужен рефакторинг
+DB_FILE_NAME = 'database.sqlite'
 
-DEBUG = False
-
-# TODO: убрать DEBUG
-if DEBUG:
-    DB_FILE_NAME = 'test.database.sqlite'
-
-    log = get_logger('test_games_with_denuvo', file='test_log.txt')
-    log_cracked_games = get_logger('test_cracked_games', file='test_cracked_games.log.txt', log_stdout=False)
-
-else:
-    DB_FILE_NAME = 'database.sqlite'
-
-    log = get_logger('Игры с Denuvo')
-    log_cracked_games = get_logger('cracked_games', file='cracked_games.log.txt', log_stdout=False)
+log = get_logger('Игры с Denuvo')
+log_cracked_games = get_logger('cracked_games', file='cracked_games.log.txt', log_stdout=False)
 
 
 def create_connect():
@@ -144,8 +131,7 @@ def append_list_games(games: [(str, DT.date, bool)], need_notification=True) -> 
                     log_cracked_games.debug(text)
                     changed = True
 
-                    # При DEBUG = True, отправки смс не будет
-                    if need_notification and not DEBUG:
+                    if need_notification:
                         send_telegram_notification(log.name, text)
 
             elif is_cracked:
@@ -154,8 +140,7 @@ def append_list_games(games: [(str, DT.date, bool)], need_notification=True) -> 
                 log_cracked_games.debug(text)
                 changed = True
 
-                # При DEBUG = True, отправки смс не будет
-                if need_notification and not DEBUG:
+                if need_notification:
                     send_telegram_notification(log.name, text)
 
         connect.commit()
@@ -196,8 +181,7 @@ def append_list_games_which_denuvo_is_removed(games: [str, DT.date], need_notifi
                 log_cracked_games.debug(text)
                 changed = True
 
-                # При DEBUG = True, отправки смс не будет
-                if need_notification and not DEBUG:
+                if need_notification:
                     send_telegram_notification(log.name, text)
 
             else:
@@ -213,8 +197,7 @@ def append_list_games_which_denuvo_is_removed(games: [str, DT.date], need_notifi
                     log_cracked_games.debug(text)
                     changed = True
 
-                    # При DEBUG = True, отправки смс не будет
-                    if need_notification and not DEBUG:
+                    if need_notification:
                         send_telegram_notification(log.name, text)
 
         connect.commit()

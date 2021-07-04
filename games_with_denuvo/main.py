@@ -12,14 +12,16 @@ __author__ = 'ipetrash'
 
 import time
 import sys
+
 from pathlib import Path
 
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
-from root_common import wait
 from common import init_db, log, append_list_games_which_denuvo_is_removed, append_list_games, db_create_backup
+from format import FORMAT_GAME
 from games_with_denuvo import get_games_with_denuvo, get_games_which_denuvo_is_removed
+from root_common import wait, send_telegram_notification_error
 
 
 # connect = create_connect()
@@ -38,6 +40,9 @@ while True:
 
         games = get_games_with_denuvo()
         log.debug('games (%s): %s', len(games), games)
+
+        if need_notification and not games:
+            send_telegram_notification_error(log.name, FORMAT_GAME.when_empty_items)
 
         games_without_denuvo = get_games_which_denuvo_is_removed()
         log.debug('games_without_denuvo (%s): %s', len(games_without_denuvo), games_without_denuvo)
