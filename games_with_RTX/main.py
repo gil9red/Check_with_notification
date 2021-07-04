@@ -11,7 +11,10 @@ DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from format import FORMAT_GAME
-from root_common import get_logger, wait, send_telegram_notification, send_telegram_notification_error
+from root_config import DEBUG_LOGGING_GET_NEW_ITEMS
+from root_common import (
+    get_logger, wait, send_telegram_notification, send_telegram_notification_error, get_short_repr_list
+)
 from third_party.kanobu_ru__games__collections__igry_s_podderzhkoi_rtx import get_games
 from db import db_create_backup, Game
 
@@ -32,7 +35,9 @@ while True:
         has_new_game = False
 
         games = get_games()
-        log.debug(f'Обработка {len(games)} игр')
+        logged_games = [x.name for x in games]
+        text_games = logged_games if DEBUG_LOGGING_GET_NEW_ITEMS else get_short_repr_list(logged_games)
+        log.debug('Обработка (%s) игр: %s', len(games), text_games)
 
         if not games:
             send_telegram_notification_error(log.name, FORMAT_GAME.when_empty_items)
