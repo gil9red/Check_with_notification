@@ -16,6 +16,7 @@ class Format(NamedTuple):
     get_items: str = 'Запрос списка'
     items: str = 'Список (%s): %s'
     new_item: str = 'Появился новый элемент "%s"'
+    new_items: str = 'Появились новые элементы (%s):\n%s'
     no_new_items: str = 'Новых элементов нет'
     when_empty_items: str = 'Вернулся пустой список!'
     file_skip_exists: str = 'Обнаружен файл "%s", пропускаю проверку.'
@@ -29,6 +30,7 @@ FORMAT_VIDEO = Format(
     get_items='Запрос видео',
     items='Список видео (%s): %s',
     new_item='Новое видео "%s"',
+    new_items='Появились новые видео (%s):\n%s',
     no_new_items='Изменений нет',
 )
 FORMAT_GAME = Format(
@@ -36,6 +38,7 @@ FORMAT_GAME = Format(
     get_items='Запрос списка игр',
     items='Список игр (%s): %s',
     new_item='Появилась новая игра "%s"',
+    new_items='Появились новые игры (%s):\n%s',
     no_new_items='Новых игр нет',
 )
 FORMAT_SEASON = Format(
@@ -43,6 +46,7 @@ FORMAT_SEASON = Format(
     get_items='Запрос сезонов',
     items='Список сезонов (%s): %s',
     new_item='Новый сезон "%s"',
+    new_items='Появились новые сезоны (%s):\n%s',
     no_new_items='Изменений нет',
 )
 FORMAT_CHAPTER = Format(
@@ -50,6 +54,7 @@ FORMAT_CHAPTER = Format(
     get_items='Запрос списка глав',
     items='Список глав (%s): %s',
     new_item='Новая глава: "%s"',
+    new_items='Появились новые главы (%s):\n%s',
     no_new_items='Новых глав нет',
 )
 FORMAT_BOOK = Format(
@@ -57,5 +62,6 @@ FORMAT_BOOK = Format(
     get_items='Запрос списка книг',
     items='Список книг (%s): %s',
     new_item='Появилась новая книга: "%s"',
+    new_items='Появились новые книги (%s):\n%s',
     no_new_items='Новых книг нет',
 )

@@ -171,6 +171,7 @@ def run_notification_job(
     get_new_items: Callable[[], List[str]],
     need_notification=True,
     notify_when_empty=True,
+    log_new_items_separately=False,
     timeout=TimeoutWait(days=1),
     timeout_exception_seconds=5 * 60,
     format: Format = FORMAT_DEFAULT,
@@ -223,10 +224,17 @@ def run_notification_job(
                 if new_items:
                     current_items = items
 
-                    for item in new_items:
-                        text = format.new_item % item
+                    # Если один элемент или стоит флаг, разрешающий каждый элемент логировать отдельно
+                    if len(new_items) == 1 or log_new_items_separately:
+                        for item in new_items:
+                            text = format.new_item % item
+                            log.debug(text)
+                            if need_notification:
+                                send_telegram_notification(log.name, text)
+                    else:
+                        # Новые элементы логируем все разом
+                        text = format.new_items % (len(new_items), '\n'.join(new_items))
                         log.debug(text)
-
                         if need_notification:
                             send_telegram_notification(log.name, text)
 
