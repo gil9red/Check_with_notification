@@ -190,12 +190,6 @@ def run_notification_job(
 
     file_name_skip = script_dir / 'skip'
 
-    # Загрузка текущего списка из файла
-    current_items = read_items(file_name_items)
-
-    text_current_items = current_items if DEBUG_LOGGING_CURRENT_ITEMS else get_short_repr_list(current_items)
-    log.debug(format.current_items, len(current_items), text_current_items)
-
     while True:
         try:
             log.debug(format.on_start_check)
@@ -204,6 +198,12 @@ def run_notification_job(
                 log.info(format.file_skip_exists, file_name_skip.name)
                 wait(**timeout.as_dict())
                 continue
+
+            # Загрузка текущего списка из файла
+            current_items = read_items(file_name_items)
+
+            text_current_items = current_items if DEBUG_LOGGING_CURRENT_ITEMS else get_short_repr_list(current_items)
+            log.debug(format.current_items, len(current_items), text_current_items)
 
             log.debug(format.get_items)
 
@@ -216,14 +216,11 @@ def run_notification_job(
 
             # Если текущих список пустой
             if not current_items:
-                current_items = items
-                save_items(file_name_items, current_items)
+                save_items(file_name_items, items)
 
             else:
                 new_items = set(items) - set(current_items)
                 if new_items:
-                    current_items = items
-
                     # Если один элемент или стоит флаг, разрешающий каждый элемент логировать отдельно
                     if len(new_items) == 1 or log_new_items_separately:
                         for item in new_items:
@@ -239,7 +236,7 @@ def run_notification_job(
                             send_telegram_notification(log.name, text)
 
                     # Сохраняем после отправки уведомлений
-                    save_items(file_name_items, current_items)
+                    save_items(file_name_items, items)
 
                 else:
                     log.debug(format.no_new_items)
