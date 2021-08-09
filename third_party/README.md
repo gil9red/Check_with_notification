@@ -9,7 +9,7 @@
  * [get_seasons_anime_Dorohedoro.py](https://github.com/gil9red/SimplePyScripts/blob/fe2e2d56b2eac5a23f359898b59c6a17e937aac5/html_parsing/get_seasons_anime_Dorohedoro.py)
  * [kanobu_ru__games__collections__igry_s_podderzhkoi_rtx.py](https://github.com/gil9red/SimplePyScripts/blob/7fcc62cdc441df82c3164a86f3c82f0a219ace67/html_parsing/kanobu_ru__games__collections__igry_s_podderzhkoi_rtx.py)
  * [ranobehub_org_api_ranobe_92_contents__The_Legendary_Moonlight_Sculptor.py](https://github.com/gil9red/SimplePyScripts/blob/e4f2321c7dce4b6f20564a326f29a19285f2fa3e/html_parsing/ranobehub_org_api_ranobe_92_contents__The_Legendary_Moonlight_Sculptor.py)
- * [rik_i_morti_ru.py](https://github.com/gil9red/SimplePyScripts/blob/51a60e415809eab9134e6a27a4597ffefd2e0700/html_parsing/rik_i_morti_ru.py)
+ * [rik_i_morti_online.py](https://github.com/gil9red/SimplePyScripts/blob/a0fdd35319b0a540bdeadaadfd4598648de2a538/html_parsing/rik_i_morti_online.py)
  * [risens_team__berserk.py](https://github.com/gil9red/SimplePyScripts/blob/8af966c492ef04b9270c1d66a2d45e8c3cb9fe3c/html_parsing/risens_team__berserk.py)
  * [shorten.py](https://github.com/gil9red/SimplePyScripts/blob/cd5bf42742b2de4706a82aecb00e20ca0f043f8e/shorten.py)
  * [vitaly_zykov_ru_knigi__get_books.py](https://github.com/gil9red/SimplePyScripts/blob/ae5543922db83b10670096ac2e765608ab792880/html_parsing/vitaly_zykov_ru_knigi__get_books.py)

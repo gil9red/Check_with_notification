@@ -20,7 +20,7 @@ sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from format import FORMAT_VIDEO
 from root_common import run_notification_job
-from third_party.rik_i_morti_ru import get_season_by_series
+from third_party.rik_i_morti_online import get_season_by_series
 
 
 def get_video_list() -> List[str]:
