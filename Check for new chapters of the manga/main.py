@@ -46,4 +46,5 @@ run_notification_job(
     DIR,
     lambda: get_feeds_by_manga_chapters(URL_USER_RSS),
     format=FORMAT_CHAPTER,
+    need_to_store_items=500,  # Будем помнить последние 500 глав
 )

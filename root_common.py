@@ -175,6 +175,7 @@ def run_notification_job(
     timeout=TimeoutWait(days=1),
     timeout_exception_seconds=5 * 60,
     format: Format = FORMAT_DEFAULT,
+    need_to_store_items: int = None,
 ):
     log = log__or__log_name
     if isinstance(log, str):
@@ -234,6 +235,14 @@ def run_notification_job(
                         log.debug(text)
                         if need_notification:
                             send_telegram_notification(log.name, text)
+
+                    # Если нужно определенное количество элементов хранить
+                    if need_to_store_items:
+                        # Добавим новые в начало списка
+                        for item in new_items:
+                            current_items.insert(0, item)
+                        # Обрежем список, удалив лишние старые элементы
+                        items = current_items[:need_to_store_items]
 
                     # Сохраняем после отправки уведомлений
                     save_items(file_name_items, items)
