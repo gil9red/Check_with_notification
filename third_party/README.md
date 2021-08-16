@@ -16,3 +16,4 @@
  * [wait.py](https://github.com/gil9red/SimplePyScripts/blob/8fa9b9c23d10b5ee7ff0161da997b463f7a861bf/wait/wait.py)
  * [youtube_com__get_video_list.py](https://github.com/gil9red/SimplePyScripts/blob/5d1eba1052c4fe18eefe7ebf373bd4a1a7016124/html_parsing/youtube_com__get_video_list.py)
  * [youtube_com__results_search_query.py](https://github.com/gil9red/SimplePyScripts/blob/94d32f803ff2fa58f3fa4309a62d53b01c55c0f1/html_parsing/youtube_com__results_search_query.py)
+ * [ru_wikipedia_org__wiki__Список_эпизодов_мультсериала_Южный_Парк.py](https://github.com/gil9red/SimplePyScripts/blob/6ba858030661817374aeb24f121b3d1589f2be5a/html_parsing/ru_wikipedia_org__wiki__%D0%A1%D0%BF%D0%B8%D1%81%D0%BE%D0%BA_%D1%8D%D0%BF%D0%B8%D0%B7%D0%BE%D0%B4%D0%BE%D0%B2_%D0%BC%D1%83%D0%BB%D1%8C%D1%82%D1%81%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%B0_%D0%AE%D0%B6%D0%BD%D1%8B%D0%B9_%D0%9F%D0%B0%D1%80%D0%BA.py)
