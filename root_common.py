@@ -24,7 +24,7 @@ sys.path.append(str(DIR / 'third_party'))
 
 from third_party.wait import wait
 from third_party.add_notify_telegram import add_notify
-from third_party.youtube_com__get_video_list import get_video_list
+from third_party.youtube_com__results_search_query import search_youtube_with_filter
 
 
 class TimeoutWait(NamedTuple):
@@ -61,7 +61,7 @@ def get_logger(name, file='log.txt', encoding='utf-8', log_stdout=True, log_file
 
 def get_playlist_video_list(playlist_id: str):
     url = 'https://www.youtube.com/playlist?list=' + playlist_id
-    return get_video_list(url)
+    return search_youtube_with_filter(url)
 
 
 def get_short_repr_list(items: List) -> str:

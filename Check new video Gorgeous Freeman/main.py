@@ -18,14 +18,14 @@ sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from format import FORMAT_VIDEO
 from root_common import run_notification_job
-from third_party.youtube_com__get_video_list import get_video_list
+from third_party.youtube_com__results_search_query import search_youtube_with_filter
 
 
 def get_yt_video_list():
     text = 'Gorgeous Freeman -'
     url = 'https://www.youtube.com/user/antoine35DeLak/search?query=' + text
 
-    return get_video_list(url, filter_func=lambda name: text in name)
+    return search_youtube_with_filter(url, filter_func=lambda name: text in name)
 
 
 run_notification_job(
