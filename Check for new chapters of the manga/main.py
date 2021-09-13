@@ -19,7 +19,11 @@ from root_common import run_notification_job
 
 
 def get_feeds_by_manga_chapters(url_rss: str) -> List[str]:
-    rss_text = requests.get(url_rss).text
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0',
+    }
+
+    rss_text = requests.get(url_rss, headers=headers).text
     feed = feedparser.parse(rss_text)
 
     feeds = []
