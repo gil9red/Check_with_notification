@@ -225,7 +225,7 @@ def run_notification_job(
                 save_items(file_name_items, items)
 
             else:
-                new_items = set(items) - set(current_items)
+                new_items = [x for x in items if x not in current_items]
                 if new_items:
                     # Если один элемент или стоит флаг, разрешающий каждый элемент логировать отдельно
                     if len(new_items) == 1 or log_new_items_separately:
