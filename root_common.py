@@ -176,6 +176,7 @@ def run_notification_job(
     timeout_exception_seconds=5 * 60,
     format: Format = FORMAT_DEFAULT,
     need_to_store_items: int = None,
+    notify_after_sequence_of_errors=True,
 ):
     log = log__or__log_name
     if isinstance(log, str):
@@ -190,6 +191,10 @@ def run_notification_job(
         log.debug(format.first_start_detected)
 
     file_name_skip = script_dir / 'skip'
+
+    attempts_before_notification = 5
+    has_sending_notification = False
+    attempts = 0
 
     while True:
         try:
@@ -252,11 +257,22 @@ def run_notification_job(
 
             log.debug(format.on_finish_check)
 
+            # Restore
+            has_sending_notification = False
+            attempts = 0
+
             wait(**timeout.as_dict())
 
-        except:
+        except Exception as e:
             log.exception(format.on_exception)
             log.debug(format.on_exception_next_attempt)
+
+            attempts += 1
+            if notify_after_sequence_of_errors \
+                    and attempts >= attempts_before_notification \
+                    and not has_sending_notification:
+                send_telegram_notification_error(log.name, str(e))
+                has_sending_notification = True
 
             # Wait <timeout_exception_seconds> before next attempt
             time.sleep(timeout_exception_seconds)

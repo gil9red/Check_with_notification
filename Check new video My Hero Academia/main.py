@@ -26,6 +26,7 @@ run_notification_job(
     DIR,
     lambda: search_video_list('Моя геройская академия'),
     notify_when_empty=False,  # Парсер не всегда правильно работает из-за прокси, поэтому не уведомляем о проблемах
+    notify_after_sequence_of_errors=False,
     timeout=TimeoutWait(days=3),
     format=FORMAT_VIDEO,
 )

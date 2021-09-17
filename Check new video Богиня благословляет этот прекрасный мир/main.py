@@ -28,6 +28,7 @@ run_notification_job(
     DIR,
     lambda: search_video_list('Богиня благословляет этот прекрасный мир'),
     notify_when_empty=False,  # На сайте пока отсутствуют серии, поэтому не считаем их отсутствие проблемой
+    notify_after_sequence_of_errors=False,
     timeout=TimeoutWait(weeks=3),
     format=FORMAT_VIDEO,
 )
