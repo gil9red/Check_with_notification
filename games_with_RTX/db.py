@@ -52,5 +52,8 @@ db.create_tables([Game])
 
 
 if __name__ == '__main__':
+    print(Game.get_or_none(Game.name == 'Enlisted'))
+    print()
+
     for game in Game.select():
         print(game)

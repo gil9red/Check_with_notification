@@ -43,16 +43,23 @@ while True:
             send_telegram_notification_error(log.name, FORMAT_GAME.when_empty_items)
 
         for game in games:
-            game_db, created = Game.get_or_create(
-                name=game.name,
-                url=game.url
-            )
-            if game_db.img_base64 != game.img_base64:
-                game_db.img_base64 = game.img_base64
-                game_db.save()
+            game_db = Game.get_or_none(name=game.name)
 
-            if not created:
+            # Если игра уже в базе
+            if game_db:
+                # Если поменялась обложка
+                if game_db.img_base64 != game.img_base64:
+                    game_db.img_base64 = game.img_base64
+                    game_db.save()
+
                 continue
+
+            # Создаем игру
+            game_db = Game.create(
+                name=game.name,
+                url=game.url,
+                img_base64=game.img_base64,
+            )
 
             has_new_game = True
             log.debug(f'Добавление новой игры с RTX: {game.name!r}')
