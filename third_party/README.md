@@ -3,7 +3,7 @@
  * [online_anidub_com/get_video_list.py](https://github.com/gil9red/SimplePyScripts/blob/008e7d8cf636f2c6b36073accbc335b25b3e8846/online_anidub_com/get_video_list.py)
  * [stackoverflow_site__parsing/user_rank_and_reputation.py](https://github.com/gil9red/SimplePyScripts/blob/1d7f58c816db60f6005b9e63b981eeabd1924fc6/stackoverflow_site__parsing/user_rank_and_reputation.py)
  * [using_proxy/proxy_requests__upgraded.py](https://github.com/gil9red/SimplePyScripts/blob/bc27efcf6ccb9db48679fe426e027aa2f7e501be/using_proxy/proxy_requests__upgraded.py)
- * [add_notify_telegram.py](https://github.com/gil9red/SimplePyScripts/blob/e86c04660322fd2b7671d7023e565170e24f3114/telegram_notifications/add_notify_use_web.py)
+ * [add_notify_telegram.py](https://github.com/gil9red/telegram__random_bashim_bot/blob/773f6f4a05c7f716f0171e3e2928e84a67b7ff3b/third_party/add_notify_telegram.py)
  * [anivost_org.py](https://github.com/gil9red/SimplePyScripts/blob/d5437b669d700082673f1bef51aa6d1a5ed0ef0c/html_parsing/anivost_org.py)
  * [check__haveibeenpwned_com.py](https://github.com/gil9red/SimplePyScripts/blob/dc8335cd5a15489a83adf9f3b1e1501b2c1ea6fb/selenium__examples/check__haveibeenpwned_com.py)
  * [get_seasons_anime_Dorohedoro.py](https://github.com/gil9red/SimplePyScripts/blob/fe2e2d56b2eac5a23f359898b59c6a17e937aac5/html_parsing/get_seasons_anime_Dorohedoro.py)
