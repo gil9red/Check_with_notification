@@ -27,15 +27,13 @@ def get_feeds_by_manga_chapters(url_rss: str) -> List[str]:
     feed = feedparser.parse(rss_text)
 
     feeds = []
-
     for entry in feed.entries:
-        title = entry.title
-
-        if title.startswith('Манга '):
-            title = title[len('Манга '):]
-
-        elif title.startswith('Взрослая манга '):
-            title = title[len('Взрослая манга '):]
+        title: str = entry.title
+        title = title\
+            .replace('&quot;', '"')\
+            .replace('Манга', '')\
+            .replace('Взрослая манга', '')\
+            .strip()
 
         feeds.append(title)
 
