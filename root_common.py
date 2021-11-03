@@ -169,6 +169,8 @@ def run_notification_job(
     log__or__log_name: Union['logging.Logger', str],
     script_dir: Union[Path, str],
     get_new_items: Callable[[], List[str]],
+    *,
+    file_name_saved: str = FILE_NAME_SAVED,
     need_notification=True,
     notify_when_empty=True,
     log_new_items_separately=False,
@@ -184,7 +186,7 @@ def run_notification_job(
 
     log.debug(format.on_start)
 
-    file_name_items = script_dir / FILE_NAME_SAVED
+    file_name_items = script_dir / file_name_saved
 
     # Если не существует или пустой
     if not file_name_items.exists() or not file_name_items.stat().st_size:
