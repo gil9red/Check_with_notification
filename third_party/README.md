@@ -14,6 +14,7 @@
  * [rik_i_morti_online.py](https://github.com/gil9red/SimplePyScripts/blob/a0fdd35319b0a540bdeadaadfd4598648de2a538/html_parsing/rik_i_morti_online.py)
  * [risens_team__berserk.py](https://github.com/gil9red/SimplePyScripts/blob/8af966c492ef04b9270c1d66a2d45e8c3cb9fe3c/html_parsing/risens_team__berserk.py)
  * [shorten.py](https://github.com/gil9red/SimplePyScripts/blob/cd5bf42742b2de4706a82aecb00e20ca0f043f8e/shorten.py)
+ * [store_steampowered_com__check_exists_app.py](https://github.com/gil9red/SimplePyScripts/blob/786b384d29481d61989b3b4489dce73c16b12fb6/html_parsing/store_steampowered_com__check_exists_app.py)
  * [vitaly_zykov_ru_knigi__get_books.py](https://github.com/gil9red/SimplePyScripts/blob/ae5543922db83b10670096ac2e765608ab792880/html_parsing/vitaly_zykov_ru_knigi__get_books.py)
  * [wait.py](https://github.com/gil9red/SimplePyScripts/blob/8fa9b9c23d10b5ee7ff0161da997b463f7a861bf/wait/wait.py)
  * [youtube_com__results_search_query.py](https://github.com/gil9red/SimplePyScripts/blob/5806f327975233efc553b9ed9f58374976efafd1/html_parsing/youtube_com__results_search_query.py)
