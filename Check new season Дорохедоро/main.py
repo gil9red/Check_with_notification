@@ -16,7 +16,7 @@ from pathlib import Path
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
-from format import FORMAT_SEASON
+from formats import FORMATS_SEASON
 from root_common import run_notification_job
 from third_party.get_seasons_anime_Dorohedoro import get_seasons
 
@@ -25,5 +25,5 @@ run_notification_job(
     'Дорохедоро',
     DIR,
     get_seasons,
-    format=FORMAT_SEASON,
+    formats=FORMATS_SEASON,
 )

@@ -16,13 +16,13 @@ from typing import List
 from common import DIR, set_lock
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
-from format import Format
+from formats import Formats
 from root_common import run_notification_job, get_logger
 from third_party.ncse_ngo__list_steves import get_number_from_description
 
 
 # Адаптация текста под одно значение, вместо списка
-FORMAT_STEVES = Format(
+FORMATS_STEVES = Formats(
     current_items='Текущее количество Стивов (%s): %s',
     get_items='Запрос количества Стивов',
     items='Список количества Стивов (%s): %s',
@@ -44,5 +44,5 @@ run_notification_job(
     DIR,
     get_items,
     file_name_saved='saved from description.json',
-    format=FORMAT_STEVES,
+    formats=FORMATS_STEVES,
 )

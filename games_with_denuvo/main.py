@@ -19,7 +19,7 @@ DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from common import init_db, log, append_list_games_which_denuvo_is_removed, append_list_games, db_create_backup
-from format import FORMAT_GAME
+from formats import FORMATS_GAME
 from games_with_denuvo import get_games_with_denuvo, get_games_which_denuvo_is_removed
 from root_common import DEBUG_LOGGING_GET_NEW_ITEMS
 from root_common import wait, send_telegram_notification_error, get_short_repr_list
@@ -44,7 +44,7 @@ while True:
         log.debug('games (%s): %s', len(games), text_games)
 
         if need_notification and not games:
-            send_telegram_notification_error(log.name, FORMAT_GAME.when_empty_items)
+            send_telegram_notification_error(log.name, FORMATS_GAME.when_empty_items)
 
         games_without_denuvo = get_games_which_denuvo_is_removed()
         text_games_without_denuvo = games_without_denuvo if DEBUG_LOGGING_GET_NEW_ITEMS else get_short_repr_list(games_without_denuvo)

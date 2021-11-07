@@ -17,7 +17,7 @@ from typing import List
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
-from format import FORMAT_VIDEO
+from formats import FORMATS_VIDEO
 from root_common import run_notification_job
 from third_party.youtube_com__results_search_query import search_youtube_with_filter
 
@@ -33,5 +33,5 @@ run_notification_job(
     'Sally Face',
     DIR,
     get_yt_video_list,
-    format=FORMAT_VIDEO,
+    formats=FORMATS_VIDEO,
 )

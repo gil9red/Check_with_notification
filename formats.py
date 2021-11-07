@@ -7,7 +7,7 @@ __author__ = 'ipetrash'
 from typing import NamedTuple
 
 
-class Format(NamedTuple):
+class Formats(NamedTuple):
     on_start: str = 'Запуск'
     on_start_check: str = 'Запуск проверки'
     on_finish_check: str = 'Завершение проверки\n'
@@ -22,10 +22,11 @@ class Format(NamedTuple):
     file_skip_exists: str = 'Обнаружен файл "%s", пропускаю проверку.'
     on_exception: str = 'Ошибка:'
     on_exception_next_attempt: str = 'Через 5 минут попробую снова...'
+    on_finish: str = 'Завершение'
 
 
-FORMAT_DEFAULT = Format()
-FORMAT_VIDEO = Format(
+FORMATS_DEFAULT = Formats()
+FORMATS_VIDEO = Formats(
     current_items='Текущий список видео (%s): %s',
     get_items='Запрос видео',
     items='Список видео (%s): %s',
@@ -33,7 +34,7 @@ FORMAT_VIDEO = Format(
     new_items='Появились новые видео (%s):\n%s',
     no_new_items='Изменений нет',
 )
-FORMAT_GAME = Format(
+FORMATS_GAME = Formats(
     current_items='Текущий список игр (%s): %s',
     get_items='Запрос списка игр',
     items='Список игр (%s): %s',
@@ -41,7 +42,7 @@ FORMAT_GAME = Format(
     new_items='Появились новые игры (%s):\n%s',
     no_new_items='Новых игр нет',
 )
-FORMAT_SEASON = Format(
+FORMATS_SEASON = Formats(
     current_items='Текущий список сезонов (%s): %s',
     get_items='Запрос сезонов',
     items='Список сезонов (%s): %s',
@@ -49,7 +50,7 @@ FORMAT_SEASON = Format(
     new_items='Появились новые сезоны (%s):\n%s',
     no_new_items='Изменений нет',
 )
-FORMAT_CHAPTER = Format(
+FORMATS_CHAPTER = Formats(
     current_items='Текущий список глав (%s): %s',
     get_items='Запрос списка глав',
     items='Список глав (%s): %s',
@@ -57,7 +58,7 @@ FORMAT_CHAPTER = Format(
     new_items='Появились новые главы (%s):\n%s',
     no_new_items='Новых глав нет',
 )
-FORMAT_BOOK = Format(
+FORMATS_BOOK = Formats(
     current_items='Текущий список книг (%s): %s',
     get_items='Запрос списка книг',
     items='Список книг (%s): %s',

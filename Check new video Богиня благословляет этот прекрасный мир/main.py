@@ -18,7 +18,7 @@ ROOT_DIR = DIR.parent
 
 sys.path.append(str(ROOT_DIR))  # Путь к папке выше
 
-from format import FORMAT_VIDEO
+from formats import FORMATS_VIDEO
 from root_common import run_notification_job, TimeoutWait
 from third_party.online_anidub_com.get_video_list import search_video_list
 
@@ -30,5 +30,5 @@ run_notification_job(
     notify_when_empty=False,  # На сайте пока отсутствуют серии, поэтому не считаем их отсутствие проблемой
     notify_after_sequence_of_errors=False,
     timeout=TimeoutWait(weeks=3),
-    format=FORMAT_VIDEO,
+    formats=FORMATS_VIDEO,
 )

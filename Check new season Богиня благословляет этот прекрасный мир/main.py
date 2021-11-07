@@ -21,7 +21,7 @@ import requests
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
-from format import FORMAT_SEASON
+from formats import FORMATS_SEASON
 from root_common import run_notification_job
 
 
@@ -35,5 +35,5 @@ run_notification_job(
     'Богиня благословляет этот прекрасный мир',
     DIR,
     get_items,
-    format=FORMAT_SEASON,
+    formats=FORMATS_SEASON,
 )

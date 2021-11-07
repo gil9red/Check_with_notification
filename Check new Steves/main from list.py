@@ -18,12 +18,12 @@ from typing import List
 from common import DIR, has_lock
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
-from format import Format
+from formats import Formats
 from root_common import run_notification_job, get_logger
 from third_party.ncse_ngo__list_steves import get_Steves
 
 
-FORMAT_STEVES = Format(
+FORMATS_STEVES = Formats(
     current_items='Текущий список Стивов (%s): %s',
     get_items='Запрос списка Стивов',
     items='Список Стивов (%s): %s',
@@ -50,5 +50,5 @@ run_notification_job(
     get_items,
     file_name_saved='saved from list.json',
     log_new_items_separately=True,
-    format=FORMAT_STEVES,
+    formats=FORMATS_STEVES,
 )

@@ -16,7 +16,7 @@ from pathlib import Path
 
 import requests
 
-from format import Format, FORMAT_DEFAULT
+from formats import Formats, FORMATS_DEFAULT
 from root_config import API_ID, TO, DIR, FILE_NAME_SAVED, DEBUG_LOGGING_CURRENT_ITEMS, DEBUG_LOGGING_GET_NEW_ITEMS
 
 # Добавление точки поиска для модулей в third_party
@@ -133,36 +133,204 @@ def send_telegram_notification_error(name: str, message: str):
     send_telegram_notification(name, message, 'ERROR')
 
 
+STARTED_WITH_JOB = False
+
+
 def log_uncaught_exceptions(ex_cls, ex, tb):
+    # Если было запрошено прерывание
+    if isinstance(ex, KeyboardInterrupt):
+        sys.exit()
+
     text = f'{ex_cls.__name__}: {ex}:\n'
     text += ''.join(traceback.format_tb(tb))
 
     print(text)
-    send_telegram_notification_error('root_common.py', text)
+
+    # Посылаем уведомление только при запуске через задачу
+    if STARTED_WITH_JOB:
+        send_telegram_notification_error('root_common.py', text)
+
     sys.exit(1)
 
 
 sys.excepthook = log_uncaught_exceptions
 
 
-def read_items(file_name_items: Path) -> List[str]:
-    try:
-        with open(file_name_items, encoding='utf-8') as f:
-            obj = json.load(f)
+class NotificationJob:
+    class Callbacks(NamedTuple):
+        on_start: Callable[['NotificationJob'], None] = lambda job: None
+        on_first_start_detected: Callable[['NotificationJob'], None] = lambda job: None
+        on_start_check: Callable[['NotificationJob'], None] = lambda job: None
+        on_finish_check: Callable[['NotificationJob'], None] = lambda job: None
+        on_finish: Callable[['NotificationJob'], None] = lambda job: None
 
-            # Должен быть список, но если в файле будет что-то другое -- это будет неправильно
-            if not isinstance(obj, list):
-                return []
+    def __init__(
+            self,
+            log__or__log_name: Union['logging.Logger', str],
+            script_dir: Union[Path, str],
+            get_new_items: Callable[[], List[str]],
+            *,
+            file_name_saved: str = FILE_NAME_SAVED,
+            need_notification=True,
+            notify_when_empty=True,
+            log_new_items_separately=False,
+            timeout=TimeoutWait(days=1),
+            timeout_exception_seconds=5 * 60,
+            formats: Formats = FORMATS_DEFAULT,
+            callbacks: Callbacks = None,
+            need_to_store_items: int = None,
+            notify_after_sequence_of_errors=True,
+            attempts_before_notification=5,
+            debug_logging_current_items: bool = DEBUG_LOGGING_CURRENT_ITEMS,
+            debug_logging_get_new_items: bool = DEBUG_LOGGING_GET_NEW_ITEMS,
+    ):
+        self.script_dir = script_dir
+        self.get_new_items = get_new_items
+        self.file_name_saved = file_name_saved
+        self.need_notification = need_notification
+        self.notify_when_empty = notify_when_empty
+        self.log_new_items_separately = log_new_items_separately
+        self.timeout = timeout
+        self.timeout_exception_seconds = timeout_exception_seconds
+        self.formats = formats
+        self.callbacks = callbacks or self.Callbacks()
+        self.need_to_store_items = need_to_store_items
+        self.notify_after_sequence_of_errors = notify_after_sequence_of_errors
+        self.attempts_before_notification = attempts_before_notification
+        self.debug_logging_current_items = debug_logging_current_items
+        self.debug_logging_get_new_items = debug_logging_get_new_items
 
-            return obj
+        self.log = log__or__log_name
+        if isinstance(self.log, str):
+            self.log = get_logger(self.log, self.script_dir / 'log.txt')
 
-    except:
-        return []
+        self.file_name_items = self.script_dir / self.file_name_saved
+        self.file_name_skip = self.script_dir / 'skip'
 
+    def read_items(self) -> List[str]:
+        try:
+            with open(self.file_name_items, encoding='utf-8') as f:
+                obj = json.load(f)
 
-def save_items(file_name_items: Path, items: List[str]):
-    with open(file_name_items, mode='w', encoding='utf-8') as f:
-        json.dump(items, f, ensure_ascii=False, indent=4)
+                # Должен быть список, но если в файле будет что-то другое -- это будет неправильно
+                if not isinstance(obj, list):
+                    return []
+
+                return obj
+
+        except:
+            return []
+
+    def save_items(self, items: List[str]):
+        with open(self.file_name_items, mode='w', encoding='utf-8') as f:
+            json.dump(items, f, ensure_ascii=False, indent=4)
+
+    def _get_text_items(self, items: List[str]) -> str:
+        return items if self.debug_logging_current_items else get_short_repr_list(items)
+
+    def run(self):
+        global STARTED_WITH_JOB
+        STARTED_WITH_JOB = True
+
+        self.log.debug(self.formats.on_start)
+        self.callbacks.on_start(self)
+
+        # Если не существует или пустой
+        if not self.file_name_items.exists() or not self.file_name_items.stat().st_size:
+            self.log.debug(self.formats.first_start_detected)
+            self.callbacks.on_first_start_detected(self)
+
+        has_sending_notification = False
+        attempts = 0
+
+        while True:
+            try:
+                self.log.debug(self.formats.on_start_check)
+                self.callbacks.on_start_check(self)
+
+                if self.file_name_skip.exists():
+                    self.log.info(self.formats.file_skip_exists, self.file_name_skip.name)
+                    wait(**self.timeout.as_dict())
+                    continue
+
+                # Загрузка текущего списка из файла
+                current_items = self.read_items()
+
+                text_current_items = self._get_text_items(current_items)
+                self.log.debug(self.formats.current_items, len(current_items), text_current_items)
+
+                self.log.debug(self.formats.get_items)
+
+                items = self.get_new_items()
+                if not items and self.notify_when_empty:
+                    send_telegram_notification_error(self.log.name, self.formats.when_empty_items)
+
+                text_items = self._get_text_items(items)
+                self.log.debug(self.formats.items, len(items), text_items)
+
+                # Если текущих список пустой
+                if not current_items:
+                    self.save_items(items)
+
+                else:
+                    new_items = [x for x in items if x not in current_items]
+                    if new_items:
+                        # Если один элемент или стоит флаг, разрешающий каждый элемент логировать отдельно
+                        if len(new_items) == 1 or self.log_new_items_separately:
+                            for item in new_items:
+                                text = self.formats.new_item % item
+                                self.log.debug(text)
+                                if self.need_notification:
+                                    send_telegram_notification(self.log.name, text)
+                        else:
+                            # Новые элементы логируем все разом
+                            text = self.formats.new_items % (len(new_items), '\n'.join(new_items))
+                            self.log.debug(text)
+                            if self.need_notification:
+                                send_telegram_notification(self.log.name, text)
+
+                        # Если нужно определенное количество элементов хранить
+                        if self.need_to_store_items:
+                            # Добавим новые в начало списка
+                            for item in new_items:
+                                current_items.insert(0, item)
+                            # Обрежем список, удалив лишние старые элементы
+                            items = current_items[:self.need_to_store_items]
+
+                        # Сохраняем после отправки уведомлений
+                        self.save_items(items)
+
+                    else:
+                        self.log.debug(self.formats.no_new_items)
+
+                self.log.debug(self.formats.on_finish_check)
+                self.callbacks.on_finish_check(self)
+
+                # Restore
+                has_sending_notification = False
+                attempts = 0
+
+                wait(**self.timeout.as_dict())
+
+            except KeyboardInterrupt:
+                break
+
+            except Exception as e:
+                self.log.exception(self.formats.on_exception)
+                self.log.debug(self.formats.on_exception_next_attempt)
+
+                attempts += 1
+                if self.notify_after_sequence_of_errors \
+                        and attempts >= self.attempts_before_notification \
+                        and not has_sending_notification:
+                    send_telegram_notification_error(self.log.name, str(e))
+                    has_sending_notification = True
+
+                # Wait <timeout_exception_seconds> before next attempt
+                time.sleep(self.timeout_exception_seconds)
+
+        self.log.debug(self.formats.on_finish)
+        self.callbacks.on_finish(self)
 
 
 def run_notification_job(
@@ -176,108 +344,32 @@ def run_notification_job(
     log_new_items_separately=False,
     timeout=TimeoutWait(days=1),
     timeout_exception_seconds=5 * 60,
-    format: Format = FORMAT_DEFAULT,
+    formats: Formats = FORMATS_DEFAULT,
+    callbacks: NotificationJob.Callbacks = None,
     need_to_store_items: int = None,
     notify_after_sequence_of_errors=True,
+    attempts_before_notification=5,
+    debug_logging_current_items: bool = DEBUG_LOGGING_CURRENT_ITEMS,
+    debug_logging_get_new_items: bool = DEBUG_LOGGING_GET_NEW_ITEMS,
 ):
-    log = log__or__log_name
-    if isinstance(log, str):
-        log = get_logger(log, script_dir / 'log.txt')
-
-    log.debug(format.on_start)
-
-    file_name_items = script_dir / file_name_saved
-
-    # Если не существует или пустой
-    if not file_name_items.exists() or not file_name_items.stat().st_size:
-        log.debug(format.first_start_detected)
-
-    file_name_skip = script_dir / 'skip'
-
-    attempts_before_notification = 5
-    has_sending_notification = False
-    attempts = 0
-
-    while True:
-        try:
-            log.debug(format.on_start_check)
-
-            if file_name_skip.exists():
-                log.info(format.file_skip_exists, file_name_skip.name)
-                wait(**timeout.as_dict())
-                continue
-
-            # Загрузка текущего списка из файла
-            current_items = read_items(file_name_items)
-
-            text_current_items = current_items if DEBUG_LOGGING_CURRENT_ITEMS else get_short_repr_list(current_items)
-            log.debug(format.current_items, len(current_items), text_current_items)
-
-            log.debug(format.get_items)
-
-            items = get_new_items()
-            if not items and notify_when_empty:
-                send_telegram_notification_error(log.name, format.when_empty_items)
-
-            text_items = items if DEBUG_LOGGING_GET_NEW_ITEMS else get_short_repr_list(items)
-            log.debug(format.items, len(items), text_items)
-
-            # Если текущих список пустой
-            if not current_items:
-                save_items(file_name_items, items)
-
-            else:
-                new_items = [x for x in items if x not in current_items]
-                if new_items:
-                    # Если один элемент или стоит флаг, разрешающий каждый элемент логировать отдельно
-                    if len(new_items) == 1 or log_new_items_separately:
-                        for item in new_items:
-                            text = format.new_item % item
-                            log.debug(text)
-                            if need_notification:
-                                send_telegram_notification(log.name, text)
-                    else:
-                        # Новые элементы логируем все разом
-                        text = format.new_items % (len(new_items), '\n'.join(new_items))
-                        log.debug(text)
-                        if need_notification:
-                            send_telegram_notification(log.name, text)
-
-                    # Если нужно определенное количество элементов хранить
-                    if need_to_store_items:
-                        # Добавим новые в начало списка
-                        for item in new_items:
-                            current_items.insert(0, item)
-                        # Обрежем список, удалив лишние старые элементы
-                        items = current_items[:need_to_store_items]
-
-                    # Сохраняем после отправки уведомлений
-                    save_items(file_name_items, items)
-
-                else:
-                    log.debug(format.no_new_items)
-
-            log.debug(format.on_finish_check)
-
-            # Restore
-            has_sending_notification = False
-            attempts = 0
-
-            wait(**timeout.as_dict())
-
-        except Exception as e:
-            log.exception(format.on_exception)
-            log.debug(format.on_exception_next_attempt)
-
-            attempts += 1
-            if notify_after_sequence_of_errors \
-                    and attempts >= attempts_before_notification \
-                    and not has_sending_notification:
-                send_telegram_notification_error(log.name, str(e))
-                has_sending_notification = True
-
-            # Wait <timeout_exception_seconds> before next attempt
-            time.sleep(timeout_exception_seconds)
+    NotificationJob(
+        log__or__log_name=log__or__log_name,
+        script_dir=script_dir,
+        get_new_items=get_new_items,
+        file_name_saved=file_name_saved,
+        need_notification=need_notification,
+        notify_when_empty=notify_when_empty,
+        log_new_items_separately=log_new_items_separately,
+        timeout=timeout,
+        timeout_exception_seconds=timeout_exception_seconds,
+        formats=formats,
+        callbacks=callbacks,
+        need_to_store_items=need_to_store_items,
+        notify_after_sequence_of_errors=notify_after_sequence_of_errors,
+        attempts_before_notification=attempts_before_notification,
+        debug_logging_current_items=debug_logging_current_items,
+        debug_logging_get_new_items=debug_logging_get_new_items,
+    ).run()
 
 
 if __name__ == '__main__':

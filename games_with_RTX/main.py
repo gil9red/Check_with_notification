@@ -10,7 +10,7 @@ from pathlib import Path
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
-from format import FORMAT_GAME
+from formats import FORMATS_GAME
 from root_config import DEBUG_LOGGING_GET_NEW_ITEMS
 from root_common import (
     get_logger, wait, send_telegram_notification, send_telegram_notification_error, get_short_repr_list
@@ -40,7 +40,7 @@ while True:
         log.debug('Обработка (%s) игр: %s', len(games), text_games)
 
         if not games:
-            send_telegram_notification_error(log.name, FORMAT_GAME.when_empty_items)
+            send_telegram_notification_error(log.name, FORMATS_GAME.when_empty_items)
 
         for game in games:
             game_db = Game.get_or_none(name=game.name)
