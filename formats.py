@@ -66,3 +66,11 @@ FORMATS_BOOK = Formats(
     new_items='Появились новые книги (%s):\n%s',
     no_new_items='Новых книг нет',
 )
+FORMATS_MANGA = Formats(
+    current_items='Текущий список манг (%s): %s',
+    get_items='Запрос манг',
+    items='Список манг (%s): %s',
+    new_item='Новая манга "%s"',
+    new_items='Появились новые манги (%s):\n%s',
+    no_new_items='Изменений нет',
+)
