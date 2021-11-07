@@ -35,7 +35,6 @@ run_notification_job(
     'Проверка Half-Life 2: Remastered Collection',
     DIR,
     get_is_exists_title,
-    need_notification=False,
     formats=Formats(
         get_items='Проверка игры',
         new_item='%s',  # Название статуса будет использовано для описания уведомления
