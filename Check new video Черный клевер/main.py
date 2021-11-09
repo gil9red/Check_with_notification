@@ -14,13 +14,14 @@ import time
 
 from pathlib import Path
 
+import requests
+
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
+import root_common
 from root_common import get_logger, send_telegram_notification, wait
 from third_party.anivost_org import get_last_series
-
-import requests
 
 
 log = get_logger('Черный клевер')
@@ -40,6 +41,9 @@ def update_file_data(value: str):
 
 if __name__ == '__main__':
     need_notification = True
+
+    # Чтобы получить в телеграм уведомления о непойманных исключениях
+    root_common.STARTED_WITH_JOB = True
 
     try:
         last_value = open(FILE_NAME_LAST_VALUE, encoding='utf-8').read()

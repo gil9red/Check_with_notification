@@ -18,6 +18,7 @@ from pathlib import Path
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
+import root_common
 from common import init_db, log, append_list_games_which_denuvo_is_removed, append_list_games, db_create_backup
 from formats import FORMATS_GAME
 from games_with_denuvo import get_games_with_denuvo, get_games_which_denuvo_is_removed
@@ -30,6 +31,9 @@ from root_common import wait, send_telegram_notification_error, get_short_repr_l
 # connect.commit()
 
 init_db()
+
+# Чтобы получить в телеграм уведомления о непойманных исключениях
+root_common.STARTED_WITH_JOB = True
 
 # NOTE: С этим флагом нужно быть осторожным при первом запуске, когда база пуста,
 # ведь на каждую добавленную взломанную игру отправится уведомление по смс

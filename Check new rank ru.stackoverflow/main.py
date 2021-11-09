@@ -18,6 +18,7 @@ from pathlib import Path
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
+import root_common
 from root_common import get_logger, send_telegram_notification, wait
 from third_party.stackoverflow_site__parsing.user_rank_and_reputation import get_user_rank_and_reputation
 
@@ -35,6 +36,9 @@ def update_file_data(value: str):
 
 
 if __name__ == '__main__':
+    # Чтобы получить в телеграм уведомления о непойманных исключениях
+    root_common.STARTED_WITH_JOB = True
+
     need_notification = True
 
     try:

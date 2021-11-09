@@ -29,6 +29,7 @@ import requests
 from bs4 import BeautifulSoup
 from qbittorrent import Client
 
+import root_common
 from root_common import wait, send_telegram_notification
 
 
@@ -93,6 +94,9 @@ if __name__ == '__main__':
 
     last_info_hash = None
     last_torrent_files = []
+
+    # Чтобы получить в телеграм уведомления о непойманных исключениях
+    root_common.STARTED_WITH_JOB = True
 
     while True:
         try:

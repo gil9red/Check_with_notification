@@ -10,6 +10,7 @@ from pathlib import Path
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
+import root_common
 from formats import FORMATS_GAME
 from root_config import DEBUG_LOGGING_GET_NEW_ITEMS
 from root_common import (
@@ -21,6 +22,8 @@ from db import db_create_backup, Game
 
 log = get_logger("Игры с RTX")
 
+# Чтобы получить в телеграм уведомления о непойманных исключениях
+root_common.STARTED_WITH_JOB = True
 
 while True:
     log.debug('Запуск')
