@@ -17,7 +17,9 @@ from pathlib import Path
 import requests
 
 from formats import Formats, FORMATS_DEFAULT
-from root_config import API_ID, TO, DIR, FILE_NAME_SAVED, DEBUG_LOGGING_CURRENT_ITEMS, DEBUG_LOGGING_GET_NEW_ITEMS
+from root_config import (
+    API_ID, TO, DIR, FILE_NAME_SAVED, FILE_NAME_SAVED_BACKUP, DEBUG_LOGGING_CURRENT_ITEMS, DEBUG_LOGGING_GET_NEW_ITEMS
+)
 
 # Добавление точки поиска для модулей в third_party
 sys.path.append(str(DIR / 'third_party'))
@@ -171,6 +173,7 @@ class NotificationJob:
             get_new_items: Callable[[], List[str]],
             *,
             file_name_saved: str = FILE_NAME_SAVED,
+            file_name_saved_backup: str = FILE_NAME_SAVED_BACKUP,
             need_notification=True,
             notify_when_empty=True,
             log_new_items_separately=False,
@@ -187,6 +190,7 @@ class NotificationJob:
         self.script_dir = script_dir
         self.get_new_items = get_new_items
         self.file_name_saved = file_name_saved
+        self.file_name_saved_backup = file_name_saved_backup
         self.need_notification = need_notification
         self.notify_when_empty = notify_when_empty
         self.log_new_items_separately = log_new_items_separately
@@ -221,9 +225,16 @@ class NotificationJob:
         except:
             return []
 
-    def save_items(self, items: List[str]):
-        with open(self.file_name_items, mode='w', encoding='utf-8') as f:
-            json.dump(items, f, ensure_ascii=False, indent=4)
+    def save_items(self, items: List[str], items_backup: List[str] = None):
+        def _save_to(file_name: str, data: List[str]):
+            with open(file_name, mode='w', encoding='utf-8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=4)
+
+        _save_to(self.file_name_items, items)
+
+        # Если элементы для бекапа переданы
+        if items_backup:
+            _save_to(self.file_name_saved_backup, items_backup)
 
     def _get_text_items(self, items: List[str]) -> str:
         return items if self.debug_logging_current_items else get_short_repr_list(items)
@@ -298,7 +309,7 @@ class NotificationJob:
                             items = current_items[:self.need_to_store_items]
 
                         # Сохраняем после отправки уведомлений
-                        self.save_items(items)
+                        self.save_items(items, current_items)
 
                     else:
                         self.log.debug(self.formats.no_new_items)

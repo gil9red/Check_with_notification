@@ -137,3 +137,4 @@ backup/
 SMS_TOKEN.txt
 *.sqlite
 saved.json
+saved_backup.json
