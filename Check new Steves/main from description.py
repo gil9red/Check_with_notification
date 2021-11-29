@@ -40,7 +40,7 @@ def get_items(job: NotificationJob) -> List[str]:
 
 
 run_notification_job(
-    get_logger('Check new Steves (from description)', DIR / 'log from description.txt'),
+    get_logger('Проверка новых Стивов (из описания)', DIR / 'log from description.txt'),
     DIR,
     get_items,
     file_name_saved='saved from description.json',
