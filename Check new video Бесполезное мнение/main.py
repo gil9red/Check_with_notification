@@ -23,6 +23,6 @@ from root_common import run_notification_job, get_playlist_video_list
 run_notification_job(
     'Бесполезное мнение [Velind]',
     DIR,
-    lambda: get_playlist_video_list('PLgqDz7CZ-6NbDjtcYuPFW2wb2LS7BQJMb'),
+    lambda job: get_playlist_video_list('PLgqDz7CZ-6NbDjtcYuPFW2wb2LS7BQJMb'),
     formats=FORMATS_VIDEO,
 )

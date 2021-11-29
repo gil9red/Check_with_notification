@@ -24,6 +24,6 @@ from third_party.risens_team__berserk import get_chapters
 run_notification_job(
     'Манга Berserk',
     DIR,
-    get_chapters,
+    lambda job: get_chapters(),
     formats=FORMATS_CHAPTER,
 )

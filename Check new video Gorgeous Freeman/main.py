@@ -17,11 +17,11 @@ DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from formats import FORMATS_VIDEO
-from root_common import run_notification_job
+from root_common import run_notification_job, NotificationJob
 from third_party.youtube_com__results_search_query import search_youtube_with_filter
 
 
-def get_yt_video_list():
+def get_yt_video_list(job: NotificationJob):
     text = 'Gorgeous Freeman -'
     url = 'https://www.youtube.com/user/antoine35DeLak/search?query=' + text
 

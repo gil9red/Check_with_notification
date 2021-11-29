@@ -20,11 +20,11 @@ ROOT_DIR = DIR.parent
 sys.path.append(str(ROOT_DIR))  # Путь к папке выше
 
 from formats import Formats
-from root_common import run_notification_job
+from root_common import run_notification_job, NotificationJob
 from third_party.store_steampowered_com__check_exists_app import is_exists
 
 
-def get_is_exists_title() -> List[str]:
+def get_is_exists_title(job: NotificationJob) -> List[str]:
     # Half-Life 2: Remastered Collection
     return [
         "Игра появилась в магазине Steam" if is_exists(600680) else "Игра убрана из магазина Steam"

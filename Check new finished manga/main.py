@@ -32,7 +32,7 @@ def on_first_start_detected(job: NotificationJob):
     job.save_items(items)
 
 
-def get_only_finished_items() -> List[str]:
+def get_only_finished_items(job: NotificationJob) -> List[str]:
     return [title for title in get_all_items() if 'переведено' in title]
 
 

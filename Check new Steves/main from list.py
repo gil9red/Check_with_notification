@@ -19,7 +19,7 @@ from common import DIR, has_lock
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from formats import Formats
-from root_common import run_notification_job, get_logger
+from root_common import run_notification_job, get_logger, NotificationJob
 from third_party.ncse_ngo__list_steves import get_Steves
 
 
@@ -33,7 +33,7 @@ FORMATS_STEVES = Formats(
 )
 
 
-def get_items() -> List[str]:
+def get_items(job: NotificationJob) -> List[str]:
     # Даем фору скрипту "main from description.py", ждем пока он выполнится
     # Тогда, при изменении количества Стивов будет логичнее получить уведомление раньше, чем
     # новые Стивы из списка

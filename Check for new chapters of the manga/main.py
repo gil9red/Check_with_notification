@@ -46,7 +46,7 @@ URL_USER_RSS = 'https://grouple.co/user/rss/315828?filter='
 run_notification_job(
     'Новые главы манги',
     DIR,
-    lambda: get_feeds_by_manga_chapters(URL_USER_RSS),
+    lambda job: get_feeds_by_manga_chapters(URL_USER_RSS),
     formats=FORMATS_CHAPTER,
     need_to_store_items=500,  # Будем помнить последние 500 глав
 )

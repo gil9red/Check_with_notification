@@ -24,6 +24,6 @@ from third_party.vitaly_zykov_ru_knigi__get_books import get_books
 run_notification_job(
     'Новые книги Виталия Зыкова',
     DIR,
-    get_books,
+    lambda job: get_books(),
     formats=FORMATS_BOOK,
 )

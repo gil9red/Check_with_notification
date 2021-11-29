@@ -24,6 +24,6 @@ from third_party.get_seasons_anime_Dorohedoro import get_seasons
 run_notification_job(
     'Дорохедоро',
     DIR,
-    get_seasons,
+    lambda job: get_seasons(),
     formats=FORMATS_SEASON,
 )

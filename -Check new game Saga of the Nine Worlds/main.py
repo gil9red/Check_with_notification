@@ -27,6 +27,6 @@ from third_party.bigfishgames_com__hidden_object.find__Saga_of_the_Nine_Worlds__
 run_notification_job(
     'Saga of the Nine Worlds',
     DIR,
-    get_games,
+    lambda job: get_games(),
     formats=FORMATS_GAME,
 )

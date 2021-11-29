@@ -27,6 +27,6 @@ from third_party.bigfishgames_com__hidden_object.find__Spirits_of_Mystery__CE im
 run_notification_job(
     'Spirits of Mystery',
     DIR,
-    get_games,
+    lambda job: get_games(),
     formats=FORMATS_GAME,
 )

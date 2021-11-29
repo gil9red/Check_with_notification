@@ -170,7 +170,7 @@ class NotificationJob:
             self,
             log__or__log_name: Union['logging.Logger', str],
             script_dir: Union[Path, str],
-            get_new_items: Callable[[], List[str]],
+            get_new_items: Callable[['NotificationJob'], List[str]],
             *,
             file_name_saved: str = FILE_NAME_SAVED,
             file_name_saved_backup: str = FILE_NAME_SAVED_BACKUP,
@@ -272,7 +272,7 @@ class NotificationJob:
 
                 self.log.debug(self.formats.get_items)
 
-                items = self.get_new_items()
+                items = self.get_new_items(self)
                 if not items and self.notify_when_empty:
                     send_telegram_notification_error(self.log.name, self.formats.when_empty_items)
 
@@ -347,7 +347,7 @@ class NotificationJob:
 def run_notification_job(
     log__or__log_name: Union['logging.Logger', str],
     script_dir: Union[Path, str],
-    get_new_items: Callable[[], List[str]],
+    get_new_items: Callable[['NotificationJob'], List[str]],
     *,
     file_name_saved: str = FILE_NAME_SAVED,
     need_notification=True,

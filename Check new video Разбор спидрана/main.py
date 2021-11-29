@@ -23,6 +23,6 @@ from root_common import run_notification_job, get_playlist_video_list
 run_notification_job(
     'Разбор спидрана! [Naritsa]',
     DIR,
-    lambda: get_playlist_video_list('PLgHXSvDpcJQiG_H7HTpAEhUP6JbOEbg3Q'),
+    lambda job: get_playlist_video_list('PLgHXSvDpcJQiG_H7HTpAEhUP6JbOEbg3Q'),
     formats=FORMATS_VIDEO,
 )

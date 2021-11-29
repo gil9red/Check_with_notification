@@ -23,6 +23,6 @@ from root_common import run_notification_job, get_playlist_video_list
 run_notification_job(
     'История серии Final Fantasy [StopGame]',
     DIR,
-    lambda: get_playlist_video_list('PLZfhqd1-Hl3DnNDG-x6SgDqlBJee-50E1'),
+    lambda job: get_playlist_video_list('PLZfhqd1-Hl3DnNDG-x6SgDqlBJee-50E1'),
     formats=FORMATS_VIDEO,
 )

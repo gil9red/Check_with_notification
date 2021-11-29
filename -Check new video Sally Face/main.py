@@ -18,11 +18,11 @@ DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from formats import FORMATS_VIDEO
-from root_common import run_notification_job
+from root_common import run_notification_job, NotificationJob
 from third_party.youtube_com__results_search_query import search_youtube_with_filter
 
 
-def get_yt_video_list() -> List[str]:
+def get_yt_video_list(job: NotificationJob) -> List[str]:
     text = 'Sally Face'
     url = 'https://www.youtube.com/user/HellYeahPlay/search?query=' + text
 

@@ -23,6 +23,6 @@ from root_common import run_notification_job, get_playlist_video_list
 run_notification_job(
     'BadComedian',
     DIR,
-    lambda: get_playlist_video_list('PL471DC4C544B5A1B9'),
+    lambda job: get_playlist_video_list('PL471DC4C544B5A1B9'),
     formats=FORMATS_VIDEO,
 )

@@ -23,6 +23,6 @@ from root_common import run_notification_job, get_playlist_video_list
 run_notification_job(
     'История серии Metroid [StopGame]',
     DIR,
-    lambda: get_playlist_video_list('PLZfhqd1-Hl3Di2yxyrrvH53vdREDrHU3c'),
+    lambda job: get_playlist_video_list('PLZfhqd1-Hl3Di2yxyrrvH53vdREDrHU3c'),
     formats=FORMATS_VIDEO,
 )

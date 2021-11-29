@@ -17,7 +17,7 @@ from common import DIR, set_lock
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from formats import Formats
-from root_common import run_notification_job, get_logger
+from root_common import run_notification_job, get_logger, NotificationJob
 from third_party.ncse_ngo__list_steves import get_number_from_description
 
 
@@ -31,7 +31,7 @@ FORMATS_STEVES = Formats(
 )
 
 
-def get_items() -> List[str]:
+def get_items(job: NotificationJob) -> List[str]:
     try:
         set_lock(True)
         return [str(get_number_from_description())]  # Список из одного элемента

@@ -23,6 +23,6 @@ from root_common import run_notification_job, get_playlist_video_list
 run_notification_job(
     'Disturbing Horror Games',
     DIR,
-    lambda: get_playlist_video_list('PLVOZT4ssBLx7d4TSZuYU_lkRwAUaON3FI'),
+    lambda job: get_playlist_video_list('PLVOZT4ssBLx7d4TSZuYU_lkRwAUaON3FI'),
     formats=FORMATS_VIDEO,
 )

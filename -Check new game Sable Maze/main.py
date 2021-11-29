@@ -27,6 +27,6 @@ from third_party.bigfishgames_com__hidden_object.find__Sable_Maze__CE import get
 run_notification_job(
     'Sable Maze',
     DIR,
-    get_games,
+    lambda job: get_games(),
     formats=FORMATS_GAME,
 )

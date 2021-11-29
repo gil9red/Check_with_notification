@@ -25,6 +25,6 @@ from third_party.ru_wikipedia_org__wiki__Список_эпизодов_муль�
 run_notification_job(
     'Южный Парк',
     DIR,
-    get_all_series,
+    lambda job: get_all_series(),
     formats=FORMATS_VIDEO,
 )
