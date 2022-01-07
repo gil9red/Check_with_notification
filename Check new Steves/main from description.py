@@ -44,5 +44,6 @@ run_notification_job(
     DIR,
     get_items,
     file_name_saved='saved from description.json',
+    file_name_saved_backup='saved from description backup.json',
     formats=FORMATS_STEVES,
 )
