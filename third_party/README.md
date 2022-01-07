@@ -12,7 +12,7 @@
  * [kanobu_ru__games__collections__igry_s_podderzhkoi_rtx.py](https://github.com/gil9red/SimplePyScripts/blob/9433358f9e7eacb13519e4e2fee428c652b022a7/html_parsing/kanobu_ru__games__collections__igry_s_podderzhkoi_rtx.py)
  * [ncse_ngo__list_steves.py](https://github.com/gil9red/SimplePyScripts/blob/67be186b558d5e5ebfcbc5ce34f5b1bd43b16abf/html_parsing/ncse_ngo__list_steves.py#L34)
  * [ranobehub_org_api_ranobe_92_contents__The_Legendary_Moonlight_Sculptor.py](https://github.com/gil9red/SimplePyScripts/blob/e4f2321c7dce4b6f20564a326f29a19285f2fa3e/html_parsing/ranobehub_org_api_ranobe_92_contents__The_Legendary_Moonlight_Sculptor.py)
- * [rik_i_morti_online.py](https://github.com/gil9red/SimplePyScripts/blob/a0fdd35319b0a540bdeadaadfd4598648de2a538/html_parsing/rik_i_morti_online.py)
+ * [rik_i_morti_online.py](https://github.com/gil9red/SimplePyScripts/blob/3c9d0fd2de10d19302e0a504c647edf4a415553e/html_parsing/rik_i_morti_online.py)
  * [risens_team__berserk.py](https://github.com/gil9red/SimplePyScripts/blob/8af966c492ef04b9270c1d66a2d45e8c3cb9fe3c/html_parsing/risens_team__berserk.py)
  * [shorten.py](https://github.com/gil9red/SimplePyScripts/blob/cd5bf42742b2de4706a82aecb00e20ca0f043f8e/shorten.py)
  * [store_steampowered_com__check_exists_app.py](https://github.com/gil9red/SimplePyScripts/blob/786b384d29481d61989b3b4489dce73c16b12fb6/html_parsing/store_steampowered_com__check_exists_app.py)
