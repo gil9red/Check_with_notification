@@ -4,6 +4,7 @@
  * [online_anidub_com/get_video_list.py](https://github.com/gil9red/SimplePyScripts/blob/008e7d8cf636f2c6b36073accbc335b25b3e8846/online_anidub_com/get_video_list.py)
  * [price_of_games/app_parser/utils.py (partially)](https://github.com/gil9red/price_of_games/blob/f69d486412d5eaa9d7d1fc8c45a92ae428e8f3dd/app_parser/utils.py#L162)
  * [stackoverflow_site__parsing/user_rank_and_reputation.py](https://github.com/gil9red/SimplePyScripts/blob/1d7f58c816db60f6005b9e63b981eeabd1924fc6/stackoverflow_site__parsing/user_rank_and_reputation.py)
+ * [ttk_ru/](https://github.com/gil9red/SimplePyScripts/tree/a2d1393b6282696f2edec74b32aad0ff8914f845/ttk_ru)
  * [using_proxy/proxy_requests__upgraded.py](https://github.com/gil9red/SimplePyScripts/blob/bc27efcf6ccb9db48679fe426e027aa2f7e501be/using_proxy/proxy_requests__upgraded.py)
  * [add_notify_telegram.py](https://github.com/gil9red/telegram__random_bashim_bot/blob/773f6f4a05c7f716f0171e3e2928e84a67b7ff3b/third_party/add_notify_telegram.py)
  * [anivost_org.py](https://github.com/gil9red/SimplePyScripts/blob/d5437b669d700082673f1bef51aa6d1a5ed0ef0c/html_parsing/anivost_org.py)
