@@ -15,7 +15,7 @@ DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from formats import FORMATS_CHAPTER
-from root_common import run_notification_job
+from root_common import run_notification_job, TimeoutWait
 
 
 def get_feeds_by_manga_chapters(url_rss: str) -> List[str]:
@@ -47,6 +47,7 @@ run_notification_job(
     'Новые главы манги',
     DIR,
     lambda job: get_feeds_by_manga_chapters(URL_USER_RSS),
+    timeout=TimeoutWait(hours=8),
     formats=FORMATS_CHAPTER,
     need_to_store_items=500,  # Будем помнить последние 500 глав
 )
