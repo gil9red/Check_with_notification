@@ -17,6 +17,7 @@ class Formats(NamedTuple):
     items: str = 'Список (%s): %s'
     new_item: str = 'Появился новый элемент "%s"'
     new_items: str = 'Появились новые элементы (%s):\n%s'
+    new_item_diff: str = 'Изменение "%s" -> "%s"'
     no_new_items: str = 'Новых элементов нет'
     when_empty_items: str = 'Вернулся пустой список!'
     file_skip_exists: str = 'Обнаружен файл "%s", пропускаю проверку.'

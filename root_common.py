@@ -177,6 +177,7 @@ class NotificationJob:
             need_notification=True,
             notify_when_empty=True,
             log_new_items_separately=False,
+            log_new_item_diff=False,
             timeout=TimeoutWait(days=1),
             timeout_exception_seconds=5 * 60,
             formats: Formats = FORMATS_DEFAULT,
@@ -194,6 +195,7 @@ class NotificationJob:
         self.need_notification = need_notification
         self.notify_when_empty = notify_when_empty
         self.log_new_items_separately = log_new_items_separately
+        self.log_new_item_diff = log_new_item_diff
         self.timeout = timeout
         self.timeout_exception_seconds = timeout_exception_seconds
         self.formats = formats
@@ -286,8 +288,17 @@ class NotificationJob:
                 else:
                     new_items = [x for x in items if x not in current_items]
                     if new_items:
+                        # Если один элемент и стоит флаг на вывод разницы элементов
+                        if len(new_items) == 1 and self.log_new_item_diff:
+                            current_item = current_items[0] if current_items else ''
+                            new_item = new_items[0]
+                            text = self.formats.new_item_diff % (current_item, new_item)
+                            self.log.debug(text)
+                            if self.need_notification:
+                                send_telegram_notification(self.log.name, text)
+
                         # Если один элемент или стоит флаг, разрешающий каждый элемент логировать отдельно
-                        if len(new_items) == 1 or self.log_new_items_separately:
+                        elif len(new_items) == 1 or self.log_new_items_separately:
                             for item in new_items:
                                 text = self.formats.new_item % item
                                 self.log.debug(text)
@@ -354,6 +365,7 @@ def run_notification_job(
     need_notification=True,
     notify_when_empty=True,
     log_new_items_separately=False,
+    log_new_item_diff=False,
     timeout=TimeoutWait(days=1),
     timeout_exception_seconds=5 * 60,
     formats: Formats = FORMATS_DEFAULT,
@@ -373,6 +385,7 @@ def run_notification_job(
         need_notification=need_notification,
         notify_when_empty=notify_when_empty,
         log_new_items_separately=log_new_items_separately,
+        log_new_item_diff=log_new_item_diff,
         timeout=timeout,
         timeout_exception_seconds=timeout_exception_seconds,
         formats=formats,
