@@ -313,11 +313,12 @@ class NotificationJob:
 
                         # Если нужно определенное количество элементов хранить
                         if self.need_to_store_items:
+                            items = list(current_items)
                             # Добавим новые в начало списка
                             for item in new_items:
-                                current_items.insert(0, item)
+                                items.insert(0, item)
                             # Обрежем список, удалив лишние старые элементы
-                            items = current_items[:self.need_to_store_items]
+                            items = items[:self.need_to_store_items]
 
                         # Сохраняем после отправки уведомлений
                         self.save_items(items, current_items)
