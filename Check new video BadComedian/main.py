@@ -12,17 +12,27 @@ __author__ = 'ipetrash'
 
 import sys
 from pathlib import Path
+from typing import List
 
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from formats import FORMATS_VIDEO
-from root_common import run_notification_job, get_playlist_video_list
+from root_common import run_notification_job, get_playlist_video_list, NotificationJob
+
+
+def get_items(job: NotificationJob) -> List[str]:
+    items = get_playlist_video_list('PL471DC4C544B5A1B9')
+
+    # Проверка работы скрипта для извлечения видео из youtube
+    assert len(items) > 100, f"Количество видео меньше или равно 100: {len(items)}"
+
+    return items
 
 
 run_notification_job(
     'BadComedian',
     DIR,
-    lambda job: get_playlist_video_list('PL471DC4C544B5A1B9'),
+    get_items,
     formats=FORMATS_VIDEO,
 )
