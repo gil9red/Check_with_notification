@@ -39,6 +39,9 @@ root_common.STARTED_WITH_JOB = True
 # ведь на каждую добавленную взломанную игру отправится уведомление по смс
 need_notification = True
 
+attempts_before_notification = 5
+attempts = 0
+
 while True:
     try:
         log.debug('get_games_with_denuvo')
@@ -62,9 +65,14 @@ while True:
 
         wait(days=3)
 
-    except Exception:
+    except Exception as e:
         log.exception('Ошибка:')
         log.debug('Через 5 минут попробую снова...')
+
+        attempts += 1
+
+        if need_notification and attempts >= attempts_before_notification:
+            send_telegram_notification_error(log.name, str(e))
 
         # Wait 5 minutes before next attempt
         time.sleep(5 * 60)
