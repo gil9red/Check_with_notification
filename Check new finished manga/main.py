@@ -33,7 +33,7 @@ def on_first_start_detected(job: NotificationJob):
 
 
 def get_only_finished_items(job: NotificationJob) -> List[str]:
-    return [title for title in get_all_items() if 'переведено' in title]
+    return [title for title in get_all_items() if 'переведено' in title or 'завершён' in title]
 
 
 # На первый раз выполняется загрузка всех манг (через событие on_first_start_detected)
