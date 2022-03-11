@@ -21,6 +21,7 @@ from formats import FORMATS_VIDEO
 from root_common import run_notification_job, get_playlist_video_list, NotificationJob
 
 
+# TODO: Разделить на отдельные скрипты? Для каждого плейлиста отдельный скрипт
 def get_video_list(job: NotificationJob) -> List[str]:
     items = []
     for playlist_title, playlist_id in [
