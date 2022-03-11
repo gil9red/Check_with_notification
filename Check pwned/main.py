@@ -16,7 +16,7 @@ sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 import root_common
 from root_common import get_logger, send_telegram_notification, wait
-from third_party.check__haveibeenpwned_com import do_check
+from third_party.check__haveibeenpwned_com import URL, do_check
 
 
 log = get_logger('Проверка через pwned')
@@ -65,7 +65,7 @@ if __name__ == '__main__':
                     update_file_data(last_value)
 
                     if need_notification:
-                        send_telegram_notification(log.name, text)
+                        send_telegram_notification(log.name, text, url=URL)
 
                 else:
                     log.debug('Ничего не поменялось...')
