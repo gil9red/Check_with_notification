@@ -14,7 +14,7 @@ import time
 
 from pathlib import Path
 
-import requests
+from requests.exceptions import ConnectionError
 
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
@@ -84,7 +84,7 @@ if __name__ == '__main__':
 
             wait(days=1)
 
-        except requests.exceptions.ConnectionError as e:
+        except ConnectionError as e:
             log.warning('Ошибка подключения к сети: %s', e)
             log.debug('Через минуту попробую снова...')
 
