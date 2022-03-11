@@ -21,7 +21,7 @@ sys.path.append(str(ROOT_DIR / 'third_party' / 'ttk_ru'))  # Путь к пап�
 
 from formats import Formats
 from root_common import run_notification_job
-from third_party.ttk_ru.main import get_price
+from third_party.ttk_ru.main import URL_LOGIN as URL, get_price
 
 
 run_notification_job(
@@ -33,4 +33,5 @@ run_notification_job(
         get_items='Проверка цены',
         no_new_items='Изменений нет',
     ),
+    url=URL,
 )
