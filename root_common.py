@@ -118,9 +118,15 @@ def simple_send_sms(text: str, log=None):
     return send_sms(API_ID, TO, text, log)
 
 
-def send_telegram_notification(name: str, message: str, type='INFO'):
+def send_telegram_notification(
+        name: str,
+        message: str,
+        type: str = 'INFO',
+        url: str = None,
+        has_delete_button: bool = False,
+):
     try:
-        add_notify(name=name, message=message, type=type)
+        add_notify(name=name, message=message, type=type, url=url, has_delete_button=has_delete_button)
     except Exception as e:
         log = get_logger('error_send_telegram', file=str(DIR / 'errors.txt'))
         log.exception('')
@@ -132,7 +138,7 @@ def send_telegram_notification(name: str, message: str, type='INFO'):
 
 
 def send_telegram_notification_error(name: str, message: str):
-    send_telegram_notification(name, message, 'ERROR')
+    send_telegram_notification(name, message, 'ERROR', has_delete_button=True)
 
 
 STARTED_WITH_JOB = False
@@ -181,6 +187,7 @@ class NotificationJob:
             timeout=TimeoutWait(days=1),
             timeout_exception_seconds=5 * 60,
             formats: Formats = FORMATS_DEFAULT,
+            url: str = None,
             callbacks: Callbacks = None,
             need_to_store_items: int = None,
             notify_after_sequence_of_errors=True,
@@ -199,6 +206,7 @@ class NotificationJob:
         self.timeout = timeout
         self.timeout_exception_seconds = timeout_exception_seconds
         self.formats = formats
+        self.url = url
         self.callbacks = callbacks or self.Callbacks()
         self.need_to_store_items = need_to_store_items
         self.notify_after_sequence_of_errors = notify_after_sequence_of_errors
@@ -295,7 +303,7 @@ class NotificationJob:
                             text = self.formats.new_item_diff % (current_item, new_item)
                             self.log.debug(text)
                             if self.need_notification:
-                                send_telegram_notification(self.log.name, text)
+                                send_telegram_notification(self.log.name, text, url=self.url)
 
                         # Если один элемент или стоит флаг, разрешающий каждый элемент логировать отдельно
                         elif len(new_items) == 1 or self.log_new_items_separately:
@@ -303,13 +311,13 @@ class NotificationJob:
                                 text = self.formats.new_item % item
                                 self.log.debug(text)
                                 if self.need_notification:
-                                    send_telegram_notification(self.log.name, text)
+                                    send_telegram_notification(self.log.name, text, url=self.url)
                         else:
                             # Новые элементы логируем все разом
                             text = self.formats.new_items % (len(new_items), '\n'.join(new_items))
                             self.log.debug(text)
                             if self.need_notification:
-                                send_telegram_notification(self.log.name, text)
+                                send_telegram_notification(self.log.name, text, url=self.url)
 
                         # Если нужно определенное количество элементов хранить
                         if self.need_to_store_items:
@@ -370,6 +378,7 @@ def run_notification_job(
     timeout=TimeoutWait(days=1),
     timeout_exception_seconds=5 * 60,
     formats: Formats = FORMATS_DEFAULT,
+    url: str = None,
     callbacks: NotificationJob.Callbacks = None,
     need_to_store_items: int = None,
     notify_after_sequence_of_errors=True,
@@ -390,6 +399,7 @@ def run_notification_job(
         timeout=timeout,
         timeout_exception_seconds=timeout_exception_seconds,
         formats=formats,
+        url=url,
         callbacks=callbacks,
         need_to_store_items=need_to_store_items,
         notify_after_sequence_of_errors=notify_after_sequence_of_errors,
