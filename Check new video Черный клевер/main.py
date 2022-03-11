@@ -27,8 +27,11 @@ from third_party.anivost_org import get_last_series
 log = get_logger('Черный клевер')
 
 
+URL = 'https://anivost.org/24-chernyy-klever.html'
+
+
 def get_last_value() -> str:
-    last_value = get_last_series('https://anivost.org/24-chernyy-klever.html')
+    last_value = get_last_series(URL)
     return str(last_value)
 
 
@@ -75,7 +78,7 @@ if __name__ == '__main__':
                     update_file_data(last_value)
 
                     if need_notification:
-                        send_telegram_notification(log.name, text)
+                        send_telegram_notification(log.name, text, url=URL)
 
                 else:
                     log.debug('Значение не изменился')
