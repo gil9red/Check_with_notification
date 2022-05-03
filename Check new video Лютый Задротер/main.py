@@ -12,17 +12,16 @@ __author__ = 'ipetrash'
 
 import sys
 from pathlib import Path
-from typing import List
 
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from formats import FORMATS_VIDEO
-from root_common import run_notification_job, get_playlist_video_list, NotificationJob
+from root_common import DataItem, run_notification_job, get_playlist_video_list, NotificationJob
 
 
 # TODO: Разделить на отдельные скрипты? Для каждого плейлиста отдельный скрипт
-def get_video_list(job: NotificationJob) -> List[str]:
+def get_video_list(job: NotificationJob) -> list[DataItem]:
     items = []
     for playlist_title, playlist_id in [
         ('TES и Fallout', 'PLI3zbIkPvOTdBlH4bV7WKxvon4IFMXYsX'),
@@ -30,8 +29,8 @@ def get_video_list(job: NotificationJob) -> List[str]:
         ('Видеоигры', 'PLI3zbIkPvOTfxqYX6HkklZgFc6XH2oxrm'),
     ]:
         items += [
-            f'{video} [{playlist_title}]'
-            for video in get_playlist_video_list(playlist_id)
+            DataItem(value=f'{item.title} [{playlist_title}]', url=item.url)
+            for item in get_playlist_video_list(playlist_id)
         ]
 
     return items
