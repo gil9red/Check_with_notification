@@ -17,16 +17,12 @@ DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from formats import FORMATS_VIDEO
-from root_common import run_notification_job, search_youtube_with_filter
-
-
-URL = 'https://www.youtube.com/playlist?list=PLgqDz7CZ-6NbDjtcYuPFW2wb2LS7BQJMb'
+from root_common import run_notification_job, get_playlist_video_list
 
 
 run_notification_job(
     'Бесполезное мнение [Velind]',
     DIR,
-    lambda job: search_youtube_with_filter(URL),
+    lambda job: get_playlist_video_list('PLgqDz7CZ-6NbDjtcYuPFW2wb2LS7BQJMb'),
     formats=FORMATS_VIDEO,
-    url=URL,
 )
