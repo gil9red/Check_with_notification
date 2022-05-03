@@ -270,7 +270,7 @@ class NotificationJob:
             return []
 
     def save_items(self, items: list[DataItem], items_backup: list[DataItem] = None):
-        def _save_to(file_name: str, data: List[DataItem]):
+        def _save_to(file_name: str, data: list[DataItem]):
             with open(file_name, mode='w', encoding='utf-8') as f:
                 if self.save_mode == SavedModeEnum.SIMPLE:
                     result = [x.value for x in data]
