@@ -13,7 +13,7 @@ import traceback
 
 from dataclasses import asdict, dataclass, field
 from logging.handlers import RotatingFileHandler
-from typing import Callable, List, Union, NamedTuple, Dict
+from typing import Callable, Union, NamedTuple
 from pathlib import Path
 
 import requests
@@ -63,7 +63,7 @@ class TimeoutWait(NamedTuple):
     hours: int = 0
     weeks: int = 0
 
-    def as_dict(self) -> Dict[str, int]:
+    def as_dict(self) -> dict[str, int]:
         return dict(self._asdict())
 
 
@@ -94,7 +94,7 @@ def get_playlist_video_list(playlist_id: str) -> list[DataItem]:
     ]
 
 
-def get_short_repr_list(items: List) -> str:
+def get_short_repr_list(items: list) -> str:
     if len(items) <= 4:
         return str(items)
 
@@ -204,7 +204,7 @@ class NotificationJob:
             self,
             log__or__log_name: Union['logging.Logger', str],
             script_dir: Union[Path, str],
-            get_new_items: Callable[['NotificationJob'], List[Union[str, DataItem]]],
+            get_new_items: Callable[['NotificationJob'], list[Union[str, DataItem]]],
             *,
             file_name_saved: str = FILE_NAME_SAVED,
             file_name_saved_backup: str = FILE_NAME_SAVED_BACKUP,
@@ -251,7 +251,7 @@ class NotificationJob:
         self.file_name_items = self.script_dir / self.file_name_saved
         self.file_name_skip = self.script_dir / 'skip'
 
-    def read_items(self) -> List[DataItem]:
+    def read_items(self) -> list[DataItem]:
         try:
             with open(self.file_name_items, encoding='utf-8') as f:
                 obj = json.load(f)
@@ -269,7 +269,7 @@ class NotificationJob:
         except:
             return []
 
-    def save_items(self, items: List[DataItem], items_backup: List[DataItem] = None):
+    def save_items(self, items: list[DataItem], items_backup: list[DataItem] = None):
         def _save_to(file_name: str, data: List[DataItem]):
             with open(file_name, mode='w', encoding='utf-8') as f:
                 if self.save_mode == SavedModeEnum.SIMPLE:
@@ -285,7 +285,7 @@ class NotificationJob:
         if items_backup:
             _save_to(self.file_name_saved_backup, items_backup)
 
-    def _get_text_items(self, items: List[DataItem]) -> str:
+    def _get_text_items(self, items: list[DataItem]) -> str:
         items = [x.title for x in items]
         return str(items) if self.debug_logging_current_items else get_short_repr_list(items)
 
@@ -413,7 +413,7 @@ class NotificationJob:
 def run_notification_job(
     log__or__log_name: Union['logging.Logger', str],
     script_dir: Union[Path, str],
-    get_new_items: Callable[['NotificationJob'], List[Union[str, DataItem]]],
+    get_new_items: Callable[['NotificationJob'], list[Union[str, DataItem]]],
     *,
     file_name_saved: str = FILE_NAME_SAVED,
     file_name_saved_backup: str = FILE_NAME_SAVED_BACKUP,
