@@ -18,7 +18,7 @@ sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from formats import FORMATS_CHAPTER
 from root_common import run_notification_job
-from third_party.risens_team__berserk import get_chapters
+from third_party.risens_team__berserk import get_chapters, URL
 
 
 run_notification_job(
@@ -26,4 +26,5 @@ run_notification_job(
     DIR,
     lambda job: get_chapters(),
     formats=FORMATS_CHAPTER,
+    url=URL,
 )

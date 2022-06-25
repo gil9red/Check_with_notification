@@ -14,7 +14,7 @@
  * [ncse_ngo__list_steves.py](https://github.com/gil9red/SimplePyScripts/blob/67be186b558d5e5ebfcbc5ce34f5b1bd43b16abf/html_parsing/ncse_ngo__list_steves.py#L34)
  * [ranobehub_org_api_ranobe_92_contents__The_Legendary_Moonlight_Sculptor.py](https://github.com/gil9red/SimplePyScripts/blob/e4f2321c7dce4b6f20564a326f29a19285f2fa3e/html_parsing/ranobehub_org_api_ranobe_92_contents__The_Legendary_Moonlight_Sculptor.py)
  * [rik_i_morti_online.py](https://github.com/gil9red/SimplePyScripts/blob/e32cfb390c1d0f5a3c5086c7322c2eafbce9c8dd/html_parsing/rik_i_morti_online.py)
- * [risens_team__berserk.py](https://github.com/gil9red/SimplePyScripts/blob/8af966c492ef04b9270c1d66a2d45e8c3cb9fe3c/html_parsing/risens_team__berserk.py)
+ * [risens_team__berserk.py](https://github.com/gil9red/SimplePyScripts/blob/eaae662636fac822d2b92f889df7a5f56db3dcbe/html_parsing/risens_team__berserk.py)
  * [shorten.py](https://github.com/gil9red/SimplePyScripts/blob/cd5bf42742b2de4706a82aecb00e20ca0f043f8e/shorten.py)
  * [store_steampowered_com__check_exists_app.py](https://github.com/gil9red/SimplePyScripts/blob/786b384d29481d61989b3b4489dce73c16b12fb6/html_parsing/store_steampowered_com__check_exists_app.py)
  * [vitaly_zykov_ru_knigi__get_books.py](https://github.com/gil9red/SimplePyScripts/blob/ae5543922db83b10670096ac2e765608ab792880/html_parsing/vitaly_zykov_ru_knigi__get_books.py)
