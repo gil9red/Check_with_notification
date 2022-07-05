@@ -327,7 +327,7 @@ class NotificationJob:
                     send_telegram_notification_error(self.log.name, self.formats.when_empty_items)
 
                 # Поддержка старого формата
-                if isinstance(items[0], str):
+                if items and isinstance(items[0], str):
                     items = [DataItem(value=x) for x in items]
 
                 text_items = self._get_text_items(items)
