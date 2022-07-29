@@ -24,5 +24,6 @@ run_notification_job(
     'Разбор спидрана! [Naritsa]',
     DIR,
     lambda job: get_playlist_video_list('PLgHXSvDpcJQiG_H7HTpAEhUP6JbOEbg3Q'),
+    send_new_items_separately=True,
     formats=FORMATS_VIDEO,
 )

@@ -24,5 +24,6 @@ run_notification_job(
     'Разбор полётов [StopGame]',
     DIR,
     lambda job: get_playlist_video_list('PLZfhqd1-Hl3BKhWwCgmqtENSlearqLlAV'),
+    send_new_items_separately=True,
     formats=FORMATS_VIDEO,
 )

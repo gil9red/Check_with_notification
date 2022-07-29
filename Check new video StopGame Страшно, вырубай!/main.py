@@ -24,5 +24,6 @@ run_notification_job(
     'Страшно, вырубай! [StopGame]',
     DIR,
     lambda job: get_playlist_video_list('PLZfhqd1-Hl3CdAaP_DVgU2tpBSVLBNICD'),
+    send_new_items_separately=True,
     formats=FORMATS_VIDEO,
 )

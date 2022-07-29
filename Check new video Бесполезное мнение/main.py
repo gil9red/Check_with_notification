@@ -24,5 +24,6 @@ run_notification_job(
     'Бесполезное мнение [Velind]',
     DIR,
     lambda job: get_playlist_video_list('PLgqDz7CZ-6NbDjtcYuPFW2wb2LS7BQJMb'),
+    send_new_items_separately=True,
     formats=FORMATS_VIDEO,
 )

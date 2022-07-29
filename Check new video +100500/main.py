@@ -20,7 +20,7 @@ from formats import FORMATS_VIDEO
 from root_common import DataItem, run_notification_job, get_playlist_video_list, NotificationJob
 
 
-def get_items(job: NotificationJob) -> list[DataItem]:
+def get_items(_: NotificationJob) -> list[DataItem]:
     items = get_playlist_video_list('PLC6A0625DCA9AAE2D')
 
     # Проверка работы скрипта для извлечения видео из youtube
@@ -33,5 +33,6 @@ run_notification_job(
     '+100500',
     DIR,
     get_items,
+    send_new_items_separately=True,
     formats=FORMATS_VIDEO,
 )

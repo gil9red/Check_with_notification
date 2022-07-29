@@ -24,5 +24,6 @@ run_notification_job(
     'Спидран в деталях [StopGame]',
     DIR,
     lambda job: get_playlist_video_list('PLZfhqd1-Hl3D5Y_DW3fD9lyaclvt89XsI'),
+    send_new_items_separately=True,
     formats=FORMATS_VIDEO,
 )
