@@ -28,7 +28,7 @@ run_notification_job(
     'Изменение цены за интернет',
     DIR,
     lambda job: [get_price()],
-    log_new_item_diff=True,
+    send_new_item_diff=True,
     formats=Formats(
         get_items='Проверка цены',
         no_new_items='Изменений нет',

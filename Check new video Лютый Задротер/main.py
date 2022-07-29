@@ -41,6 +41,6 @@ run_notification_job(
     DIR,
     get_video_list,
     # Чтобы не было "каши", т.к. видео собирается из нескольких плейлистов
-    log_new_items_separately=True,
+    send_new_items_separately=True,
     formats=FORMATS_VIDEO,
 )

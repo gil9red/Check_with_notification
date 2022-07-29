@@ -50,6 +50,6 @@ run_notification_job(
     get_items,
     file_name_saved='saved from list.json',
     file_name_saved_backup='saved from list backup.json',
-    log_new_items_separately=True,
+    send_new_items_separately=True,
     formats=FORMATS_STEVES,
 )

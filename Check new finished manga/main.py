@@ -54,7 +54,7 @@ run_notification_job(
     DIR,
     get_only_finished_items,
     formats=FORMATS_MANGA,
-    log_new_items_separately=True,
+    send_new_items_separately=True,
     callbacks=NotificationJob.Callbacks(
         on_first_start_detected=on_first_start_detected,
     ),
