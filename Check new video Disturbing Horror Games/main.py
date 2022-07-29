@@ -34,5 +34,6 @@ run_notification_job(
     'Disturbing Horror Games',
     DIR,
     get_items,
+    send_new_items_separately=True,
     formats=FORMATS_VIDEO,
 )
