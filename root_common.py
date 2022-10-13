@@ -31,6 +31,10 @@ from third_party.add_notify_telegram import add_notify
 from third_party.youtube_com__results_search_query import search_youtube
 
 
+session = requests.session()
+session.headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0'
+
+
 @dataclass
 class DataItem:
     value: str = field(compare=True)
@@ -126,7 +130,7 @@ def send_sms(api_id: str, to: str, text: str, log):
 
     while True:
         try:
-            rs = requests.get(url)
+            rs = session.get(url)
             log.debug(repr(rs.text))
             break
 
