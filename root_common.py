@@ -349,6 +349,7 @@ class NotificationJob:
                             current_item: str = current_items[0].title if current_items else ''
                             new_item: DataItem = new_items[0]
                             text = self.formats.new_item_diff % (current_item, new_item.title)
+                            text = self.formats.process(text)
                             self.log.debug(text)
                             if self.need_notification:
                                 url = self.url if self.url else new_item.url
@@ -358,6 +359,7 @@ class NotificationJob:
                         elif len(new_items) == 1 or self.send_new_items_separately:
                             for item in new_items:
                                 text = self.formats.new_item % item.title
+                                text = self.formats.process(text)
                                 self.log.debug(text)
                                 if self.need_notification:
                                     url = self.url if self.url else item.url
@@ -365,6 +367,7 @@ class NotificationJob:
                         else:
                             # Новые элементы логируем все разом
                             text = self.formats.new_items % (len(new_items), '\n'.join(x.title for x in new_items))
+                            text = self.formats.process(text)
                             self.log.debug(text)
                             if self.need_notification:
                                 send_telegram_notification(self.log.name, text, url=self.url)
