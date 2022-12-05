@@ -32,6 +32,7 @@ run_notification_job(
     formats=Formats(
         get_items='Проверка цены',
         no_new_items='Изменений нет',
+        postfix='👨‍💻',
     ),
     url=URL,
 )
