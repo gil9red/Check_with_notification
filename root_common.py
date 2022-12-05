@@ -305,6 +305,8 @@ class NotificationJob:
             self.log.debug(self.formats.first_start_detected)
             self.callbacks.on_first_start_detected(self)
 
+        title = self.formats.process(self.log.name)
+
         has_sending_notification = False
         attempts = 0
 
@@ -328,7 +330,7 @@ class NotificationJob:
 
                 items = self.get_new_items(self)
                 if not items and self.notify_when_empty:
-                    send_telegram_notification_error(self.log.name, self.formats.when_empty_items)
+                    send_telegram_notification_error(title, self.formats.when_empty_items)
 
                 # Поддержка старого формата
                 if items and isinstance(items[0], str):
@@ -349,28 +351,25 @@ class NotificationJob:
                             current_item: str = current_items[0].title if current_items else ''
                             new_item: DataItem = new_items[0]
                             text = self.formats.new_item_diff % (current_item, new_item.title)
-                            text = self.formats.process(text)
                             self.log.debug(text)
                             if self.need_notification:
                                 url = self.url if self.url else new_item.url
-                                send_telegram_notification(self.log.name, text, url=url)
+                                send_telegram_notification(title, text, url=url)
 
                         # Если один элемент или стоит флаг, разрешающий каждый элемент логировать отдельно
                         elif len(new_items) == 1 or self.send_new_items_separately:
                             for item in new_items:
                                 text = self.formats.new_item % item.title
-                                text = self.formats.process(text)
                                 self.log.debug(text)
                                 if self.need_notification:
                                     url = self.url if self.url else item.url
-                                    send_telegram_notification(self.log.name, text, url=url)
+                                    send_telegram_notification(title, text, url=url)
                         else:
                             # Новые элементы логируем все разом
                             text = self.formats.new_items % (len(new_items), '\n'.join(x.title for x in new_items))
-                            text = self.formats.process(text)
                             self.log.debug(text)
                             if self.need_notification:
-                                send_telegram_notification(self.log.name, text, url=self.url)
+                                send_telegram_notification(title, text, url=self.url)
 
                         # Если нужно определенное количество элементов хранить
                         if self.need_to_store_items:
