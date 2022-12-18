@@ -43,7 +43,7 @@ run_notification_job(
     'Новые главы манги',
     DIR,
     lambda job: get_feeds_by_manga_chapters(),
-    timeout=TimeoutWait(hours=8),
+    timeout=TimeoutWait(hours=1),
     formats=FORMATS_CHAPTER,
     need_to_store_items=500,  # Будем помнить последние 500 глав
 )

@@ -427,7 +427,7 @@ def run_notification_job(
     notify_when_empty=True,
     send_new_items_separately=False,
     send_new_item_diff=False,
-    timeout=TimeoutWait(days=1),
+    timeout=TimeoutWait(hours=8),
     timeout_exception_seconds=5 * 60,
     formats: Formats = FORMATS_DEFAULT,
     save_mode: SavedModeEnum = SavedModeEnum.SIMPLE,
