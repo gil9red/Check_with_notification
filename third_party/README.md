@@ -10,7 +10,7 @@
  * [add_notify_telegram.py](https://github.com/gil9red/SimplePyScripts/blob/899d928b4a4de7360fe64a7a8c2b3b88bb57ef19/html_parsing/get_game_genres/third_party/add_notify_telegram.py)
  * [anivost_org.py](https://github.com/gil9red/SimplePyScripts/blob/d5437b669d700082673f1bef51aa6d1a5ed0ef0c/html_parsing/anivost_org.py)
  * [check__haveibeenpwned_com.py](https://github.com/gil9red/SimplePyScripts/blob/fbb54a352f8f15641499b32137dbaa94e8c1ec76/selenium__examples/check__haveibeenpwned_com.py)
- * [gamestatus_info__lastcrackedgames.py](https://github.com/gil9red/SimplePyScripts/blob/90ca904b20512fdfdd26aa7124749059f805a32a/html_parsing/gamestatus_info__lastcrackedgames.py)
+ * [gamestatus_info__lastcrackedgames.py](https://github.com/gil9red/SimplePyScripts/blob/e1ee7ee97a8f9855c8ed3c529605afbba41b3ae3/html_parsing/gamestatus_info__lastcrackedgames.py)
  * [get_seasons_anime_Dorohedoro.py](https://github.com/gil9red/SimplePyScripts/blob/fe2e2d56b2eac5a23f359898b59c6a17e937aac5/html_parsing/get_seasons_anime_Dorohedoro.py)
  * [kanobu_ru__games__collections__igry_s_podderzhkoi_rtx.py](https://github.com/gil9red/SimplePyScripts/blob/9433358f9e7eacb13519e4e2fee428c652b022a7/html_parsing/kanobu_ru__games__collections__igry_s_podderzhkoi_rtx.py)
  * [ncse_ngo__list_steves.py](https://github.com/gil9red/SimplePyScripts/blob/67be186b558d5e5ebfcbc5ce34f5b1bd43b16abf/html_parsing/ncse_ngo__list_steves.py#L34)
