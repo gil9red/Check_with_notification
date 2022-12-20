@@ -4,7 +4,7 @@
 __author__ = 'ipetrash'
 
 
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 
 
 @dataclass
@@ -31,6 +31,11 @@ class Formats:
         if self.postfix:
             text = f'{text} {self.postfix}'
         return text
+
+    def replace(self, **fields) -> 'Formats':
+        new_obj = asdict(self)
+        new_obj.update(fields)
+        return Formats(**new_obj)
 
 
 FORMATS_DEFAULT = Formats()
