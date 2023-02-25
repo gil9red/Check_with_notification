@@ -20,6 +20,7 @@ def add_notify(
         type: str = 'INFO',
         url: str = None,
         has_delete_button: bool = False,
+        show_type: bool = True,
 ):
     data = {
         'name': name,
@@ -27,6 +28,7 @@ def add_notify(
         'type': type,
         'url': url,
         'has_delete_button': has_delete_button,
+        'show_type': show_type,
     }
 
     # Попытки

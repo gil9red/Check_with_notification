@@ -7,7 +7,7 @@
  * [stackoverflow_site__parsing/user_rank_and_reputation.py](https://github.com/gil9red/SimplePyScripts/blob/1d7f58c816db60f6005b9e63b981eeabd1924fc6/stackoverflow_site__parsing/user_rank_and_reputation.py)
  * [ttk_ru/](https://github.com/gil9red/SimplePyScripts/blob/fe0f98720b110ca694740a9e68f31e5354dcbb91/ttk_ru)
  * [using_proxy/proxy_requests__upgraded.py](https://github.com/gil9red/SimplePyScripts/blob/bc27efcf6ccb9db48679fe426e027aa2f7e501be/using_proxy/proxy_requests__upgraded.py)
- * [add_notify_telegram.py](https://github.com/gil9red/SimplePyScripts/blob/899d928b4a4de7360fe64a7a8c2b3b88bb57ef19/html_parsing/get_game_genres/third_party/add_notify_telegram.py)
+ * [add_notify_telegram.py](https://github.com/gil9red/telegram_notifications_bot/blob/058d9e39a085d34ec3fd9353044bf81828872adb/add_notify_use_web.py)
  * [anivost_org.py](https://github.com/gil9red/SimplePyScripts/blob/d5437b669d700082673f1bef51aa6d1a5ed0ef0c/html_parsing/anivost_org.py)
  * [check__haveibeenpwned_com.py](https://github.com/gil9red/SimplePyScripts/blob/fbb54a352f8f15641499b32137dbaa94e8c1ec76/selenium__examples/check__haveibeenpwned_com.py)
  * [gamestatus_info__lastcrackedgames.py](https://github.com/gil9red/SimplePyScripts/blob/e1ee7ee97a8f9855c8ed3c529605afbba41b3ae3/html_parsing/gamestatus_info__lastcrackedgames.py)

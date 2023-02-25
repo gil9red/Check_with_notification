@@ -25,11 +25,11 @@ class Formats:
     on_exception: str = 'Ошибка:'
     on_exception_next_attempt: str = 'Через 5 минут попробую снова...'
     on_finish: str = 'Завершение'
-    postfix: str = ''
+    prefix: str = ''
 
     def process(self, text: str) -> str:
-        if self.postfix:
-            text = f'{text} {self.postfix}'
+        if self.prefix:
+            text = f'{self.prefix} {text}'
         return text
 
     def replace(self, **fields) -> 'Formats':
@@ -46,7 +46,7 @@ FORMATS_VIDEO = Formats(
     new_item='Новое видео "%s"',
     new_items='Появились новые видео (%s):\n%s',
     no_new_items='Изменений нет',
-    postfix='📺',
+    prefix='📺',
 )
 FORMATS_GAME = Formats(
     current_items='Текущий список игр (%s): %s',
@@ -55,7 +55,7 @@ FORMATS_GAME = Formats(
     new_item='Появилась новая игра "%s"',
     new_items='Появились новые игры (%s):\n%s',
     no_new_items='Новых игр нет',
-    postfix='🎮',
+    prefix='🎮',
 )
 FORMATS_SEASON = Formats(
     current_items='Текущий список сезонов (%s): %s',
@@ -64,7 +64,7 @@ FORMATS_SEASON = Formats(
     new_item='Новый сезон "%s"',
     new_items='Появились новые сезоны (%s):\n%s',
     no_new_items='Изменений нет',
-    postfix='🔢',
+    prefix='🔢',
 )
 FORMATS_CHAPTER = Formats(
     current_items='Текущий список глав (%s): %s',
@@ -73,7 +73,7 @@ FORMATS_CHAPTER = Formats(
     new_item='Новая глава: "%s"',
     new_items='Появились новые главы (%s):\n%s',
     no_new_items='Новых глав нет',
-    postfix='📖',
+    prefix='📖',
 )
 FORMATS_BOOK = Formats(
     current_items='Текущий список книг (%s): %s',
@@ -82,7 +82,7 @@ FORMATS_BOOK = Formats(
     new_item='Появилась новая книга: "%s"',
     new_items='Появились новые книги (%s):\n%s',
     no_new_items='Новых книг нет',
-    postfix='📚',
+    prefix='📚',
 )
 FORMATS_MANGA = Formats(
     current_items='Текущий список манги (%s): %s',
@@ -91,5 +91,5 @@ FORMATS_MANGA = Formats(
     new_item='Новая манга "%s"',
     new_items='Появились новые манги (%s):\n%s',
     no_new_items='Изменений нет',
-    postfix='📚',
+    prefix='📚',
 )

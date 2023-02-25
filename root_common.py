@@ -156,9 +156,17 @@ def send_telegram_notification(
         type: str = 'INFO',
         url: str = None,
         has_delete_button: bool = False,
+        show_type: bool = True,
 ):
     try:
-        add_notify(name=name, message=message, type=type, url=url, has_delete_button=has_delete_button)
+        add_notify(
+            name=name,
+            message=message,
+            type=type,
+            url=url,
+            has_delete_button=has_delete_button,
+            show_type=show_type,
+        )
     except Exception as e:
         log = get_logger('error_send_telegram', file=str(DIR / 'errors.txt'))
         log.exception('')
@@ -354,7 +362,7 @@ class NotificationJob:
                             self.log.debug(text)
                             if self.need_notification:
                                 url = self.url if self.url else new_item.url
-                                send_telegram_notification(title, text, url=url)
+                                send_telegram_notification(title, text, url=url, show_type=False)
 
                         # Если один элемент или стоит флаг, разрешающий каждый элемент логировать отдельно
                         elif len(new_items) == 1 or self.send_new_items_separately:
@@ -363,13 +371,13 @@ class NotificationJob:
                                 self.log.debug(text)
                                 if self.need_notification:
                                     url = self.url if self.url else item.url
-                                    send_telegram_notification(title, text, url=url)
+                                    send_telegram_notification(title, text, url=url, show_type=False)
                         else:
                             # Новые элементы логируем все разом
                             text = self.formats.new_items % (len(new_items), '\n'.join(x.title for x in new_items))
                             self.log.debug(text)
                             if self.need_notification:
-                                send_telegram_notification(title, text, url=self.url)
+                                send_telegram_notification(title, text, url=self.url, show_type=False)
 
                         # Если нужно определенное количество элементов хранить
                         if self.need_to_store_items:

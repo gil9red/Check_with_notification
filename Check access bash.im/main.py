@@ -46,7 +46,7 @@ run_notification_job(
         items='Список значений (%s): %s',
         new_item='%s',
         no_new_items='Изменений нет',
-        postfix='👨‍💻',
+        prefix='👨‍💻',
     ),
     url=URL,
 )
