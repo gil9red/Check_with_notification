@@ -17,13 +17,13 @@ DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from formats import Formats
-from root_common import run_notification_job, DataItem, NotificationJob, session
+from root_common import run_notification_job, NotificationJob, session
 
 
 URL = 'https://bash.im'
 
 
-def get_items(_: NotificationJob) -> list[DataItem]:
+def get_items(_: NotificationJob) -> list[str]:
     try:
         rs = session.get(URL)
         rs.raise_for_status()
@@ -31,9 +31,7 @@ def get_items(_: NotificationJob) -> list[DataItem]:
     except Exception:
         result = 'Умер!'
 
-    return [
-        DataItem(value=result)
-    ]
+    return [result]
 
 
 run_notification_job(
