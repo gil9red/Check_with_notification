@@ -41,6 +41,6 @@ run_notification_job(
     formats=FORMATS_GAME.replace(
         new_item='%s',
     ),
-    send_new_items_separately=True,
+    send_new_items_as_group=True,
     need_to_store_items=10_000,
 )
