@@ -10,6 +10,7 @@ import logging
 import sys
 import time
 import traceback
+import uuid
 
 from dataclasses import asdict, dataclass, field
 from logging.handlers import RotatingFileHandler
@@ -157,6 +158,8 @@ def send_telegram_notification(
         url: str = None,
         has_delete_button: bool = False,
         show_type: bool = True,
+        group: str = None,
+        group_max_number: int = None,
 ):
     try:
         add_notify(
@@ -166,6 +169,8 @@ def send_telegram_notification(
             url=url,
             has_delete_button=has_delete_button,
             show_type=show_type,
+            group=group,
+            group_max_number=group_max_number,
         )
     except Exception as e:
         log = get_logger('error_send_telegram', file=str(DIR / 'errors.txt'))
@@ -223,6 +228,7 @@ class NotificationJob:
             need_notification: bool = True,
             notify_when_empty: bool = True,
             send_new_items_separately: bool = False,
+            send_new_items_as_group: bool = False,
             send_new_item_diff: bool = False,
             timeout: TimeoutWait = TimeoutWait(days=1),
             timeout_exception_seconds: int = 5 * 60,
@@ -243,6 +249,7 @@ class NotificationJob:
         self.need_notification = need_notification
         self.notify_when_empty = notify_when_empty
         self.send_new_items_separately = send_new_items_separately
+        self.send_new_items_as_group = send_new_items_as_group
         self.send_new_item_diff = send_new_item_diff
         self.timeout = timeout
         self.timeout_exception_seconds = timeout_exception_seconds
@@ -354,8 +361,10 @@ class NotificationJob:
                 else:
                     new_items = [x for x in items if x not in current_items]
                     if new_items:
+                        number_new_items = len(new_items)
+
                         # Если один элемент и стоит флаг на вывод разницы элементов
-                        if len(new_items) == 1 and self.send_new_item_diff:
+                        if number_new_items == 1 and self.send_new_item_diff:
                             current_item: str = current_items[0].title if current_items else ''
                             new_item: DataItem = new_items[0]
                             text = self.formats.new_item_diff % (current_item, new_item.title)
@@ -365,16 +374,30 @@ class NotificationJob:
                                 send_telegram_notification(title, text, url=url, show_type=False)
 
                         # Если один элемент или стоит флаг, разрешающий каждый элемент логировать отдельно
-                        elif len(new_items) == 1 or self.send_new_items_separately:
+                        elif number_new_items == 1 or self.send_new_items_separately or self.send_new_items_as_group:
                             for item in new_items:
                                 text = self.formats.new_item % item.title
                                 self.log.debug(text)
                                 if self.need_notification:
                                     url = self.url if self.url else item.url
-                                    send_telegram_notification(title, text, url=url, show_type=False)
+
+                                    if self.send_new_items_as_group:
+                                        group = str(uuid.uuid4())
+                                        group_max_number = number_new_items
+                                    else:
+                                        group = None
+                                        group_max_number = None
+
+                                    send_telegram_notification(
+                                        title, text,
+                                        url=url,
+                                        show_type=False,
+                                        group=group, group_max_number=group_max_number
+                                    )
+
                         else:
                             # Новые элементы логируем все разом
-                            text = self.formats.new_items % (len(new_items), '\n'.join(x.title for x in new_items))
+                            text = self.formats.new_items % (number_new_items, '\n'.join(x.title for x in new_items))
                             self.log.debug(text)
                             if self.need_notification:
                                 send_telegram_notification(title, text, url=self.url, show_type=False)
@@ -431,12 +454,13 @@ def run_notification_job(
     *,
     file_name_saved: str = FILE_NAME_SAVED,
     file_name_saved_backup: str = FILE_NAME_SAVED_BACKUP,
-    need_notification=True,
-    notify_when_empty=True,
-    send_new_items_separately=False,
-    send_new_item_diff=False,
-    timeout=TimeoutWait(hours=8),
-    timeout_exception_seconds=5 * 60,
+    need_notification: bool = True,
+    notify_when_empty: bool = True,
+    send_new_items_separately: bool = False,
+    send_new_items_as_group: bool = False,
+    send_new_item_diff: bool = False,
+    timeout: TimeoutWait = TimeoutWait(hours=8),
+    timeout_exception_seconds: int = 5 * 60,
     formats: Formats = FORMATS_DEFAULT,
     save_mode: SavedModeEnum = SavedModeEnum.SIMPLE,
     url: str = None,
@@ -456,6 +480,7 @@ def run_notification_job(
         need_notification=need_notification,
         notify_when_empty=notify_when_empty,
         send_new_items_separately=send_new_items_separately,
+        send_new_items_as_group=send_new_items_as_group,
         send_new_item_diff=send_new_item_diff,
         timeout=timeout,
         timeout_exception_seconds=timeout_exception_seconds,

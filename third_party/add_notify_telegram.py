@@ -21,6 +21,8 @@ def add_notify(
         url: str = None,
         has_delete_button: bool = False,
         show_type: bool = True,
+        group: str = None,
+        group_max_number: int = None,
 ):
     data = {
         'name': name,
@@ -29,6 +31,8 @@ def add_notify(
         'url': url,
         'has_delete_button': has_delete_button,
         'show_type': show_type,
+        'group': group,
+        'group_max_number': group_max_number,
     }
 
     # Попытки
