@@ -375,19 +375,18 @@ class NotificationJob:
 
                         # Если один элемент или стоит флаг, разрешающий каждый элемент логировать отдельно
                         elif number_new_items == 1 or self.send_new_items_separately or self.send_new_items_as_group:
+                            if self.send_new_items_as_group:
+                                group = str(uuid.uuid4())
+                                group_max_number = number_new_items
+                            else:
+                                group = None
+                                group_max_number = None
+
                             for item in new_items:
                                 text = self.formats.new_item % item.title
                                 self.log.debug(text)
                                 if self.need_notification:
                                     url = self.url if self.url else item.url
-
-                                    if self.send_new_items_as_group:
-                                        group = str(uuid.uuid4())
-                                        group_max_number = number_new_items
-                                    else:
-                                        group = None
-                                        group_max_number = None
-
                                     send_telegram_notification(
                                         title, text,
                                         url=url,
