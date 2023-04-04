@@ -375,7 +375,7 @@ class NotificationJob:
 
                         # Если один элемент или стоит флаг, разрешающий каждый элемент логировать отдельно
                         elif number_new_items == 1 or self.send_new_items_separately or self.send_new_items_as_group:
-                            if self.send_new_items_as_group:
+                            if self.send_new_items_as_group and number_new_items > 1:
                                 group = str(uuid.uuid4())
                                 group_max_number = number_new_items
                             else:
