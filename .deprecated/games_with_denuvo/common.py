@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 import datetime as DT
@@ -18,10 +18,12 @@ sys.path.append(str(DIR.parent))  # Путь к папке выше
 from root_common import get_logger, send_telegram_notification
 
 
-DB_FILE_NAME = 'database.sqlite'
+DB_FILE_NAME = "database.sqlite"
 
-log = get_logger('Игры с Denuvo')
-log_cracked_games = get_logger('cracked_games', file='cracked_games.log.txt', log_stdout=False)
+log = get_logger("Игры с Denuvo")
+log_cracked_games = get_logger(
+    "cracked_games", file="cracked_games.log.txt", log_stdout=False
+)
 
 
 def create_connect():
@@ -32,7 +34,7 @@ def init_db():
     # Создание базы и таблицы
     connect = create_connect()
     try:
-        connect.execute('''
+        connect.execute("""
             CREATE TABLE IF NOT EXISTS Game (
                 id INTEGER PRIMARY KEY,
                 name TEXT NOT NULL,
@@ -44,7 +46,7 @@ def init_db():
 
                 CONSTRAINT name_unique UNIQUE (name)
             );
-        ''')
+        """)
 
         # # NOTE: Пример, когда нужно в таблице подправить схему:
         # connect.executescript('''
@@ -76,8 +78,8 @@ def init_db():
         connect.close()
 
 
-def db_create_backup(backup_dir='backup'):
-    file_name = str(DT.datetime.today().date()) + '.sqlite'
+def db_create_backup(backup_dir="backup"):
+    file_name = str(DT.datetime.today().date()) + ".sqlite"
 
     if not os.path.exists(backup_dir):
         os.mkdir(backup_dir)
@@ -101,13 +103,15 @@ def append_list_games(games: [(str, DT.date, bool)], need_notification=True) -> 
         if has:
             return False
 
-        log.debug(f'Добавляю {name!r} ({is_cracked})')
+        log.debug(f"Добавляю {name!r} ({is_cracked})")
         sql = "INSERT OR IGNORE INTO Game (name, is_cracked, append_date, release_date) VALUES (?, ?, date('now'), ?)"
         connect.execute(sql, [name, is_cracked, release_date])
 
         # Если добавлена уже взломанная игра, указываем дату
         if is_cracked:
-            connect.execute("UPDATE Game SET crack_date = date('now') WHERE name = ?", [name])
+            connect.execute(
+                "UPDATE Game SET crack_date = date('now') WHERE name = ?", [name]
+            )
 
         return True
 
@@ -119,14 +123,19 @@ def append_list_games(games: [(str, DT.date, bool)], need_notification=True) -> 
 
             # Игра уже есть в базе, нужно проверить ее статус is_cracked, возможно, он поменялся и игру взломали
             if not ok:
-                rs_is_cracked = connect.execute('SELECT is_cracked FROM Game where name = ?', [name]).fetchone()[0]
+                rs_is_cracked = connect.execute(
+                    "SELECT is_cracked FROM Game where name = ?", [name]
+                ).fetchone()[0]
 
                 # Если игра раньше имела статус is_cracked = False, а теперь он поменялся на True:
                 if not rs_is_cracked and is_cracked:
                     # Поменяем флаг у игры в базе
-                    connect.execute("UPDATE Game SET is_cracked = 1, crack_date = date('now') WHERE name = ?", [name])
+                    connect.execute(
+                        "UPDATE Game SET is_cracked = 1, crack_date = date('now') WHERE name = ?",
+                        [name],
+                    )
 
-                    text = f'Игру {name!r} взломали'
+                    text = f"Игру {name!r} взломали"
                     log.info(text)
                     log_cracked_games.debug(text)
                     changed = True
@@ -135,7 +144,7 @@ def append_list_games(games: [(str, DT.date, bool)], need_notification=True) -> 
                         send_telegram_notification(log.name, text)
 
             elif is_cracked:
-                text = f'Добавлена взломанная игра {name!r}'
+                text = f"Добавлена взломанная игра {name!r}"
                 log.info(text)
                 log_cracked_games.debug(text)
                 changed = True
@@ -151,7 +160,10 @@ def append_list_games(games: [(str, DT.date, bool)], need_notification=True) -> 
     return changed
 
 
-def append_list_games_which_denuvo_is_removed(games: [str, DT.date], need_notification=True) -> bool:
+def append_list_games_which_denuvo_is_removed(
+    games: [str, DT.date],
+    need_notification=True,
+) -> bool:
     changed = False
     connect = create_connect()
 
@@ -161,10 +173,12 @@ def append_list_games_which_denuvo_is_removed(games: [str, DT.date], need_notifi
         if has:
             return False
 
-        log.debug(f'Добавляю игру с убранной защитой {name!r}')
+        log.debug(f"Добавляю игру с убранной защитой {name!r}")
 
-        sql = "INSERT OR IGNORE INTO Game (name, is_cracked, append_date, crack_date, release_date) " \
-              "VALUES (?, 1, date('now'), date('now'), ?)"
+        sql = (
+            "INSERT OR IGNORE INTO Game (name, is_cracked, append_date, crack_date, release_date) "
+            "VALUES (?, 1, date('now'), date('now'), ?)"
+        )
         connect.execute(sql, [name, release_date])
         return True
 
@@ -176,7 +190,7 @@ def append_list_games_which_denuvo_is_removed(games: [str, DT.date], need_notifi
 
             # Игра уже есть в базе, нужно проверить ее статус is_cracked, возможно, он поменялся и игру взломали
             if ok:
-                text = f'Добавлена игра с убранной защитой {name!r}'
+                text = f"Добавлена игра с убранной защитой {name!r}"
                 log.info(text)
                 log_cracked_games.debug(text)
                 changed = True
@@ -185,14 +199,19 @@ def append_list_games_which_denuvo_is_removed(games: [str, DT.date], need_notifi
                     send_telegram_notification(log.name, text)
 
             else:
-                rs_is_cracked = connect.execute('SELECT is_cracked FROM Game where name = ?', [name]).fetchone()[0]
+                rs_is_cracked = connect.execute(
+                    "SELECT is_cracked FROM Game where name = ?", [name]
+                ).fetchone()[0]
 
                 # Если игра раньше имела статус is_cracked = False
                 if not rs_is_cracked:
                     # Поменяем флаг у игры в базе
-                    connect.execute("UPDATE Game SET is_cracked = 1, crack_date = date('now') WHERE name = ?", [name])
+                    connect.execute(
+                        "UPDATE Game SET is_cracked = 1, crack_date = date('now') WHERE name = ?",
+                        [name],
+                    )
 
-                    text = f'Игре {name!r} убрали защиту'
+                    text = f"Игре {name!r} убрали защиту"
                     log.info(text)
                     log_cracked_games.debug(text)
                     changed = True
@@ -208,8 +227,12 @@ def append_list_games_which_denuvo_is_removed(games: [str, DT.date], need_notifi
     return changed
 
 
-def get_games(filter_by_is_cracked=None, sorted_by_name=True,
-              sorted_by_crack_date=False, sorted_by_append_date=False) -> [(str, bool, str, str, str)]:
+def get_games(
+    filter_by_is_cracked=None,
+    sorted_by_name=True,
+    sorted_by_crack_date=False,
+    sorted_by_append_date=False,
+) -> [(str, bool, str, str, str)]:
     """
     Функция возвращает из базы список вида:
         [('Monopoly Plus', 1, '12/09/2017', '07/10/2017 '), ('FIFA 18', 1, '18/09/2017', '03/10/2017 '), ...
@@ -223,22 +246,26 @@ def get_games(filter_by_is_cracked=None, sorted_by_name=True,
     :return:
     """
 
-    log.debug('Start get_games: filter_by_is_cracked=%s, sorted_by_name=%s, sorted_by_crack_date=%s',
-              filter_by_is_cracked, sorted_by_name, sorted_by_crack_date)
+    log.debug(
+        "Start get_games: filter_by_is_cracked=%s, sorted_by_name=%s, sorted_by_crack_date=%s",
+        filter_by_is_cracked,
+        sorted_by_name,
+        sorted_by_crack_date,
+    )
 
     connect = create_connect()
 
-    sort = ''
+    sort = ""
     if sorted_by_name:
-        sort = ' ORDER BY name'
+        sort = " ORDER BY name"
 
     if sorted_by_crack_date:
         # NOTE: идея такая: сначала сортировка по дате, а после сортировка по имени
         # среди тех игр, у которых crack_date одинаковый
-        sort = ' ORDER BY crack_date DESC, name ASC'
+        sort = " ORDER BY crack_date DESC, name ASC"
 
     if sorted_by_append_date:
-        sort = ' ORDER BY append_date DESC, name ASC'
+        sort = " ORDER BY append_date DESC, name ASC"
 
     try:
         sql = """
@@ -250,14 +277,14 @@ def get_games(filter_by_is_cracked=None, sorted_by_name=True,
         """
 
         if filter_by_is_cracked is not None:
-            sql += ' WHERE is_cracked = ' + str(int(filter_by_is_cracked))
+            sql += " WHERE is_cracked = " + str(int(filter_by_is_cracked))
 
         sql += sort
 
-        log.debug('sql: %s', sql)
+        log.debug("sql: %s", sql)
         items = connect.execute(sql).fetchall()
 
-        log.debug('Finish get_games: items[%s]: %s', len(items), items)
+        log.debug("Finish get_games: items[%s]: %s", len(items), items)
 
         return items
 
@@ -265,24 +292,28 @@ def get_games(filter_by_is_cracked=None, sorted_by_name=True,
         connect.close()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     init_db()
 
     games = get_games()
-    print('Games:', len(games), games)
-    print('\n' + '-' * 100 + '\n')
+    print("Games:", len(games), games)
+    print("\n" + "-" * 100 + "\n")
 
     games = get_games(filter_by_is_cracked=True)
-    print('Cracked:', len(games), [name for name, _, _, _, _ in games])
-    print('\n' + '-' * 100 + '\n')
+    print("Cracked:", len(games), [name for name, _, _, _, _ in games])
+    print("\n" + "-" * 100 + "\n")
 
     games = get_games(filter_by_is_cracked=False)
-    print('Not cracked:', len(games), [name for name, _, _, _, _ in games])
-    print('\n' + '-' * 100 + '\n')
+    print("Not cracked:", len(games), [name for name, _, _, _, _ in games])
+    print("\n" + "-" * 100 + "\n")
 
     games = get_games(filter_by_is_cracked=True, sorted_by_crack_date=True)
-    print('Cracked and sorted:', len(games), [name for name, _, _, _, _ in games])
-    print('\n' + '-' * 100 + '\n')
+    print("Cracked and sorted:", len(games), [name for name, _, _, _, _ in games])
+    print("\n" + "-" * 100 + "\n")
 
     games = get_games(filter_by_is_cracked=False, sorted_by_append_date=True)
-    print('Not cracked and sorted by append:', len(games), [name for name, _, _, _, _ in games])
+    print(
+        "Not cracked and sorted by append:",
+        len(games),
+        [name for name, _, _, _, _ in games],
+    )

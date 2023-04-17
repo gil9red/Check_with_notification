@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 import datetime as DT
@@ -14,18 +14,20 @@ from common import get_games
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route("/")
 def index():
     cracked_games = get_games(filter_by_is_cracked=True, sorted_by_crack_date=True)
 
     not_cracked_games = []
 
-    for name, _, _, _, release_date_str in get_games(filter_by_is_cracked=False, sorted_by_append_date=True):
+    for name, _, _, _, release_date_str in get_games(
+        filter_by_is_cracked=False, sorted_by_append_date=True
+    ):
         try:
-            release_date = DT.datetime.strptime(release_date_str, '%d/%m/%Y').date()
+            release_date = DT.datetime.strptime(release_date_str, "%d/%m/%Y").date()
             days_passed = (DT.date.today() - release_date).days
         except:
-            days_passed = '-'
+            days_passed = "-"
 
         not_cracked_games.append((name, release_date_str, days_passed))
 
@@ -152,8 +154,11 @@ def index():
     
 </body>
 </html>
-    """, cracked_headers=["№", "Название", "Дата взлома", "Поиск"], cracked_games=cracked_games,
-         not_cracked_headers=["№", "Название", "Дата выхода", "Дней"], not_cracked_games=not_cracked_games
+    """,
+        cracked_headers=["№", "Название", "Дата взлома", "Поиск"],
+        cracked_games=cracked_games,
+        not_cracked_headers=["№", "Название", "Дата выхода", "Дней"],
+        not_cracked_games=not_cracked_games,
     )
 
 

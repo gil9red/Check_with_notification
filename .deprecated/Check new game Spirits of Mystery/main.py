@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 """
@@ -17,7 +17,7 @@ DIR = Path(__file__).resolve().parent
 ROOT_DIR = DIR.parent
 
 sys.path.append(str(ROOT_DIR))  # Путь к папке выше
-sys.path.append(str(ROOT_DIR / 'third_party' / 'bigfishgames_com__hidden_object'))
+sys.path.append(str(ROOT_DIR / "third_party" / "bigfishgames_com__hidden_object"))
 
 from formats import FORMATS_GAME
 from root_common import run_notification_job
@@ -25,7 +25,7 @@ from third_party.bigfishgames_com__hidden_object.find__Spirits_of_Mystery__CE im
 
 
 run_notification_job(
-    'Spirits of Mystery',
+    "Spirits of Mystery",
     DIR,
     lambda job: get_games(),
     formats=FORMATS_GAME,

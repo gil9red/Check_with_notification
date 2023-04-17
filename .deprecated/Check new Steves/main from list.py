@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 """
@@ -24,12 +24,12 @@ from third_party.ncse_ngo__list_steves import get_Steves
 
 
 FORMATS_STEVES = Formats(
-    current_items='Текущий список Стивов (%s): %s',
-    get_items='Запрос списка Стивов',
-    items='Список Стивов (%s): %s',
-    new_item='Изменение списка Стивов: %s',
-    new_items='Появились новые Стивы (%s):\n%s',
-    no_new_items='Изменений нет',
+    current_items="Текущий список Стивов (%s): %s",
+    get_items="Запрос списка Стивов",
+    items="Список Стивов (%s): %s",
+    new_item="Изменение списка Стивов: %s",
+    new_items="Появились новые Стивы (%s):\n%s",
+    no_new_items="Изменений нет",
 )
 
 
@@ -45,11 +45,11 @@ def get_items(job: NotificationJob) -> List[str]:
 
 
 run_notification_job(
-    get_logger('Проверка новых Стивов (из списка)', DIR / 'log from list.txt'),
+    get_logger("Проверка новых Стивов (из списка)", DIR / "log from list.txt"),
     DIR,
     get_items,
-    file_name_saved='saved from list.json',
-    file_name_saved_backup='saved from list backup.json',
+    file_name_saved="saved from list.json",
+    file_name_saved_backup="saved from list backup.json",
     send_new_items_separately=True,
     formats=FORMATS_STEVES,
 )

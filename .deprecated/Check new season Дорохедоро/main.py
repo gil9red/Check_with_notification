@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 """
@@ -22,7 +22,7 @@ from third_party.get_seasons_anime_Dorohedoro import get_seasons
 
 
 run_notification_job(
-    'Дорохедоро',
+    "Дорохедоро",
     DIR,
     lambda job: get_seasons(),
     formats=FORMATS_SEASON,

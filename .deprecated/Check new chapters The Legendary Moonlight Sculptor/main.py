@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 """
@@ -22,7 +22,7 @@ from third_party.ranobehub_org_api_ranobe_92_contents__The_Legendary_Moonlight_S
 
 
 run_notification_job(
-    'Легендарный лунный скульптор',
+    "Легендарный лунный скульптор",
     DIR,
     lambda job: get_chapters(),
     formats=FORMATS_CHAPTER,

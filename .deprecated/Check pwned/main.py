@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 import sys
@@ -19,46 +19,46 @@ from root_common import get_logger, send_telegram_notification, wait
 from third_party.check__haveibeenpwned_com import URL, do_check
 
 
-log = get_logger('Проверка через pwned')
+log = get_logger("Проверка через pwned")
 
 
-FILE_NAME_LAST_VALUE = 'last_value'
-DIR_SAVE_PWNED_SCREENSHOTS = 'pwned_screenshots'
-CHECK_EMAIL = 'ilya.petrash@inbox.ru'
+FILE_NAME_LAST_VALUE = "last_value"
+DIR_SAVE_PWNED_SCREENSHOTS = "pwned_screenshots"
+CHECK_EMAIL = "ilya.petrash@inbox.ru"
 
 
 def update_file_data(value: str):
-    open(FILE_NAME_LAST_VALUE, mode='w', encoding='utf-8').write(value)
+    open(FILE_NAME_LAST_VALUE, mode="w", encoding="utf-8").write(value)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Чтобы получить в телеграм уведомления о непойманных исключениях
     root_common.STARTED_WITH_JOB = True
 
     need_notification = True
 
     try:
-        last_value = open(FILE_NAME_LAST_VALUE, encoding='utf-8').read()
+        last_value = open(FILE_NAME_LAST_VALUE, encoding="utf-8").read()
     except:
-        last_value = ''
+        last_value = ""
 
     while True:
         try:
-            log.debug('Check pwned')
-            log.debug("Last value: %s", repr(last_value) if last_value else '<empty>')
+            log.debug("Check pwned")
+            log.debug("Last value: %s", repr(last_value) if last_value else "<empty>")
 
             value = do_check(CHECK_EMAIL, DIR_SAVE_PWNED_SCREENSHOTS)
-            log.debug(f'Current value: {value!r}')
+            log.debug(f"Current value: {value!r}")
 
             if not last_value:
-                log.debug('Обнаружен первый запуск')
+                log.debug("Обнаружен первый запуск")
 
                 last_value = value
                 update_file_data(last_value)
 
             else:
                 if last_value != value:
-                    text = 'PWNED'
+                    text = "PWNED"
                     log.debug(text)
 
                     last_value = value
@@ -68,18 +68,18 @@ if __name__ == '__main__':
                         send_telegram_notification(log.name, text, url=URL)
 
                 else:
-                    log.debug('Ничего не поменялось...')
+                    log.debug("Ничего не поменялось...")
 
             wait(weeks=1)
 
         except requests.exceptions.ConnectionError as e:
-            log.warning('Ошибка подключения к сети: %s', e)
-            log.debug('Через минуту попробую снова...')
+            log.warning("Ошибка подключения к сети: %s", e)
+            log.debug("Через минуту попробую снова...")
 
             time.sleep(60)
 
         except:
-            log.exception('Непредвиденная ошибка:')
-            log.debug('Через 5 минут попробую снова...')
+            log.exception("Непредвиденная ошибка:")
+            log.debug("Через 5 минут попробую снова...")
 
             time.sleep(5 * 60)

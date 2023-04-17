@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 """
@@ -22,9 +22,9 @@ from third_party.online_anidub_com.get_video_list import search_video_list
 
 
 run_notification_job(
-    'My Hero Academia',
+    "My Hero Academia",
     DIR,
-    lambda job: search_video_list('Моя геройская академия'),
+    lambda _: search_video_list("Моя геройская академия"),
     notify_when_empty=False,  # Парсер не всегда правильно работает из-за прокси, поэтому не уведомляем о проблемах
     notify_after_sequence_of_errors=False,
     timeout=TimeoutWait(days=3),

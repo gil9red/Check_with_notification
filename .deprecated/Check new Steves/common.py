@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 from pathlib import Path
 
 
 DIR = Path(__file__).resolve().parent
-LOCK_FILE = DIR / 'lock'
+LOCK_FILE = DIR / "lock"
 
 
 def set_lock(lock: bool):
@@ -23,7 +23,7 @@ def has_lock() -> bool:
     return LOCK_FILE.exists()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     set_lock(True)
     assert has_lock()
 

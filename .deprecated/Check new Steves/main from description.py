@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 """
@@ -23,15 +23,15 @@ from third_party.ncse_ngo__list_steves import get_number_from_description
 
 # Адаптация текста под одно значение, вместо списка
 FORMATS_STEVES = Formats(
-    current_items='Текущее количество Стивов (%s): %s',
-    get_items='Запрос количества Стивов',
-    items='Список количества Стивов (%s): %s',
-    new_item='Изменение количества Стивов: %s',
-    no_new_items='Изменений нет',
+    current_items="Текущее количество Стивов (%s): %s",
+    get_items="Запрос количества Стивов",
+    items="Список количества Стивов (%s): %s",
+    new_item="Изменение количества Стивов: %s",
+    no_new_items="Изменений нет",
 )
 
 
-def get_items(job: NotificationJob) -> List[str]:
+def get_items(_: NotificationJob) -> List[str]:
     try:
         set_lock(True)
         return [str(get_number_from_description())]  # Список из одного элемента
@@ -40,10 +40,10 @@ def get_items(job: NotificationJob) -> List[str]:
 
 
 run_notification_job(
-    get_logger('Проверка новых Стивов (из описания)', DIR / 'log from description.txt'),
+    get_logger("Проверка новых Стивов (из описания)", DIR / "log from description.txt"),
     DIR,
     get_items,
-    file_name_saved='saved from description.json',
-    file_name_saved_backup='saved from description backup.json',
+    file_name_saved="saved from description.json",
+    file_name_saved_backup="saved from description backup.json",
     formats=FORMATS_STEVES,
 )
