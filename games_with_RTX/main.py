@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 import sys
@@ -14,7 +14,11 @@ import root_common
 from formats import FORMATS_GAME
 from root_config import DEBUG_LOGGING_GET_NEW_ITEMS
 from root_common import (
-    get_logger, wait, send_telegram_notification, send_telegram_notification_error, get_short_repr_list
+    get_logger,
+    wait,
+    send_telegram_notification,
+    send_telegram_notification_error,
+    get_short_repr_list,
 )
 from third_party.kanobu_ru__games__collections__igry_s_podderzhkoi_rtx import get_games
 from db import db_create_backup, Game
@@ -26,11 +30,11 @@ log = get_logger("Игры с RTX")
 root_common.STARTED_WITH_JOB = True
 
 while True:
-    log.debug('Запуск')
+    log.debug("Запуск")
 
     is_empty = not Game.select().count()
     if is_empty:
-        log.debug('Обнаружен первый запуск')
+        log.debug("Обнаружен первый запуск")
     else:
         db_create_backup()
 
@@ -40,7 +44,7 @@ while True:
         games = get_games()
         logged_games = [x.name for x in games]
         text_games = logged_games if DEBUG_LOGGING_GET_NEW_ITEMS else get_short_repr_list(logged_games)
-        log.debug('Обработка (%s) игр: %s', len(games), text_games)
+        log.debug("Обработка (%s) игр: %s", len(games), text_games)
 
         if not games:
             send_telegram_notification_error(log.name, FORMATS_GAME.when_empty_items)
@@ -65,20 +69,20 @@ while True:
             )
 
             has_new_game = True
-            log.debug(f'Добавление новой игры с RTX: {game.name!r}')
+            log.debug(f"Добавление новой игры с RTX: {game.name!r}")
 
             # При первом запуске не нужно информировать по СМС
             if not is_empty:
-                text = f'RTX: {game.name}'
+                text = f"RTX: {game.name}"
                 send_telegram_notification(log.name, text)
 
         if not has_new_game and games:
-            log.debug(f'Новых игр нет')
+            log.debug(f"Новых игр нет")
 
         wait(weeks=1)
 
     except Exception as e:
-        log.exception('Ошибка:')
+        log.exception("Ошибка:")
 
         wait(minutes=15)
 

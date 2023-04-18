@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 """
@@ -21,15 +21,15 @@ from root_common import run_notification_job, NotificationJob
 from third_party.youtube_com__results_search_query import search_youtube_with_filter
 
 
-def get_yt_video_list(job: NotificationJob):
-    text = 'Gorgeous Freeman -'
-    url = 'https://www.youtube.com/user/antoine35DeLak/search?query=' + text
+def get_yt_video_list(_: NotificationJob):
+    text = "Gorgeous Freeman -"
+    url = "https://www.youtube.com/user/antoine35DeLak/search?query=" + text
 
     return search_youtube_with_filter(url, filter_func=lambda name: text in name)
 
 
 run_notification_job(
-    'Gorgeous Freeman',
+    "Gorgeous Freeman",
     DIR,
     get_yt_video_list,
     formats=FORMATS_VIDEO,

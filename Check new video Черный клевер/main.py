@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 """
@@ -24,10 +24,10 @@ from root_common import get_logger, send_telegram_notification, wait
 from third_party.anivost_org import get_last_series
 
 
-log = get_logger('Черный клевер')
+log = get_logger("Черный клевер")
 
 
-URL = 'https://anivost.org/24-chernyy-klever.html'
+URL = "https://anivost.org/24-chernyy-klever.html"
 
 
 def get_last_value() -> str:
@@ -35,42 +35,44 @@ def get_last_value() -> str:
     return str(last_value)
 
 
-FILE_NAME_LAST_VALUE = 'last_value'
+FILE_NAME_LAST_VALUE = "last_value"
 
 
 def update_file_data(value: str):
-    open(FILE_NAME_LAST_VALUE, mode='w', encoding='utf-8').write(value)
+    with open(FILE_NAME_LAST_VALUE, mode="w", encoding="utf-8") as f:
+        f.write(value)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     need_notification = True
 
     # Чтобы получить в телеграм уведомления о непойманных исключениях
     root_common.STARTED_WITH_JOB = True
 
     try:
-        last_value = open(FILE_NAME_LAST_VALUE, encoding='utf-8').read()
+        with open(FILE_NAME_LAST_VALUE, encoding="utf-8") as f:
+            last_value = f.read()
     except:
-        last_value = ''
+        last_value = ""
 
     while True:
         try:
-            log.debug('Запрос последней серии')
-            log.debug('Последнее значение: %s', last_value if last_value else '<null>')
+            log.debug("Запрос последней серии")
+            log.debug("Последнее значение: %s", last_value if last_value else "<null>")
 
             current_last_series = get_last_value()
-            log.debug('Текущее значение: %s', current_last_series)
+            log.debug("Текущее значение: %s", current_last_series)
 
             # Если предыдущий ранг не был известен, например при первом запуске скрипта
             if not last_value:
-                log.debug('Обнаружен первый запуск')
+                log.debug("Обнаружен первый запуск")
 
                 last_value = current_last_series
                 update_file_data(last_value)
 
             else:
                 if last_value != current_last_series:
-                    text = f'Добавлена новая серия: {current_last_series} (предыдущая {last_value})'
+                    text = f"Добавлена новая серия: {current_last_series} (предыдущая {last_value})"
                     log.debug(text)
 
                     # Обновление последнего значения
@@ -81,20 +83,20 @@ if __name__ == '__main__':
                         send_telegram_notification(log.name, text, url=URL)
 
                 else:
-                    log.debug('Значение не изменился')
+                    log.debug("Значение не изменился")
 
-            log.debug('')
+            log.debug("")
 
             wait(days=1)
 
         except ConnectionError as e:
-            log.warning('Ошибка подключения к сети: %s', e)
-            log.debug('Через минуту попробую снова...')
+            log.warning("Ошибка подключения к сети: %s", e)
+            log.debug("Через минуту попробую снова...")
 
             time.sleep(60)
 
         except:
-            log.exception('Непредвиденная ошибка:')
-            log.debug('Через 5 минут попробую снова...')
+            log.exception("Непредвиденная ошибка:")
+            log.debug("Через 5 минут попробую снова...")
 
             time.sleep(5 * 60)

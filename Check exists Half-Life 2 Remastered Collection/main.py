@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 """
@@ -24,21 +24,23 @@ from root_common import run_notification_job, NotificationJob
 from third_party.store_steampowered_com__check_exists_app import is_exists
 
 
-def get_is_exists_title(job: NotificationJob) -> List[str]:
+def get_is_exists_title(_: NotificationJob) -> List[str]:
     # Half-Life 2: Remastered Collection
     return [
-        "Игра появилась в магазине Steam" if is_exists(600680) else "Игра убрана из магазина Steam"
+        "Игра появилась в магазине Steam"
+        if is_exists(600680)
+        else "Игра убрана из магазина Steam"
     ]
 
 
 run_notification_job(
-    'Проверка Half-Life 2: Remastered Collection',
+    "Проверка Half-Life 2: Remastered Collection",
     DIR,
     get_is_exists_title,
     formats=Formats(
-        get_items='Проверка игры',
-        new_item='%s',  # Название статуса будет использовано для описания уведомления
-        no_new_items='Изменений нет',
-        prefix='🎮',
+        get_items="Проверка игры",
+        new_item="%s",  # Название статуса будет использовано для описания уведомления
+        no_new_items="Изменений нет",
+        prefix="🎮",
     ),
 )

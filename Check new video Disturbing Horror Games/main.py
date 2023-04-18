@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 """
@@ -17,7 +17,12 @@ DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from formats import FORMATS_VIDEO
-from root_common import run_notification_job, get_playlist_video_list, DataItem, NotificationJob
+from root_common import (
+    run_notification_job,
+    get_playlist_video_list,
+    DataItem,
+    NotificationJob,
+)
 
 
 # NOTE: Нужна фильтрация, чтобы оставить только нужные видео
@@ -25,13 +30,13 @@ from root_common import run_notification_job, get_playlist_video_list, DataItem,
 def get_items(_: NotificationJob) -> list[DataItem]:
     return [
         item
-        for item in get_playlist_video_list('PLVOZT4ssBLx7d4TSZuYU_lkRwAUaON3FI')
-        if 'DHG #' in item.title
+        for item in get_playlist_video_list("PLVOZT4ssBLx7d4TSZuYU_lkRwAUaON3FI")
+        if "DHG #" in item.title
     ]
 
 
 run_notification_job(
-    'Disturbing Horror Games',
+    "Disturbing Horror Games",
     DIR,
     get_items,
     send_new_items_separately=True,

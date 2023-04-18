@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 """
@@ -21,9 +21,9 @@ from root_common import run_notification_job, get_playlist_video_list
 
 
 run_notification_job(
-    'История серии Diablo [StopGame]',
+    "История серии Diablo [StopGame]",
     DIR,
-    lambda job: get_playlist_video_list('PLZfhqd1-Hl3DtfKRjleAWB-zYJ-pj7apK'),
+    lambda _: get_playlist_video_list("PLZfhqd1-Hl3DtfKRjleAWB-zYJ-pj7apK"),
     send_new_items_separately=True,
     formats=FORMATS_VIDEO,
 )

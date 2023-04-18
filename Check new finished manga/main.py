@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 """
@@ -17,7 +17,7 @@ DIR = Path(__file__).resolve().parent
 ROOT_DIR = DIR.parent
 
 sys.path.append(str(ROOT_DIR))  # Путь к папке выше
-sys.path.append(str(ROOT_DIR / 'third_party' / 'grouple_co'))
+sys.path.append(str(ROOT_DIR / "third_party" / "grouple_co"))
 
 from formats import FORMATS_MANGA
 from root_common import DataItem, NotificationJob, run_notification_job
@@ -37,20 +37,24 @@ def get_all_items() -> list[DataItem]:
 
 
 def on_first_start_detected(job: NotificationJob):
-    job.log.debug('На первый запуск выполняется сохранение всех манг')
+    job.log.debug("На первый запуск выполняется сохранение всех манг")
 
     items = get_all_items()
     job.save_items(items)
 
 
-def get_only_finished_items(job: NotificationJob) -> list[DataItem]:
-    return [item for item in get_all_items() if 'переведено' in item.title or 'завершён' in item.title]
+def get_only_finished_items(_: NotificationJob) -> list[DataItem]:
+    return [
+        item
+        for item in get_all_items()
+        if "переведено" in item.title or "завершён" in item.title
+    ]
 
 
 # На первый раз выполняется загрузка всех манг (через событие on_first_start_detected)
 # На последующие разы загружаются только переведенные (законченные и переведенные) манги
 run_notification_job(
-    'Завершенная манга',
+    "Завершенная манга",
     DIR,
     get_only_finished_items,
     formats=FORMATS_MANGA,

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 """
@@ -21,9 +21,9 @@ from root_common import run_notification_job, get_playlist_video_list
 
 
 run_notification_job(
-    'Бесполезное мнение [Velind]',
+    "Бесполезное мнение [Velind]",
     DIR,
-    lambda job: get_playlist_video_list('PLgqDz7CZ-6NbDjtcYuPFW2wb2LS7BQJMb'),
+    lambda _: get_playlist_video_list("PLgqDz7CZ-6NbDjtcYuPFW2wb2LS7BQJMb"),
     send_new_items_separately=True,
     formats=FORMATS_VIDEO,
 )

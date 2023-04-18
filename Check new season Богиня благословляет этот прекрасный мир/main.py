@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 """
@@ -25,14 +25,14 @@ from formats import FORMATS_SEASON
 from root_common import run_notification_job, NotificationJob
 
 
-def get_items(job: NotificationJob) -> List[str]:
-    rs = requests.get('https://en.wikipedia.org/wiki/List_of_KonoSuba_episodes')
-    items = re.findall(r'Season \w+', rs.text)
+def get_items(_: NotificationJob) -> List[str]:
+    rs = requests.get("https://en.wikipedia.org/wiki/List_of_KonoSuba_episodes")
+    items = re.findall(r"Season \w+", rs.text)
     return sorted(set(items))
 
 
 run_notification_job(
-    'Богиня благословляет этот прекрасный мир',
+    "Богиня благословляет этот прекрасный мир",
     DIR,
     get_items,
     formats=FORMATS_SEASON,

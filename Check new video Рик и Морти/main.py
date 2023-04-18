@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 """
@@ -23,7 +23,7 @@ from root_common import run_notification_job, NotificationJob
 from third_party.rik_i_morti_online import URL, get_season_by_series
 
 
-def get_video_list(job: NotificationJob) -> List[str]:
+def get_video_list(_: NotificationJob) -> List[str]:
     items = []
     for video_list in get_season_by_series().values():
         items += video_list
@@ -32,7 +32,7 @@ def get_video_list(job: NotificationJob) -> List[str]:
 
 
 run_notification_job(
-    'Рик и Морти',
+    "Рик и Морти",
     DIR,
     get_video_list,
     formats=FORMATS_VIDEO,

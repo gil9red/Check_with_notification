@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 """
@@ -17,11 +17,16 @@ DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from formats import FORMATS_VIDEO
-from root_common import DataItem, run_notification_job, get_playlist_video_list, NotificationJob
+from root_common import (
+    DataItem,
+    run_notification_job,
+    get_playlist_video_list,
+    NotificationJob,
+)
 
 
 def get_items(_: NotificationJob) -> list[DataItem]:
-    items = get_playlist_video_list('PLC6A0625DCA9AAE2D')
+    items = get_playlist_video_list("PLC6A0625DCA9AAE2D")
 
     # Проверка работы скрипта для извлечения видео из youtube
     assert len(items) > 100, f"Количество видео меньше или равно 100: {len(items)}"
@@ -30,7 +35,7 @@ def get_items(_: NotificationJob) -> list[DataItem]:
 
 
 run_notification_job(
-    '+100500',
+    "+100500",
     DIR,
     get_items,
     send_new_items_separately=True,

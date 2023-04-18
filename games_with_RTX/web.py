@@ -1,20 +1,21 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 from db import Game
 
 from flask import Flask, render_template_string
+
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route("/")
 def index():
-    title = 'Games with RTX'
-    URL = 'https://kanobu.ru/games/collections/igry-s-podderzhkoi-rtx/'
-    headers = ['#', 'Игра', 'Дата добавления']
+    title = "Games with RTX"
+    URL = "https://kanobu.ru/games/collections/igry-s-podderzhkoi-rtx/"
+    headers = ["#", "Игра", "Дата добавления"]
     games = Game.select().order_by(Game.id.desc())
 
     return render_template_string("""
@@ -76,7 +77,12 @@ def index():
     </table>
 </body>
 </html>
-    """, games=games, headers=headers, title=title, URL=URL)
+    """,
+        games=games,
+        headers=headers,
+        title=title,
+        URL=URL,
+    )
 
 
 if __name__ == "__main__":

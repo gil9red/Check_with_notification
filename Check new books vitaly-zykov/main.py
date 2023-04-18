@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 """
@@ -22,8 +22,8 @@ from third_party.vitaly_zykov_ru_knigi__get_books import get_books
 
 
 run_notification_job(
-    'Новые книги Виталия Зыкова',
+    "Новые книги Виталия Зыкова",
     DIR,
-    lambda job: get_books(),
+    lambda _: get_books(),
     formats=FORMATS_BOOK,
 )

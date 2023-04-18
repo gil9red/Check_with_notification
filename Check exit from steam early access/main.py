@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 """
@@ -32,8 +32,8 @@ class Game:
 def get_games() -> list[Game]:
     return [
         Game(
-            title='Ultrakill',
-            url='https://store.steampowered.com/app/1229490/ULTRAKILL/',
+            title="Ultrakill",
+            url="https://store.steampowered.com/app/1229490/ULTRAKILL/",
         ),
     ]
 
@@ -41,19 +41,19 @@ def get_games() -> list[Game]:
 def get_items(_: NotificationJob) -> list[DataItem]:
     return [
         DataItem(
-            value=game.title + (' в раннем доступе' if is_early_access(game.url) else ' готова!'),
-            url=game.url
+            value=game.title + (" в раннем доступе" if is_early_access(game.url) else " готова!"),
+            url=game.url,
         )
         for game in get_games()
     ]
 
 
 run_notification_job(
-    'Выход из раннего доступа steam',
+    "Выход из раннего доступа steam",
     DIR,
     get_items,
     formats=FORMATS_GAME.replace(
-        new_item='%s',
+        new_item="%s",
     ),
     send_new_items_separately=True,
 )

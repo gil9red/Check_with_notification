@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 """
@@ -25,21 +25,21 @@ def get_items(_: NotificationJob) -> list[DataItem]:
     return [
         DataItem(
             value=game.url,
-            title=f'{game.title}\n(релиз {game.release_date:%d/%m/%Y}, '
-                  f'взлом {game.crack_date:%d/%m/%Y}, защита {game.protection})',
-            url=game.url
+            title=f"{game.title}\n(релиз {game.release_date:%d/%m/%Y}, "
+                  f"взлом {game.crack_date:%d/%m/%Y}, защита {game.protection})",
+            url=game.url,
         )
         for game in get_games()
     ]
 
 
 run_notification_job(
-    'Новые взломанные игры',
+    "Новые взломанные игры",
     DIR,
     get_items,
     save_mode=SavedModeEnum.DATA_ITEM,
     formats=FORMATS_GAME.replace(
-        new_item='%s',
+        new_item="%s",
     ),
     send_new_items_as_group=True,
     need_to_store_items=10_000,

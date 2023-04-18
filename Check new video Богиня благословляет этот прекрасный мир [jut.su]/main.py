@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 """
@@ -24,7 +24,7 @@ from root_common import run_notification_job, DataItem, NotificationJob
 from third_party.jut_su.anime_get_video_list import get_video_list
 
 
-URL = 'https://jut.su/kono-subarashii/'
+URL = "https://jut.su/kono-subarashii/"
 
 
 def get_items(_: NotificationJob) -> list[DataItem]:
@@ -33,7 +33,7 @@ def get_items(_: NotificationJob) -> list[DataItem]:
         for video in video_list:
             title = video.title
             if season:
-                title = f'{season}. {title}'
+                title = f"{season}. {title}"
 
             items.append(
                 DataItem(value=title, url=video.url)
@@ -43,7 +43,7 @@ def get_items(_: NotificationJob) -> list[DataItem]:
 
 
 run_notification_job(
-    'Богиня благословляет этот прекрасный мир',
+    "Богиня благословляет этот прекрасный мир",
     DIR,
     get_items,
     formats=FORMATS_VIDEO,

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 """
@@ -22,7 +22,7 @@ from third_party.gitmanga_com__get_chapters import get_chapters
 
 
 def get_items(_: NotificationJob) -> list[DataItem]:
-    url = 'https://gitmanga.com/764-berserk.html'
+    url = "https://gitmanga.com/764-berserk.html"
     return [
         DataItem(
             value=chapter.title,
@@ -33,7 +33,7 @@ def get_items(_: NotificationJob) -> list[DataItem]:
 
 
 run_notification_job(
-    'Манга Berserk',
+    "Манга Berserk",
     DIR,
     get_items,
     formats=FORMATS_CHAPTER,

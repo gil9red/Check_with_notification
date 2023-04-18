@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'ipetrash'
+__author__ = "ipetrash"
 
 
 """
@@ -20,31 +20,31 @@ from formats import Formats
 from root_common import run_notification_job, NotificationJob, session
 
 
-URL = 'https://bash.im'
+URL = "https://bash.im"
 
 
 def get_items(_: NotificationJob) -> list[str]:
     try:
         rs = session.get(URL)
         rs.raise_for_status()
-        result = 'Ожил!'
+        result = "Ожил!"
     except Exception:
-        result = 'Умер!'
+        result = "Умер!"
 
     return [result]
 
 
 run_notification_job(
-    'Доступность bash.im',
+    "Доступность bash.im",
     DIR,
     get_items,
     formats=Formats(
-        current_items='Текущий список значений (%s): %s',
-        get_items='Запрос сайта',
-        items='Список значений (%s): %s',
-        new_item='%s',
-        no_new_items='Изменений нет',
-        prefix='👨‍💻',
+        current_items="Текущий список значений (%s): %s",
+        get_items="Запрос сайта",
+        items="Список значений (%s): %s",
+        new_item="%s",
+        no_new_items="Изменений нет",
+        prefix="👨‍💻",
     ),
     url=URL,
 )
