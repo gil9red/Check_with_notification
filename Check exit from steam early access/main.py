@@ -52,8 +52,6 @@ run_notification_job(
     "Выход из раннего доступа steam",
     DIR,
     get_items,
-    formats=FORMATS_GAME.replace(
-        new_item="%s",
-    ),
+    formats=FORMATS_GAME,
     send_new_items_separately=True,
 )

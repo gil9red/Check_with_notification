@@ -38,9 +38,7 @@ run_notification_job(
     DIR,
     get_items,
     save_mode=SavedModeEnum.DATA_ITEM,
-    formats=FORMATS_GAME.replace(
-        new_item="%s",
-    ),
+    formats=FORMATS_GAME,
     send_new_items_as_group=True,
     need_to_store_items=10_000,
 )
