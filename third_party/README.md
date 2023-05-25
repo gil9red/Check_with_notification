@@ -13,6 +13,5 @@
  * [store_steampowered_com__check_early_access.py](store_steampowered_com__check_early_access.py)(https://github.com/gil9red/SimplePyScripts/blob/9cfb38bcf1ef590bd867b8965231dd1f02a7b418/html_parsing/store_steampowered_com__check_early_access.py)
  * [store_steampowered_com__check_exists_app.py](https://github.com/gil9red/SimplePyScripts/blob/786b384d29481d61989b3b4489dce73c16b12fb6/html_parsing/store_steampowered_com__check_exists_app.py)
  * [vitaly_zykov_ru_knigi__get_books.py](https://github.com/gil9red/SimplePyScripts/blob/ae5543922db83b10670096ac2e765608ab792880/html_parsing/vitaly_zykov_ru_knigi__get_books.py)
- * [wait.py](https://github.com/gil9red/SimplePyScripts/blob/8fa9b9c23d10b5ee7ff0161da997b463f7a861bf/wait/wait.py)
  * [youtube_com__results_search_query.py](https://github.com/gil9red/SimplePyScripts/blob/5806f327975233efc553b9ed9f58374976efafd1/html_parsing/youtube_com__results_search_query.py)
  * [ru_wikipedia_org__wiki__Список_эпизодов_мультсериала_Южный_Парк.py](https://github.com/gil9red/SimplePyScripts/blob/0216be489f2df82b44c2a6d6b8382c588a884f14/html_parsing/ru_wikipedia_org__wiki__%D0%A1%D0%BF%D0%B8%D1%81%D0%BE%D0%BA_%D1%8D%D0%BF%D0%B8%D0%B7%D0%BE%D0%B4%D0%BE%D0%B2_%D0%BC%D1%83%D0%BB%D1%8C%D1%82%D1%81%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%B0_%D0%AE%D0%B6%D0%BD%D1%8B%D0%B9_%D0%9F%D0%B0%D1%80%D0%BA.py)

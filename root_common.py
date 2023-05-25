@@ -19,6 +19,8 @@ from pathlib import Path
 
 import requests
 
+from simple_wait import wait
+
 from formats import Formats, FORMATS_DEFAULT
 from root_config import (
     API_ID,
@@ -33,7 +35,6 @@ from root_config import (
 # Добавление точки поиска для модулей в third_party
 sys.path.append(str(DIR / "third_party"))
 
-from third_party.wait import wait
 from third_party.add_notify_telegram import add_notify
 from third_party.youtube_com__results_search_query import search_youtube
 

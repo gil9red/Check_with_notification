@@ -6,3 +6,4 @@ peewee==3.14.10
 requests==2.27.1
 selenium==4.1.3
 tzlocal==4.1
+simple-wait==1.0.8
