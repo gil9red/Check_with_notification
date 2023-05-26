@@ -18,6 +18,7 @@ from typing import Callable, Union, NamedTuple
 from pathlib import Path
 
 import requests
+from requests.exceptions import RequestException
 
 from simple_wait import wait
 
@@ -468,7 +469,12 @@ class NotificationJob:
                 break
 
             except Exception as e:
-                self.log.exception(self.formats.on_exception)
+                # При ошибках с сетью пишем текст ошибке, а не стек
+                if isinstance(e, RequestException):
+                    self.log.error(f"{self.formats.on_exception} {e}")
+                else:
+                    self.log.exception(self.formats.on_exception)
+
                 self.log.debug(self.formats.on_exception_next_attempt)
 
                 attempts += 1
