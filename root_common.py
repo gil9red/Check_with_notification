@@ -14,7 +14,7 @@ import uuid
 
 from dataclasses import asdict, dataclass, field
 from logging.handlers import RotatingFileHandler
-from typing import Callable, NamedTuple
+from typing import Callable
 from pathlib import Path
 
 import requests
@@ -67,7 +67,8 @@ class SavedModeEnum(enum.Enum):
     DATA_ITEM = enum.auto()
 
 
-class TimeoutWait(NamedTuple):
+@dataclass
+class TimeoutWait:
     days: int = 0
     seconds: int = 0
     microseconds: int = 0
@@ -77,7 +78,7 @@ class TimeoutWait(NamedTuple):
     weeks: int = 0
 
     def as_dict(self) -> dict[str, int]:
-        return dict(self._asdict())
+        return asdict(self)
 
 
 def get_logger(
@@ -225,8 +226,12 @@ def log_uncaught_exceptions(ex_cls, ex, tb):
 sys.excepthook = log_uncaught_exceptions
 
 
+DEFAULT_TIMEOUT_WAIT = TimeoutWait(hours=8)
+
+
 class NotificationJob:
-    class Callbacks(NamedTuple):
+    @dataclass
+    class Callbacks:
         on_start: Callable[["NotificationJob"], None] = lambda job: None
         on_first_start_detected: Callable[["NotificationJob"], None] = lambda job: None
         on_start_check: Callable[["NotificationJob"], None] = lambda job: None
@@ -246,7 +251,7 @@ class NotificationJob:
         send_new_items_separately: bool = False,
         send_new_items_as_group: bool = False,
         send_new_item_diff: bool = False,
-        timeout: TimeoutWait = TimeoutWait(days=1),
+        timeout: TimeoutWait = DEFAULT_TIMEOUT_WAIT,
         timeout_exception_seconds: int = 5 * 60,
         formats: Formats = FORMATS_DEFAULT,
         save_mode: SavedModeEnum = SavedModeEnum.SIMPLE,
@@ -505,7 +510,7 @@ def run_notification_job(
     send_new_items_separately: bool = False,
     send_new_items_as_group: bool = False,
     send_new_item_diff: bool = False,
-    timeout: TimeoutWait = TimeoutWait(hours=8),
+    timeout: TimeoutWait = DEFAULT_TIMEOUT_WAIT,
     timeout_exception_seconds: int = 5 * 60,
     formats: Formats = FORMATS_DEFAULT,
     save_mode: SavedModeEnum = SavedModeEnum.SIMPLE,
