@@ -13,7 +13,6 @@ __author__ = "ipetrash"
 import re
 import sys
 
-from typing import List
 from pathlib import Path
 
 import requests
@@ -25,7 +24,7 @@ from formats import FORMATS_SEASON
 from root_common import run_notification_job, NotificationJob
 
 
-def get_items(_: NotificationJob) -> List[str]:
+def get_items(_: NotificationJob) -> list[str]:
     rs = requests.get("https://en.wikipedia.org/wiki/List_of_KonoSuba_episodes")
     items = re.findall(r"Season \w+", rs.text)
     return sorted(set(items))

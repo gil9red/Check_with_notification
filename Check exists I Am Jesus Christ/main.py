@@ -12,7 +12,6 @@ __author__ = "ipetrash"
 
 import sys
 from pathlib import Path
-from typing import List
 
 DIR = Path(__file__).resolve().parent
 ROOT_DIR = DIR.parent
@@ -24,7 +23,7 @@ from root_common import run_notification_job, NotificationJob
 from third_party.price_of_games.app_parser.utils import get_price
 
 
-def get_is_exists_title(job: NotificationJob) -> List[str]:
+def get_is_exists_title(job: NotificationJob) -> list[str]:
     price = get_price("I Am Jesus Christ", job.log)
     return [
         "Игра доступна для покупки" if price else "Игра не доступна для покупки"
