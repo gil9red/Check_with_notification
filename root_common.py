@@ -14,7 +14,7 @@ import uuid
 
 from dataclasses import asdict, dataclass, field
 from logging.handlers import RotatingFileHandler
-from typing import Callable, Union, NamedTuple
+from typing import Callable, NamedTuple
 from pathlib import Path
 
 import requests
@@ -86,7 +86,7 @@ def get_logger(
     encoding="utf-8",
     log_stdout=True,
     log_file=True,
-) -> "logging.Logger":
+) -> logging.Logger:
     log = logging.getLogger(name)
     log.setLevel(logging.DEBUG)
 
@@ -235,9 +235,9 @@ class NotificationJob:
 
     def __init__(
         self,
-        log__or__log_name: Union["logging.Logger", str],
-        script_dir: Union[Path, str],
-        get_new_items: Callable[["NotificationJob"], list[Union[str, DataItem]]],
+        log__or__log_name: logging.Logger | str,
+        script_dir: Path | str,
+        get_new_items: Callable[["NotificationJob"], list[str | DataItem]],
         *,
         file_name_saved: str = FILE_NAME_SAVED,
         file_name_saved_backup: str = FILE_NAME_SAVED_BACKUP,
@@ -494,9 +494,9 @@ class NotificationJob:
 
 
 def run_notification_job(
-    log__or__log_name: Union["logging.Logger", str],
-    script_dir: Union[Path, str],
-    get_new_items: Callable[["NotificationJob"], list[Union[str, DataItem]]],
+    log__or__log_name: logging.Logger | str,
+    script_dir: Path | str,
+    get_new_items: Callable[["NotificationJob"], list[str | DataItem]],
     *,
     file_name_saved: str = FILE_NAME_SAVED,
     file_name_saved_backup: str = FILE_NAME_SAVED_BACKUP,
