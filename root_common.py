@@ -569,3 +569,9 @@ if __name__ == "__main__":
 
     item_1 = DataItem(value=uuid4().hex, url=uuid4().hex)
     assert item_1.value == item_1.title
+
+    # Проверка совпадения DateItem проверяется только по полю value
+    value = uuid4().hex
+    item_1 = DataItem(value=uuid4().hex, title=uuid4().hex, url=uuid4().hex)
+    item_2 = DataItem(value=item_1.value, title=uuid4().hex, url=uuid4().hex)
+    assert item_1 == item_2
