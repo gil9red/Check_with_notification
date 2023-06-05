@@ -34,10 +34,9 @@ def get_video_list(_: NotificationJob) -> list[DataItem]:
         (f"Ревью [{NAME}]", "PLI3zbIkPvOTcmCFoBwNj2T_WOG_wZYugZ"),
         (f"Видеоигры [{NAME}]", "PLI3zbIkPvOTfxqYX6HkklZgFc6XH2oxrm"),
     ]:
-        items += [
-            DataItem(value=item.title, url=item.url, notification_title=playlist_title)
-            for item in get_playlist_video_list(playlist_id)
-        ]
+        for item in get_playlist_video_list(playlist_id):
+            item.notification_title = playlist_title
+            items.append(item)
 
     return items
 
