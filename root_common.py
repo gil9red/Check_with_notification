@@ -49,13 +49,16 @@ class DataItem:
     value: str = field(compare=True)
     title: str = field(compare=False, default="")
     url: str = field(compare=False, default="")
+    notification_title: str = field(compare=False, repr=False, default="")
 
     def __post_init__(self):
         if not self.title:
             self.title = self.value
 
     def dumps(self) -> dict[str, str]:
-        return asdict(self)
+        data = asdict(self)
+        data.pop("notification_title")
+        return data
 
     @classmethod
     def loads(cls, data: dict[str, str]):
@@ -327,7 +330,11 @@ class NotificationJob:
 
     def _get_text_items(self, items: list[DataItem]) -> str:
         items = [x.title for x in items]
-        return str(items) if self.debug_logging_current_items else get_short_repr_list(items)
+        return (
+            str(items)
+            if self.debug_logging_current_items
+            else get_short_repr_list(items)
+        )
 
     def run(self):
         global STARTED_WITH_JOB
@@ -403,8 +410,15 @@ class NotificationJob:
                             self.log.debug(text)
                             if self.need_notification:
                                 url = self.url if self.url else new_item.url
+
+                                notification_title = title
+                                if new_item.notification_title:
+                                    notification_title = self.formats.process(
+                                        new_item.notification_title
+                                    )
+
                                 send_telegram_notification(
-                                    title, text, url=url, show_type=False
+                                    notification_title, text, url=url, show_type=False
                                 )
 
                         # Если один элемент или стоит флаг, разрешающий каждый элемент логировать отдельно
@@ -425,8 +439,15 @@ class NotificationJob:
                                 self.log.debug(text)
                                 if self.need_notification:
                                     url = self.url if self.url else item.url
+
+                                    notification_title = title
+                                    if item.notification_title:
+                                        notification_title = self.formats.process(
+                                            item.notification_title
+                                        )
+
                                     send_telegram_notification(
-                                        title,
+                                        notification_title,
                                         text,
                                         url=url,
                                         show_type=False,
@@ -575,7 +596,7 @@ if __name__ == "__main__":
     item_1 = DataItem(value=uuid4().hex, url=uuid4().hex)
     assert item_1.value == item_1.title
 
-    # Проверка совпадения DateItem проверяется только по полю value
+    # Проверка совпадения DataItem проверяется только по полю value
     value = uuid4().hex
     item_1 = DataItem(value=uuid4().hex, title=uuid4().hex, url=uuid4().hex)
     item_2 = DataItem(value=item_1.value, title=uuid4().hex, url=uuid4().hex)

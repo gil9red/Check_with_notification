@@ -24,17 +24,18 @@ from root_common import (
     NotificationJob,
 )
 
+NAME = "Лютый Задротер"
 
-# TODO: Разделить на отдельные скрипты? Для каждого плейлиста отдельный скрипт
+
 def get_video_list(_: NotificationJob) -> list[DataItem]:
     items = []
     for playlist_title, playlist_id in [
-        ("TES и Fallout", "PLI3zbIkPvOTdBlH4bV7WKxvon4IFMXYsX"),
-        ("Ревью", "PLI3zbIkPvOTcmCFoBwNj2T_WOG_wZYugZ"),
-        ("Видеоигры", "PLI3zbIkPvOTfxqYX6HkklZgFc6XH2oxrm"),
+        (f"TES и Fallout [{NAME}]", "PLI3zbIkPvOTdBlH4bV7WKxvon4IFMXYsX"),
+        (f"Ревью [{NAME}]", "PLI3zbIkPvOTcmCFoBwNj2T_WOG_wZYugZ"),
+        (f"Видеоигры [{NAME}]", "PLI3zbIkPvOTfxqYX6HkklZgFc6XH2oxrm"),
     ]:
         items += [
-            DataItem(value=f"{item.title} [{playlist_title}]", url=item.url)
+            DataItem(value=item.title, url=item.url, notification_title=playlist_title)
             for item in get_playlist_video_list(playlist_id)
         ]
 
@@ -42,7 +43,7 @@ def get_video_list(_: NotificationJob) -> list[DataItem]:
 
 
 run_notification_job(
-    "Лютый Задротер",
+    NAME,
     DIR,
     get_video_list,
     # Чтобы не было "каши", т.к. видео собирается из нескольких плейлистов
