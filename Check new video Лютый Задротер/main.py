@@ -20,8 +20,9 @@ from formats import FORMATS_VIDEO
 from root_common import (
     DataItem,
     run_notification_job,
-    get_playlist_video_list,
+    search_youtube,
     NotificationJob,
+    SavedModeEnum,
 )
 
 
@@ -30,6 +31,15 @@ PLAYLISTS = [
     (f"Ревью", "PLI3zbIkPvOTcmCFoBwNj2T_WOG_wZYugZ"),
     (f"Видеоигры", "PLI3zbIkPvOTfxqYX6HkklZgFc6XH2oxrm"),
 ]
+
+
+# TODO:
+def get_playlist_video_list(playlist_id: str) -> list[DataItem]:
+    url = "https://www.youtube.com/playlist?list=" + playlist_id
+    return [
+        DataItem(value=video.id, title=video.title, url=video.url)
+        for video in search_youtube(url)
+    ]
 
 
 def get_video_list_from_playlists(
@@ -54,6 +64,7 @@ run_notification_job(
     "Лютый Задротер",
     DIR,
     lambda job: get_video_list_from_playlists(job, PLAYLISTS),
+    save_mode=SavedModeEnum.DATA_ITEM,
     # Чтобы не было "каши", т.к. видео собирается из нескольких плейлистов
     send_new_items_separately=True,
     formats=FORMATS_VIDEO,
