@@ -35,7 +35,7 @@ PLAYLISTS = [
 
 # TODO:
 def get_playlist_video_list(playlist_id: str) -> list[DataItem]:
-    url = "https://www.youtube.com/playlist?list=" + playlist_id
+    url = f"https://www.youtube.com/playlist?list={playlist_id}"
     return [
         DataItem(value=video.id, title=video.title, url=video.url)
         for video in search_youtube(url)
