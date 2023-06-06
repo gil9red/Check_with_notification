@@ -24,27 +24,36 @@ from root_common import (
     NotificationJob,
 )
 
-NAME = "Лютый Задротер"
+
+PLAYLISTS = [
+    (f"TES и Fallout", "PLI3zbIkPvOTdBlH4bV7WKxvon4IFMXYsX"),
+    (f"Ревью", "PLI3zbIkPvOTcmCFoBwNj2T_WOG_wZYugZ"),
+    (f"Видеоигры", "PLI3zbIkPvOTfxqYX6HkklZgFc6XH2oxrm"),
+]
 
 
-def get_video_list(_: NotificationJob) -> list[DataItem]:
+def get_video_list_from_playlists(
+    job: NotificationJob,
+    playlists: list[tuple[str, str]],
+) -> list[DataItem]:
+    name = job.log.name
+
     items = []
-    for playlist_title, playlist_id in [
-        (f"TES и Fallout", "PLI3zbIkPvOTdBlH4bV7WKxvon4IFMXYsX"),
-        (f"Ревью", "PLI3zbIkPvOTcmCFoBwNj2T_WOG_wZYugZ"),
-        (f"Видеоигры", "PLI3zbIkPvOTfxqYX6HkklZgFc6XH2oxrm"),
-    ]:
-        for item in get_playlist_video_list(playlist_id):
-            item.notification_title = f'{playlist_title} [{NAME}]'
+    for playlist_title, playlist_id in playlists:
+        video_list = get_playlist_video_list(playlist_id)
+        job.log.info(f"Из плейлиста '{playlist_title}' загружено {len(video_list)} видео")
+
+        for item in video_list:
+            item.notification_title = f"{playlist_title} [{name}]"
             items.append(item)
 
     return items
 
 
 run_notification_job(
-    NAME,
+    "Лютый Задротер",
     DIR,
-    get_video_list,
+    lambda job: get_video_list_from_playlists(job, PLAYLISTS),
     # Чтобы не было "каши", т.к. видео собирается из нескольких плейлистов
     send_new_items_separately=True,
     formats=FORMATS_VIDEO,
