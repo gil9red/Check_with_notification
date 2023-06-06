@@ -56,9 +56,7 @@ class DataItem:
             self.title = self.value
 
     def dumps(self) -> dict[str, str]:
-        data = asdict(self)
-        data.pop("notification_title")
-        return data
+        return asdict(self)
 
     @classmethod
     def loads(cls, data: dict[str, str]):
