@@ -30,12 +30,12 @@ NAME = "Лютый Задротер"
 def get_video_list(_: NotificationJob) -> list[DataItem]:
     items = []
     for playlist_title, playlist_id in [
-        (f"TES и Fallout [{NAME}]", "PLI3zbIkPvOTdBlH4bV7WKxvon4IFMXYsX"),
-        (f"Ревью [{NAME}]", "PLI3zbIkPvOTcmCFoBwNj2T_WOG_wZYugZ"),
-        (f"Видеоигры [{NAME}]", "PLI3zbIkPvOTfxqYX6HkklZgFc6XH2oxrm"),
+        (f"TES и Fallout", "PLI3zbIkPvOTdBlH4bV7WKxvon4IFMXYsX"),
+        (f"Ревью", "PLI3zbIkPvOTcmCFoBwNj2T_WOG_wZYugZ"),
+        (f"Видеоигры", "PLI3zbIkPvOTfxqYX6HkklZgFc6XH2oxrm"),
     ]:
         for item in get_playlist_video_list(playlist_id):
-            item.notification_title = playlist_title
+            item.notification_title = f'{playlist_title} [{NAME}]'
             items.append(item)
 
     return items
