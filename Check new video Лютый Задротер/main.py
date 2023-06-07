@@ -18,11 +18,9 @@ sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from formats import FORMATS_VIDEO
 from root_common import (
-    DataItem,
     run_notification_job,
-    search_youtube,
-    NotificationJob,
     SavedModeEnum,
+    get_video_list_from_playlists,
 )
 
 
@@ -31,33 +29,6 @@ PLAYLISTS = [
     (f"Ревью", "PLI3zbIkPvOTcmCFoBwNj2T_WOG_wZYugZ"),
     (f"Видеоигры", "PLI3zbIkPvOTfxqYX6HkklZgFc6XH2oxrm"),
 ]
-
-
-# TODO:
-def get_playlist_video_list(playlist_id: str) -> list[DataItem]:
-    url = f"https://www.youtube.com/playlist?list={playlist_id}"
-    return [
-        DataItem(value=video.id, title=video.title, url=video.url)
-        for video in search_youtube(url)
-    ]
-
-
-def get_video_list_from_playlists(
-    job: NotificationJob,
-    playlists: list[tuple[str, str]],
-) -> list[DataItem]:
-    name = job.log.name
-
-    items = []
-    for playlist_title, playlist_id in playlists:
-        video_list = get_playlist_video_list(playlist_id)
-        job.log.info(f"Из плейлиста '{playlist_title}' загружено {len(video_list)} видео")
-
-        for item in video_list:
-            item.notification_title = f"{playlist_title} [{name}]"
-            items.append(item)
-
-    return items
 
 
 run_notification_job(
