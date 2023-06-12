@@ -10,7 +10,7 @@ from dataclasses import dataclass, asdict
 @dataclass
 class Formats:
     on_start: str = "Запуск"
-    on_start_check: str = "Запуск проверки"
+    on_start_check: str = 'Запуск проверки "%s"'
     on_finish_check: str = "Завершение проверки\n"
     first_start_detected: str = "Обнаружен первый запуск"
     current_items: str = "Текущий список (%s): %s"
