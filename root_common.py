@@ -330,7 +330,7 @@ class NotificationJob:
         global STARTED_WITH_JOB
         STARTED_WITH_JOB = True
 
-        self.log.debug(self.formats.on_start)
+        self.log.debug(self.formats.on_start, self.log.name)
         self.callbacks.on_start(self)
 
         # Если не существует или пустой
@@ -345,7 +345,7 @@ class NotificationJob:
 
         while True:
             try:
-                self.log.debug(self.formats.on_start_check, self.log.name)
+                self.log.debug(self.formats.on_start_check)
                 self.callbacks.on_start_check(self)
 
                 if self.file_name_skip.exists():
