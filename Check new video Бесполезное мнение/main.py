@@ -20,7 +20,7 @@ from formats import FORMATS_VIDEO
 from root_common import (
     run_notification_job,
     SavedModeEnum,
-    get_playlist_video_list_v2 as get_playlist_video_list,
+    get_playlist_video_list,
 )
 
 
