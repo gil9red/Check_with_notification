@@ -19,7 +19,8 @@ sys.path.append(str(DIR.parent))  # Путь к папке выше
 from formats import FORMATS_VIDEO
 from root_common import (
     run_notification_job,
-    get_playlist_video_list,
+    SavedModeEnum,
+    get_playlist_video_list_v2 as get_playlist_video_list,
     DataItem,
     NotificationJob,
 )
@@ -39,6 +40,7 @@ run_notification_job(
     "Disturbing Horror Games",
     DIR,
     get_items,
+    save_mode=SavedModeEnum.DATA_ITEM,
     send_new_items_separately=True,
     formats=FORMATS_VIDEO,
 )

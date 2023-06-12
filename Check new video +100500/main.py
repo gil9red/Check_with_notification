@@ -20,7 +20,8 @@ from formats import FORMATS_VIDEO
 from root_common import (
     DataItem,
     run_notification_job,
-    get_playlist_video_list,
+    SavedModeEnum,
+    get_playlist_video_list_v2 as get_playlist_video_list,
     NotificationJob,
 )
 
@@ -38,6 +39,7 @@ run_notification_job(
     "+100500",
     DIR,
     get_items,
+    save_mode=SavedModeEnum.DATA_ITEM,
     send_new_items_separately=True,
     formats=FORMATS_VIDEO,
 )

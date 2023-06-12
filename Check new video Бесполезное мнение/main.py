@@ -17,13 +17,18 @@ DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from formats import FORMATS_VIDEO
-from root_common import run_notification_job, get_playlist_video_list
+from root_common import (
+    run_notification_job,
+    SavedModeEnum,
+    get_playlist_video_list_v2 as get_playlist_video_list,
+)
 
 
 run_notification_job(
     "Бесполезное мнение [Velind]",
     DIR,
     lambda _: get_playlist_video_list("PLgqDz7CZ-6NbDjtcYuPFW2wb2LS7BQJMb"),
+    save_mode=SavedModeEnum.DATA_ITEM,
     send_new_items_separately=True,
     formats=FORMATS_VIDEO,
 )
