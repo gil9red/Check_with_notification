@@ -2,6 +2,7 @@
  * [grouple_co/](https://github.com/gil9red/SimplePyScripts/tree/f885f975a5d9e5480709cb63092829801b8603fb/html_parsing/grouple_co)
  * [jut_su/](https://github.com/gil9red/SimplePyScripts/tree/0cfa47d91c95354ab3683eed24da8b4a093c2db7/html_parsing/jut_su)
  * [price_of_games/app_parser/utils.py (partially)](https://github.com/gil9red/price_of_games/blob/9311f9cbc6b9e57d0308436e3dbf3e524f23ef74/app_parser/utils.py#L162)
+ * [ranobehub_org/](https://github.com/gil9red/SimplePyScripts/tree/c211581b8679199abfbfe8c59f5b301d0f4d19b7/html_parsing/ranobehub_org)
  * [stackoverflow_site__parsing/user_rank_and_reputation.py](https://github.com/gil9red/SimplePyScripts/blob/1d7f58c816db60f6005b9e63b981eeabd1924fc6/stackoverflow_site__parsing/user_rank_and_reputation.py)
  * [ttk_ru/](https://github.com/gil9red/SimplePyScripts/blob/fe0f98720b110ca694740a9e68f31e5354dcbb91/ttk_ru)
  * [add_notify_telegram.py](https://github.com/gil9red/telegram_notifications_bot/blob/1588f33691dc0bd50038b6207e612d212f5ada71/add_notify_use_web.py#L18)
