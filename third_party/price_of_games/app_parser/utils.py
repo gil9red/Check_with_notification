@@ -30,13 +30,13 @@ def steam_search_game_price_list(name: str, log_common: Logger = None) -> List[T
 
     # Дополнения с категорией Game не ищутся, например: "Pillars of Eternity: The White March Part I", поэтому url
     # был упрощен для поиска всего
-    url = 'https://store.steampowered.com/search/?term=' + name
+    url = "https://store.steampowered.com/search/"
 
     # Из цикла не выйти, пока не получится скачать и распарсить страницу
     while True:
         try:
-            rs = session.get(url)
-            root = BeautifulSoup(rs.content, 'html.parser')
+            rs = session.get(url, params=dict(term=name, ndl=1))
+            root = BeautifulSoup(rs.content, "html.parser")
             break
 
         except Exception:
@@ -47,34 +47,37 @@ def steam_search_game_price_list(name: str, log_common: Logger = None) -> List[T
 
     game_price_list = []
 
-    for div in root.select('.search_result_row'):
-        name = div.select_one('.title').text.strip()
+    for div in root.select(".search_result_row"):
+        name = div.select_one(".title").text.strip()
 
         # Ищем тег скидки, чтобы вытащить оригинальную цену, а не ту, что получилась со скидкой
-        price_el = div.select_one('.search_price > span > strike') or div.select_one('.search_price')
-        price = price_el.get_text(strip=True)
+        price_el = div.select_one(".discount_original_price") or div.select_one(".discount_final_price")
 
         # Если цены нет (например, игра еще не продается)
-        if not price:
+        if not price_el:
             price = None
         else:
+            price = price_el.get_text(strip=True)
+
             # Если в цене нет цифры считаем, что это "Free To Play" или что-то подобное
-            m = re.search(r'\d', price)
+            m = re.search(r"\d", price)
             if not m:
                 price = 0
             else:
                 # Только значение цены
-                if 'pуб' not in price:
-                    log_common and log_common.warning(f'АХТУНГ! Неизвестный формат цены: "{price}".')
+                if "pуб" not in price:
+                    log_common and log_common.warning(
+                        f'АХТУНГ! Неизвестный формат цены: "{price}".'
+                    )
 
-                price = price.replace(' pуб.', '').strip()
+                price = price.replace(" pуб.", "").strip()
 
                 # "799,99" -> "799.99"
-                price = price.replace(',', '.')
+                price = price.replace(",", ".")
 
-        if isinstance(price, str):
-            price = re.sub(r'[^\d.]', '', price)
-            price = float(price) if '.' in price else int(price)
+            if isinstance(price, str):
+                price = re.sub(r"[^\d.]", "", price)
+                price = int(float(price))  # Всегда храним как целые числа
 
         game_price_list.append((name, price))
 
