@@ -25,8 +25,9 @@ from root_common import (
 
 
 PLAYLISTS = [
-    (f"Психоанализ героев видеоигр", "PLfCe0Mzdeup0kYxejFl8Vjw6DtZCmuR-Z"),
-    (f"ТОПы", "PLfCe0Mzdeup3T-JaqrSvUhmVPNpVotU5L"),
+    ("Психоанализ героев видеоигр", "PLfCe0Mzdeup0kYxejFl8Vjw6DtZCmuR-Z"),
+    ("ТОПы", "PLfCe0Mzdeup3T-JaqrSvUhmVPNpVotU5L"),
+    ("Расцвет и Упадок", "PLfCe0Mzdeup2GUW_1lH0q-_rRmxubo8c5"),
 ]
 
 
