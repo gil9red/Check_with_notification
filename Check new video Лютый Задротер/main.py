@@ -25,9 +25,9 @@ from root_common import (
 
 
 PLAYLISTS = [
-    (f"TES и Fallout", "PLI3zbIkPvOTdBlH4bV7WKxvon4IFMXYsX"),
-    (f"Ревью", "PLI3zbIkPvOTcmCFoBwNj2T_WOG_wZYugZ"),
-    (f"Видеоигры", "PLI3zbIkPvOTfxqYX6HkklZgFc6XH2oxrm"),
+    ("TES и Fallout", "PLI3zbIkPvOTdBlH4bV7WKxvon4IFMXYsX"),
+    ("Ревью", "PLI3zbIkPvOTcmCFoBwNj2T_WOG_wZYugZ"),
+    ("Видеоигры", "PLI3zbIkPvOTfxqYX6HkklZgFc6XH2oxrm"),
 ]
 
 
