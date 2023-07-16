@@ -25,16 +25,16 @@ from root_common import (
 
 
 PLAYLISTS = [
-    (f"История серии Diablo", "PLZfhqd1-Hl3DtfKRjleAWB-zYJ-pj7apK"),
-    (f"История серии Final Fantasy", "PLZfhqd1-Hl3DnNDG-x6SgDqlBJee-50E1"),
-    (f"История серии Metroid", "PLZfhqd1-Hl3Di2yxyrrvH53vdREDrHU3c"),
-    (f"История серии The Elder Scrolls", "PLZfhqd1-Hl3C0B3dmwhuKKzUJ-H30gGVj"),
-    (f"За кадром", "PLZfhqd1-Hl3BEdYEAhuq62G5fRLtSXbJ9"),
-    (f"Разбор полётов", "PLZfhqd1-Hl3BKhWwCgmqtENSlearqLlAV"),
-    (f"Спидран в деталях", "PLZfhqd1-Hl3D5Y_DW3fD9lyaclvt89XsI"),
-    (f"Страшно, вырубай!", "PLZfhqd1-Hl3CdAaP_DVgU2tpBSVLBNICD"),
-    (f"Уэс и Флинн", "PLZfhqd1-Hl3C5AQ6LPcMsVBIpduqckjPB"),
-    (f"Хардмод", "PLZfhqd1-Hl3BCuapQSaNrNyDAy3wLiOLL"),
+    ("История серии Diablo", "PLZfhqd1-Hl3DtfKRjleAWB-zYJ-pj7apK"),
+    ("История серии Final Fantasy", "PLZfhqd1-Hl3DnNDG-x6SgDqlBJee-50E1"),
+    ("История серии Metroid", "PLZfhqd1-Hl3Di2yxyrrvH53vdREDrHU3c"),
+    ("История серии The Elder Scrolls", "PLZfhqd1-Hl3C0B3dmwhuKKzUJ-H30gGVj"),
+    ("За кадром", "PLZfhqd1-Hl3BEdYEAhuq62G5fRLtSXbJ9"),
+    ("Разбор полётов", "PLZfhqd1-Hl3BKhWwCgmqtENSlearqLlAV"),
+    ("Спидран в деталях", "PLZfhqd1-Hl3D5Y_DW3fD9lyaclvt89XsI"),
+    ("Страшно, вырубай!", "PLZfhqd1-Hl3CdAaP_DVgU2tpBSVLBNICD"),
+    ("Уэс и Флинн", "PLZfhqd1-Hl3C5AQ6LPcMsVBIpduqckjPB"),
+    ("Хардмод", "PLZfhqd1-Hl3BCuapQSaNrNyDAy3wLiOLL"),
 ]
 
 
