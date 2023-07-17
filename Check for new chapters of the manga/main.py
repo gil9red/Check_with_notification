@@ -4,40 +4,24 @@
 __author__ = "ipetrash"
 
 
+"""
+Скрипт для уведомления о новых главах манги в закладках пользователя.
+
+"""
+
+
 import sys
 from pathlib import Path
 
-import feedparser
-
 DIR = Path(__file__).resolve().parent
-sys.path.append(str(DIR.parent))  # Путь к папке выше
+ROOT_DIR = DIR.parent
+
+sys.path.append(str(ROOT_DIR))  # Путь к папке выше
+sys.path.append(str(ROOT_DIR / "third_party" / "grouple_co"))
 
 from formats import FORMATS_CHAPTER
 from root_common import run_notification_job, TimeoutWait
-
-
-URL_USER_RSS = "https://grouple.co/user/rss/315828?filter="
-
-
-def get_feeds_by_manga_chapters() -> list[str]:
-    feed = feedparser.parse(
-        URL_USER_RSS,
-        agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0",
-    )
-
-    feeds = []
-    for entry in feed.entries:
-        title: str = entry.title
-        title = (
-            title.replace("&quot;", '"')
-            .replace("Манга", "")
-            .replace("Взрослая манга", "")
-            .strip()
-        )
-
-        feeds.append(title)
-
-    return feeds
+from third_party.grouple_co.get_updates_from_rss import get_feeds_by_manga_chapters
 
 
 run_notification_job(
