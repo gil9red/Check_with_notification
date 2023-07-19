@@ -509,12 +509,16 @@ class NotificationJob:
         self.callbacks.on_finish(self)
 
 
-def get_playlist_video_list(playlist_id: str) -> list[DataItem]:
-    url = f"https://www.youtube.com/playlist?list={playlist_id}"
+def get_yt_video_list(text_or_url: str) -> list[DataItem]:
     return [
         DataItem(value=video.id, title=video.title, url=video.url)
-        for video in search_youtube(url)
+        for video in search_youtube(text_or_url)
     ]
+
+
+def get_playlist_video_list(playlist_id: str) -> list[DataItem]:
+    url = f"https://www.youtube.com/playlist?list={playlist_id}"
+    return get_yt_video_list(url)
 
 
 def get_video_list_from_playlists(
