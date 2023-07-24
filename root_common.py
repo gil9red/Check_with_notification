@@ -252,7 +252,8 @@ class NotificationJob:
         callbacks: Callbacks = None,
         need_to_store_items: int = None,
         notify_after_sequence_of_errors: bool = True,
-        attempts_before_notification: int = 5,
+        report_errors_for_first_time_after_attempts: int = 5,
+        report_errors_after_each_attempts: int = 100,
         debug_logging_current_items: bool = DEBUG_LOGGING_CURRENT_ITEMS,
         debug_logging_get_new_items: bool = DEBUG_LOGGING_GET_NEW_ITEMS,
     ):
@@ -273,7 +274,8 @@ class NotificationJob:
         self.callbacks = callbacks or self.Callbacks()
         self.need_to_store_items = need_to_store_items
         self.notify_after_sequence_of_errors = notify_after_sequence_of_errors
-        self.attempts_before_notification = attempts_before_notification
+        self.report_errors_for_first_time_after_attempts = report_errors_for_first_time_after_attempts
+        self.report_errors_after_each_attempts = report_errors_after_each_attempts
         self.debug_logging_current_items = debug_logging_current_items
         self.debug_logging_get_new_items = debug_logging_get_new_items
 
@@ -340,7 +342,7 @@ class NotificationJob:
 
         title = self.formats.process(self.log.name)
 
-        has_sending_notification = False
+        has_sending_first_report_error = False
         attempts = 0
 
         while True:
@@ -476,7 +478,7 @@ class NotificationJob:
                 self.callbacks.on_finish_check(self)
 
                 # Restore
-                has_sending_notification = False
+                has_sending_first_report_error = False
                 attempts = 0
 
                 wait(**self.timeout.as_dict())
@@ -494,13 +496,19 @@ class NotificationJob:
                 self.log.debug(self.formats.on_exception_next_attempt)
 
                 attempts += 1
+
+                # При повторных подряд идущих неуспешных выполнениях сначала отправляется ошибка
+                # в первый раз после, на каждые N-раз ошибка с указанием номера попытки
                 if (
                     self.notify_after_sequence_of_errors
-                    and attempts >= self.attempts_before_notification
-                    and not has_sending_notification
+                    and attempts >= self.report_errors_for_first_time_after_attempts
                 ):
-                    send_telegram_notification_error(self.log.name, str(e))
-                    has_sending_notification = True
+                    if not has_sending_first_report_error:
+                        send_telegram_notification_error(self.log.name, str(e))
+                        has_sending_first_report_error = True
+                    elif attempts % self.report_errors_after_each_attempts == 0:
+                        text = self.formats.on_exception_with_attempts % (attempts, e)
+                        send_telegram_notification_error(self.log.name, text)
 
                 # Wait <timeout_exception_seconds> before next attempt
                 time.sleep(self.timeout_exception_seconds)
@@ -530,7 +538,9 @@ def get_video_list_from_playlists(
     items = []
     for playlist_title, playlist_id in playlists:
         video_list = get_playlist_video_list(playlist_id)
-        job.log.info(f"Из плейлиста '{playlist_title}' загружено {len(video_list)} видео")
+        job.log.info(
+            f"Из плейлиста '{playlist_title}' загружено {len(video_list)} видео"
+        )
 
         for item in video_list:
             item.notification_title = f"{playlist_title} [{name}]"
@@ -559,7 +569,8 @@ def run_notification_job(
     callbacks: NotificationJob.Callbacks = None,
     need_to_store_items: int = None,
     notify_after_sequence_of_errors: bool = True,
-    attempts_before_notification: int = 5,
+    report_errors_for_first_time_after_attempts: int = 5,
+    report_errors_after_each_attempts: int = 100,
     debug_logging_current_items: bool = DEBUG_LOGGING_CURRENT_ITEMS,
     debug_logging_get_new_items: bool = DEBUG_LOGGING_GET_NEW_ITEMS,
 ):
@@ -582,7 +593,8 @@ def run_notification_job(
         callbacks=callbacks,
         need_to_store_items=need_to_store_items,
         notify_after_sequence_of_errors=notify_after_sequence_of_errors,
-        attempts_before_notification=attempts_before_notification,
+        report_errors_for_first_time_after_attempts=report_errors_for_first_time_after_attempts,
+        report_errors_after_each_attempts=report_errors_after_each_attempts,
         debug_logging_current_items=debug_logging_current_items,
         debug_logging_get_new_items=debug_logging_get_new_items,
     ).run()
@@ -606,6 +618,7 @@ if __name__ == "__main__":
         print(traceback.format_exc())
 
     from uuid import uuid4
+
     item_1 = DataItem(value=uuid4().hex, title=uuid4().hex, url=uuid4().hex)
     item_2 = DataItem.loads(item_1.dumps())
     assert item_1 == item_2
