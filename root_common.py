@@ -558,8 +558,8 @@ def run_notification_job(
     url: str = None,
     callbacks: NotificationJob.Callbacks = None,
     need_to_store_items: int = None,
-    notify_after_sequence_of_errors=True,
-    attempts_before_notification=5,
+    notify_after_sequence_of_errors: bool = True,
+    attempts_before_notification: int = 5,
     debug_logging_current_items: bool = DEBUG_LOGGING_CURRENT_ITEMS,
     debug_logging_get_new_items: bool = DEBUG_LOGGING_GET_NEW_ITEMS,
 ):
