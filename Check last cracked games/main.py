@@ -17,7 +17,7 @@ DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from formats import FORMATS_GAME
-from root_common import NotificationJob, DataItem, run_notification_job, SavedModeEnum
+from root_common import NotificationJob, DataItem, run_notification_job, SavedModeEnum, TimeoutWait
 from third_party.gamestatus_info__lastcrackedgames import get_games
 
 
@@ -38,6 +38,7 @@ run_notification_job(
     DIR,
     get_items,
     save_mode=SavedModeEnum.DATA_ITEM,
+    timeout=TimeoutWait(days=1),
     formats=FORMATS_GAME,
     send_new_items_as_group=True,
     need_to_store_items=10_000,
