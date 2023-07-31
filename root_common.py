@@ -368,7 +368,7 @@ class NotificationJob:
                 self.log.debug(self.formats.get_items)
 
                 items = self.get_new_items(self)
-                if not items and self.notify_when_empty:
+                if not items and self.notify_when_empty and self.need_notification:
                     send_telegram_notification_error(
                         title, self.formats.when_empty_items
                     )
@@ -502,6 +502,7 @@ class NotificationJob:
                 if (
                     self.notify_after_sequence_of_errors
                     and attempts >= self.report_errors_for_first_time_after_attempts
+                    and self.need_notification
                 ):
                     if not has_sending_first_report_error:
                         send_telegram_notification_error(self.log.name, str(e))
