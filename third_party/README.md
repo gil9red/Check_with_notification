@@ -8,6 +8,7 @@
  * [add_notify_telegram.py](https://github.com/gil9red/telegram_notifications_bot/blob/1588f33691dc0bd50038b6207e612d212f5ada71/add_notify_use_web.py#L18)
  * [anivost_org.py](https://github.com/gil9red/SimplePyScripts/blob/d5437b669d700082673f1bef51aa6d1a5ed0ef0c/html_parsing/anivost_org.py)
  * [gamestatus_info__lastcrackedgames.py](https://github.com/gil9red/SimplePyScripts/blob/e1ee7ee97a8f9855c8ed3c529605afbba41b3ae3/html_parsing/gamestatus_info__lastcrackedgames.py)
+ * [get_stargazers.py](https://github.com/gil9red/SimplePyScripts/blob/3e10361a88f18828f6f88fc9ab6183d01d8e0564/github_api__examples/get_stargazers.py)
  * [gitmanga_com__get_chapters.py](https://github.com/gil9red/SimplePyScripts/blob/ea22545ffa4164497e7763136836ddb9e2578b9d/html_parsing/gitmanga_com__get_chapters.py)
  * [kanobu_ru__games__collections__igry_s_podderzhkoi_rtx.py](https://github.com/gil9red/SimplePyScripts/blob/9433358f9e7eacb13519e4e2fee428c652b022a7/html_parsing/kanobu_ru__games__collections__igry_s_podderzhkoi_rtx.py)
  * [ru_wikipedia_org__wiki__Список_эпизодов_мультсериала_Рик_и_Морти.py](https://github.com/gil9red/SimplePyScripts/blob/471094a519f61416e6f0d16beb13be848617ff9b/html_parsing/wikipedia/ru_wikipedia_org__wiki__%D0%A1%D0%BF%D0%B8%D1%81%D0%BE%D0%BA_%D1%8D%D0%BF%D0%B8%D0%B7%D0%BE%D0%B4%D0%BE%D0%B2_%D0%BC%D1%83%D0%BB%D1%8C%D1%82%D1%81%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%B0_%D0%A0%D0%B8%D0%BA_%D0%B8_%D0%9C%D0%BE%D1%80%D1%82%D0%B8.py)
