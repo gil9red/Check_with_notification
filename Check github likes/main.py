@@ -54,5 +54,9 @@ run_notification_job(
     "Лайки в гитхабе",
     DIR,
     get_items,
-    formats=FORMATS_DEFAULT,
+    formats=FORMATS_DEFAULT.replace(
+        new_item="%s",
+        prefix="⭐",
+    ),
+    send_new_items_separately=True,
 )
