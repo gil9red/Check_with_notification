@@ -481,7 +481,14 @@ class NotificationJob:
                 has_sending_first_report_error = False
                 attempts = 0
 
-                wait(**self.timeout.as_dict())
+                try:
+                    wait(**self.timeout.as_dict())
+                except OSError as e:
+                    # OSError: [Errno 22] Invalid argument
+                    if "Invalid argument" in str(e):
+                        self.log.warning(f"Unexpected happened - unable to write to stdout, script will exit")
+                        sys.exit(0)
+                    raise e
 
             except KeyboardInterrupt:
                 break
