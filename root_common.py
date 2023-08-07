@@ -486,7 +486,10 @@ class NotificationJob:
                 except OSError as e:
                     # OSError: [Errno 22] Invalid argument
                     if "Invalid argument" in str(e):
-                        self.log.warning(f"Unexpected happened - unable to write to stdout, script will exit")
+                        text = "Unexpected happened - unable to write to stdout, script will exit"
+                        self.log.warning(text)
+                        if self.need_notification:
+                            send_telegram_notification_error(self.log.name, text)
                         sys.exit(0)
                     raise e
 
