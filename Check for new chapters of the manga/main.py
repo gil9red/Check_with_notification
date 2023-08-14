@@ -21,7 +21,7 @@ sys.path.append(str(ROOT_DIR / "third_party" / "grouple_co"))
 
 from formats import FORMATS_CHAPTER
 from root_common import run_notification_job, TimeoutWait
-from third_party.grouple_co.get_updates_from_rss import get_feeds_by_manga_chapters
+from third_party.grouple_co.get_updates_from_api import get_feeds_by_manga_chapters
 
 
 run_notification_job(
