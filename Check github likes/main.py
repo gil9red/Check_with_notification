@@ -29,12 +29,16 @@ def get_items(job: NotificationJob) -> list[DataItem]:
     current_items = job.read_items()
 
     new_items = []
-    for user in get_stargazers(OWNER, REPOSITORY):
+
+    users = get_stargazers(OWNER, REPOSITORY)
+    total_stars = len(users)
+
+    for user in users:
         user_login = f'<a href="{user.url}">{user.login}</a>'
         new_items.append(
             DataItem(
                 value=user_login,
-                title=f'{user_login} поставил лайк в {REPOSITORY}',
+                title=f'{user_login} поставил лайк в {REPOSITORY} (всего лайков {total_stars})',
             )
         )
 
@@ -43,7 +47,7 @@ def get_items(job: NotificationJob) -> list[DataItem]:
             new_items.append(
                 DataItem(
                     value=f"-{item.value}",
-                    title=f'{item.value} убрал свой лайк в {REPOSITORY}',
+                    title=f'{item.value} убрал свой лайк в {REPOSITORY} (всего лайков {total_stars})',
                 )
             )
 
