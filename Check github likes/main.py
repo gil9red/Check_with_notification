@@ -39,6 +39,7 @@ def get_items(job: NotificationJob) -> list[DataItem]:
             DataItem(
                 value=user_login,
                 title=f'{user_login} поставил лайк в {REPOSITORY} (всего лайков {total_stars})',
+                need_html_escape_content=False,
             )
         )
 
@@ -48,6 +49,7 @@ def get_items(job: NotificationJob) -> list[DataItem]:
                 DataItem(
                     value=f"-{item.value}",
                     title=f'{item.value} убрал свой лайк в {REPOSITORY} (всего лайков {total_stars})',
+                    need_html_escape_content=False,
                 )
             )
 

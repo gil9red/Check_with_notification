@@ -50,13 +50,16 @@ class DataItem:
     title: str = field(compare=False, default="")
     url: str = field(compare=False, default="")
     notification_title: str = field(compare=False, repr=False, default="")
+    need_html_escape_content: bool = field(compare=False, repr=False, default=True)
 
     def __post_init__(self):
         if not self.title:
             self.title = self.value
 
     def dumps(self) -> dict[str, str]:
-        return asdict(self)
+        data = asdict(self)
+        data.pop("need_html_escape_content")  # Не нужно его выгружать
+        return data
 
     @classmethod
     def loads(cls, data: dict[str, str]):
@@ -170,6 +173,7 @@ def send_telegram_notification(
     show_type: bool = True,
     group: str = None,
     group_max_number: int = None,
+    need_html_escape_content: bool = True,
 ):
     try:
         add_notify(
@@ -181,6 +185,7 @@ def send_telegram_notification(
             show_type=show_type,
             group=group,
             group_max_number=group_max_number,
+            need_html_escape_content=need_html_escape_content,
         )
     except Exception as e:
         log = get_logger("error_send_telegram", file=str(DIR / "errors.txt"))
@@ -410,7 +415,11 @@ class NotificationJob:
                                     )
 
                                 send_telegram_notification(
-                                    notification_title, text, url=url, show_type=False
+                                    name=notification_title,
+                                    message=text,
+                                    url=url,
+                                    show_type=False,
+                                    need_html_escape_content=new_item.need_html_escape_content,
                                 )
 
                         # Если один элемент или стоит флаг, разрешающий каждый элемент логировать отдельно
@@ -439,12 +448,13 @@ class NotificationJob:
                                         )
 
                                     send_telegram_notification(
-                                        notification_title,
-                                        text,
+                                        name=notification_title,
+                                        message=text,
                                         url=url,
                                         show_type=False,
                                         group=group,
                                         group_max_number=group_max_number,
+                                        need_html_escape_content=item.need_html_escape_content,
                                     )
 
                         else:

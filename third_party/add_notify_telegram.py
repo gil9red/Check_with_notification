@@ -23,6 +23,7 @@ def add_notify(
         show_type: bool = True,
         group: str = None,
         group_max_number: int = None,
+        need_html_escape_content: bool = True,
 ):
     data = {
         'name': name,
@@ -33,6 +34,7 @@ def add_notify(
         'show_type': show_type,
         'group': group,
         'group_max_number': group_max_number,
+        'need_html_escape_content': need_html_escape_content,
     }
 
     # Попытки
