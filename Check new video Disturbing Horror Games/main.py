@@ -20,18 +20,18 @@ from formats import FORMATS_VIDEO
 from root_common import (
     run_notification_job,
     SavedModeEnum,
-    get_playlist_video_list,
+    get_yt_video_list,
     DataItem,
     NotificationJob,
 )
 
 
-# NOTE: Нужна фильтрация, чтобы оставить только нужные видео
-#       Т.к. в плейлисте иногда попадают видео типа "Klasky Csupo in Pixitracker Major 9312"
 def get_items(_: NotificationJob) -> list[DataItem]:
+    # Не всегда вовремя в плейлист кладет, поэтому для актуальности брать с страницы
+    url = "https://www.youtube.com/@DisturbingHorrorGames/videos"
     return [
         item
-        for item in get_playlist_video_list("PLVOZT4ssBLx7d4TSZuYU_lkRwAUaON3FI")
+        for item in get_yt_video_list(url)
         if "DHG #" in item.title
     ]
 
