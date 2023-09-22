@@ -2,6 +2,7 @@
  * [grouple_co/](https://github.com/gil9red/SimplePyScripts/tree/15cf780f5f481c9a61b49671208d376f28fb234f/html_parsing/grouple_co)
  * [jut_su/](https://github.com/gil9red/SimplePyScripts/tree/0cfa47d91c95354ab3683eed24da8b4a093c2db7/html_parsing/jut_su)
  * [price_of_games/app_parser/utils.py (partially)](https://github.com/gil9red/price_of_games/blob/0ba20b658f47be3eba02bab1907aa6fc83ad6d4e/app_parser/utils.py)
+ * [python_org/get_release_versions.py](https://github.com/gil9red/SimplePyScripts/blob/1d896ec6145d12f973423038a32a39cb8ee96c51/html_parsing/python_org/get_release_versions.py)
  * [ranobehub_org/](https://github.com/gil9red/SimplePyScripts/tree/c211581b8679199abfbfe8c59f5b301d0f4d19b7/html_parsing/ranobehub_org)
  * [stackoverflow_site__parsing/user_rank_and_reputation.py](https://github.com/gil9red/SimplePyScripts/blob/1d7f58c816db60f6005b9e63b981eeabd1924fc6/stackoverflow_site__parsing/user_rank_and_reputation.py)
  * [ttk_ru/](https://github.com/gil9red/SimplePyScripts/blob/261290cce571ede1ed3a81081e7e91cdd9678b27/ttk_ru)
