@@ -135,6 +135,7 @@ log.txt.*
 pwned_screenshots/
 backup/
 SMS_TOKEN.txt
+TOKEN.txt
 LOGIN_PASSWORD.txt
 *.sqlite
 saved.json
