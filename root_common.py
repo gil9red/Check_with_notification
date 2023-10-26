@@ -93,6 +93,11 @@ def get_logger(
     log_file=True,
 ) -> logging.Logger:
     log = logging.getLogger(name)
+
+    # Если обработчики есть, значит логгер уже создавали
+    if log.handlers:
+        return log
+
     log.setLevel(logging.DEBUG)
 
     formatter = logging.Formatter(
