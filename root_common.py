@@ -201,7 +201,8 @@ def send_telegram_notification_error(name: str, message: str):
     send_telegram_notification(name, message, "ERROR", has_delete_button=True)
 
 
-STARTED_WITH_JOB = False
+STARTED_WITH_JOB: bool = False
+IS_SINGLE: bool = "--single" in sys.argv
 
 
 def log_uncaught_exceptions(ex_cls, ex, tb):
@@ -250,15 +251,17 @@ class NotificationJob:
         send_new_items_as_group: bool = False,
         send_new_item_diff: bool = False,
         timeout: TimeoutWait = DEFAULT_TIMEOUT_WAIT,
-        timeout_exception_seconds: int = 5 * 60,
+        timeout_exception_seconds: int = 5 * 60,  # 5 minutes
         formats: Formats = FORMATS_DEFAULT,
         save_mode: SavedModeEnum = SavedModeEnum.SIMPLE,
         url: str = None,
         callbacks: Callbacks = None,
         need_to_store_items: int = None,
         notify_after_sequence_of_errors: bool = True,
-        report_errors_for_first_time_after_attempts: int = 5,
-        report_errors_after_each_attempts: int = 100,
+        report_errors_for_first_time_after_attempts: int = 5,  # NOTE: Default after 25 minutes
+        report_errors_after_each_attempts: int = 100,  # NOTE: Default every 8 hours
+        is_single: bool = IS_SINGLE,
+        max_attempts_for_is_single: int = 5,  # NOTE: Default after 25 minutes
         debug_logging_current_items: bool = DEBUG_LOGGING_CURRENT_ITEMS,
         debug_logging_get_new_items: bool = DEBUG_LOGGING_GET_NEW_ITEMS,
     ):
@@ -281,6 +284,8 @@ class NotificationJob:
         self.notify_after_sequence_of_errors = notify_after_sequence_of_errors
         self.report_errors_for_first_time_after_attempts = report_errors_for_first_time_after_attempts
         self.report_errors_after_each_attempts = report_errors_after_each_attempts
+        self.is_single = is_single
+        self.max_attempts_for_is_single = max_attempts_for_is_single
         self.debug_logging_current_items = debug_logging_current_items
         self.debug_logging_get_new_items = debug_logging_get_new_items
 
@@ -353,14 +358,20 @@ class NotificationJob:
         while True:
             try:
                 self.log.debug(self.formats.on_start_check)
+                if self.is_single:
+                    self.log.debug(self.formats.on_run_is_single)
+
                 self.callbacks.on_start_check(self)
 
                 if self.file_name_skip.exists():
                     self.log.info(
                         self.formats.file_skip_exists, self.file_name_skip.name
                     )
-                    wait(**self.timeout.as_dict())
-                    continue
+                    if self.is_single:
+                        break
+                    else:
+                        wait(**self.timeout.as_dict())
+                        continue
 
                 # Загрузка текущего списка из файла
                 current_items = self.read_items()
@@ -487,6 +498,9 @@ class NotificationJob:
                 self.log.debug(self.formats.on_finish_check)
                 self.callbacks.on_finish_check(self)
 
+                if self.is_single:
+                    break
+
                 # Restore
                 has_sending_first_report_error = False
                 attempts = 0
@@ -530,6 +544,10 @@ class NotificationJob:
                     elif attempts % self.report_errors_after_each_attempts == 0:
                         text = self.formats.on_exception_with_attempts % (attempts, e)
                         send_telegram_notification_error(self.log.name, text)
+
+                # Слишком много подряд неудачных попыток в режиме is_single
+                if self.is_single and attempts >= self.max_attempts_for_is_single:
+                    raise e
 
                 # Wait <timeout_exception_seconds> before next attempt
                 time.sleep(self.timeout_exception_seconds)
@@ -583,15 +601,17 @@ def run_notification_job(
     send_new_items_as_group: bool = False,
     send_new_item_diff: bool = False,
     timeout: TimeoutWait = DEFAULT_TIMEOUT_WAIT,
-    timeout_exception_seconds: int = 5 * 60,
+    timeout_exception_seconds: int = 5 * 60,  # 5 minutes
     formats: Formats = FORMATS_DEFAULT,
     save_mode: SavedModeEnum = SavedModeEnum.SIMPLE,
     url: str = None,
     callbacks: NotificationJob.Callbacks = None,
     need_to_store_items: int = None,
     notify_after_sequence_of_errors: bool = True,
-    report_errors_for_first_time_after_attempts: int = 5,
-    report_errors_after_each_attempts: int = 100,
+    report_errors_for_first_time_after_attempts: int = 5,  # NOTE: Default after 25 minutes
+    report_errors_after_each_attempts: int = 100,  # NOTE: Default every 8 hours
+    is_single: bool = IS_SINGLE,
+    max_attempts_for_is_single: int = 5,  # NOTE: Default after 25 minutes
     debug_logging_current_items: bool = DEBUG_LOGGING_CURRENT_ITEMS,
     debug_logging_get_new_items: bool = DEBUG_LOGGING_GET_NEW_ITEMS,
 ):
@@ -616,6 +636,8 @@ def run_notification_job(
         notify_after_sequence_of_errors=notify_after_sequence_of_errors,
         report_errors_for_first_time_after_attempts=report_errors_for_first_time_after_attempts,
         report_errors_after_each_attempts=report_errors_after_each_attempts,
+        is_single=is_single,
+        max_attempts_for_is_single=max_attempts_for_is_single,
         debug_logging_current_items=debug_logging_current_items,
         debug_logging_get_new_items=debug_logging_get_new_items,
     ).run()

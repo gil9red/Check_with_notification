@@ -26,6 +26,7 @@ class Formats:
     on_exception_with_attempts: str = "Попытка #%s\n%s"
     on_exception_next_attempt: str = "Через 5 минут попробую снова..."
     on_finish: str = "Завершение"
+    on_run_is_single: str = "Использование is_single режим"
     prefix: str = ""
 
     def process(self, text: str) -> str:
