@@ -527,8 +527,6 @@ class NotificationJob:
                 else:
                     self.log.exception(self.formats.on_exception)
 
-                self.log.debug(self.formats.on_exception_next_attempt)
-
                 attempts += 1
 
                 # При повторных подряд идущих неуспешных выполнениях сначала отправляется ошибка
@@ -548,6 +546,8 @@ class NotificationJob:
                 # Слишком много подряд неудачных попыток в режиме is_single
                 if self.is_single and attempts >= self.max_attempts_for_is_single:
                     raise e
+
+                self.log.debug(self.formats.on_exception_next_attempt, self.timeout_exception_seconds)
 
                 # Wait <timeout_exception_seconds> before next attempt
                 time.sleep(self.timeout_exception_seconds)
