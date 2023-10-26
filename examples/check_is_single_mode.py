@@ -26,3 +26,13 @@ run_notification_job(
     is_single=True,
     need_notification=False,
 )
+
+# NOTE: process error
+# run_notification_job(
+#     "Тест",
+#     DIR,
+#     lambda _: [str(1/0)],
+#     is_single=True,
+#     max_attempts_for_is_single=1,
+#     need_notification=False,
+# )

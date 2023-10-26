@@ -201,7 +201,7 @@ def send_telegram_notification_error(name: str, message: str):
     send_telegram_notification(name, message, "ERROR", has_delete_button=True)
 
 
-STARTED_WITH_JOB: bool = False
+IS_CAN_SEND_ERROR_NOTIFICATIONS: bool = False
 IS_SINGLE: bool = "--single" in sys.argv
 
 
@@ -216,7 +216,7 @@ def log_uncaught_exceptions(ex_cls, ex, tb):
     print(text)
 
     # Посылаем уведомление только при запуске через задачу
-    if STARTED_WITH_JOB:
+    if IS_CAN_SEND_ERROR_NOTIFICATIONS:
         send_telegram_notification_error("root_common.py", text)
 
     sys.exit(1)
@@ -339,8 +339,8 @@ class NotificationJob:
         )
 
     def run(self):
-        global STARTED_WITH_JOB
-        STARTED_WITH_JOB = True
+        global IS_CAN_SEND_ERROR_NOTIFICATIONS
+        IS_CAN_SEND_ERROR_NOTIFICATIONS = self.need_notification
 
         self.log.debug(self.formats.on_start, self.log.name)
         self.callbacks.on_start(self)

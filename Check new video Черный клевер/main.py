@@ -47,7 +47,7 @@ if __name__ == "__main__":
     need_notification = True
 
     # Чтобы получить в телеграм уведомления о непойманных исключениях
-    root_common.STARTED_WITH_JOB = True
+    root_common.IS_CAN_SEND_ERROR_NOTIFICATIONS = True
 
     try:
         with open(FILE_NAME_LAST_VALUE, encoding="utf-8") as f:

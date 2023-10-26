@@ -39,7 +39,7 @@ from root_common import wait, send_telegram_notification_error, get_short_repr_l
 init_db()
 
 # Чтобы получить в телеграм уведомления о непойманных исключениях
-root_common.STARTED_WITH_JOB = True
+root_common.IS_CAN_SEND_ERROR_NOTIFICATIONS = True
 
 # NOTE: С этим флагом нужно быть осторожным при первом запуске, когда база пуста,
 # ведь на каждую добавленную взломанную игру отправится уведомление по смс

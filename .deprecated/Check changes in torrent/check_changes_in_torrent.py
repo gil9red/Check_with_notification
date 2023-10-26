@@ -100,7 +100,7 @@ if __name__ == "__main__":
     last_torrent_files = []
 
     # Чтобы получить в телеграм уведомления о непойманных исключениях
-    root_common.STARTED_WITH_JOB = True
+    root_common.IS_CAN_SEND_ERROR_NOTIFICATIONS = True
 
     while True:
         try:

@@ -27,7 +27,7 @@ from db import db_create_backup, Game
 log = get_logger("Игры с RTX")
 
 # Чтобы получить в телеграм уведомления о непойманных исключениях
-root_common.STARTED_WITH_JOB = True
+root_common.IS_CAN_SEND_ERROR_NOTIFICATIONS = True
 
 while True:
     log.debug("Запуск")
