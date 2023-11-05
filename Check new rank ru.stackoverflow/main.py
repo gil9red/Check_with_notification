@@ -19,7 +19,7 @@ DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 import root_common
-from root_common import get_logger, send_telegram_notification, wait
+from root_common import IS_SINGLE, get_logger, send_telegram_notification, wait
 from third_party.stackoverflow_site__parsing.user_rank_and_reputation import get_user_rank_and_reputation
 
 import requests
@@ -46,6 +46,9 @@ if __name__ == "__main__":
         last_rank = open(FILE_NAME_LAST_RANK, encoding="utf-8").read()
     except:
         last_rank = ""
+
+    attempts = 0
+    max_attempts_for_is_single = 5
 
     while True:
         try:
@@ -78,16 +81,23 @@ if __name__ == "__main__":
                 else:
                     log.debug("Ранг не изменился")
 
+            if IS_SINGLE:
+                break
+
+            attempts = 0
             wait(weeks=1)
 
-        except requests.exceptions.ConnectionError as e:
-            log.warning("Ошибка подключения к сети: %s", e)
-            log.debug("Через минуту попробую снова...")
+        except Exception as e:
+            attempts += 1
 
-            time.sleep(60)
+            if isinstance(e, requests.exceptions.RequestException):
+                log.warning("Ошибка подключения к сети: %s", e)
+            else:
+                log.exception("Непредвиденная ошибка:")
 
-        except:
-            log.exception("Непредвиденная ошибка:")
+            # Слишком много подряд неудачных попыток в режиме is_single
+            if IS_SINGLE and attempts >= max_attempts_for_is_single:
+                raise e
+
             log.debug("Через 5 минут попробую снова...")
-
             time.sleep(5 * 60)
