@@ -25,7 +25,7 @@ from root_common import (
 
 
 run_notification_job(
-    "DeadP47 - Худшие Стримеры",
+    "Худшие Стримеры [DeadP47]",
     DIR,
     lambda _: get_playlist_video_list("PLjdELgpd9M1uzBrb3yNsVM5-t2x7zBBLA"),
     save_mode=SavedModeEnum.DATA_ITEM,
