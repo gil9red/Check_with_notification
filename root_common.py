@@ -390,6 +390,7 @@ class NotificationJob:
 
                 items = self.get_new_items(self)
                 if not items and self.notify_when_empty and self.need_notification:
+                    self.log.info("An empty list was returned. Sending a notification")
                     send_telegram_notification_error(
                         title, self.formats.when_empty_items
                     )
@@ -542,9 +543,14 @@ class NotificationJob:
                     and self.need_notification
                 ):
                     if not has_sending_first_report_error:
+                        self.log.info("Sending a notification")
+
                         send_telegram_notification_error(self.log.name, str(e))
                         has_sending_first_report_error = True
+
                     elif attempts % self.report_errors_after_each_attempts == 0:
+                        self.log.info("Sending a notification")
+
                         text = self.formats.on_exception_with_attempts % (attempts, e)
                         send_telegram_notification_error(self.log.name, text)
 
