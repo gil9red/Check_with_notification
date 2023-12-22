@@ -18,7 +18,7 @@ DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from formats import FORMATS_DEFAULT
-from root_common import DataItem, NotificationJob, run_notification_job
+from root_common import NotificationJob, run_notification_job
 
 
 IGNORED = [".deprecated", "examples", str(DIR.name)]
@@ -41,7 +41,7 @@ def get_scripts() -> list[tuple[str, int]]:
     return items
 
 
-def get_items(_: NotificationJob) -> list[DataItem]:
+def get_items(_: NotificationJob) -> list[str]:
     new_items = []
 
     for script_name, delta_in_days in get_scripts():
@@ -50,13 +50,9 @@ def get_items(_: NotificationJob) -> list[DataItem]:
             continue
 
         days = n * DAYS_DIVIDER
+        text = f'От скрипта "{script_name}" нет уведомлений уже {days} дней'
 
-        new_items.append(
-            DataItem(
-                value=f"{script_name}/{days}",
-                title=f'От скрипта "{script_name}" нет уведомлений уже {days} дней',
-            )
-        )
+        new_items.append(text)
 
     return new_items
 
