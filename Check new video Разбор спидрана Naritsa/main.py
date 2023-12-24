@@ -20,14 +20,14 @@ from formats import FORMATS_VIDEO
 from root_common import (
     run_notification_job,
     SavedModeEnum,
-    get_playlist_video_list,
+    get_yt_playlist_video_list,
 )
 
 
 run_notification_job(
     "Разбор спидрана! [Naritsa]",
     DIR,
-    lambda _: get_playlist_video_list("PLgHXSvDpcJQiG_H7HTpAEhUP6JbOEbg3Q"),
+    lambda _: get_yt_playlist_video_list("PLgHXSvDpcJQiG_H7HTpAEhUP6JbOEbg3Q"),
     save_mode=SavedModeEnum.DATA_ITEM,
     send_new_items_separately=True,
     formats=FORMATS_VIDEO,

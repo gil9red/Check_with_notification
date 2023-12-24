@@ -575,12 +575,12 @@ def get_yt_video_list(text_or_url: str) -> list[DataItem]:
     ]
 
 
-def get_playlist_video_list(playlist_id: str) -> list[DataItem]:
+def get_yt_playlist_video_list(playlist_id: str) -> list[DataItem]:
     url = f"https://www.youtube.com/playlist?list={playlist_id}"
     return get_yt_video_list(url)
 
 
-def get_video_list_from_yt_playlists(
+def get_yt_video_list_from_playlists(
     job: NotificationJob,
     playlists: list[tuple[str, str]],
 ) -> list[DataItem]:
@@ -588,7 +588,7 @@ def get_video_list_from_yt_playlists(
 
     items = []
     for playlist_title, playlist_id in playlists:
-        video_list = get_playlist_video_list(playlist_id)
+        video_list = get_yt_playlist_video_list(playlist_id)
         job.log.info(
             f"Из плейлиста '{playlist_title}' загружено {len(video_list)} видео"
         )

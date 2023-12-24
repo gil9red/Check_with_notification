@@ -21,13 +21,13 @@ from root_common import (
     DataItem,
     run_notification_job,
     SavedModeEnum,
-    get_playlist_video_list,
+    get_yt_playlist_video_list,
     NotificationJob,
 )
 
 
 def get_items(_: NotificationJob) -> list[DataItem]:
-    items = get_playlist_video_list("PLC6A0625DCA9AAE2D")
+    items = get_yt_playlist_video_list("PLC6A0625DCA9AAE2D")
 
     # Проверка работы скрипта для извлечения видео из youtube
     assert len(items) > 100, f"Количество видео меньше или равно 100: {len(items)}"
