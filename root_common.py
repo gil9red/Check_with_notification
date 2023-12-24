@@ -580,7 +580,7 @@ def get_playlist_video_list(playlist_id: str) -> list[DataItem]:
     return get_yt_video_list(url)
 
 
-def get_video_list_from_playlists(
+def get_video_list_from_yt_playlists(
     job: NotificationJob,
     playlists: list[tuple[str, str]],
 ) -> list[DataItem]:
