@@ -38,6 +38,7 @@ sys.path.append(str(DIR / "third_party"))
 
 from third_party.add_notify_telegram import add_notify
 from third_party.youtube_com__results_search_query import search_youtube
+from third_party.jut_su.anime_get_video_list import get_video_list as get_video_list_from_jut_su
 
 
 session = requests.session()
@@ -595,6 +596,21 @@ def get_video_list_from_playlists(
         for item in video_list:
             item.notification_title = f"{playlist_title} [{name}]"
             items.append(item)
+
+    return items
+
+
+def get_items_from_jut_su(_: NotificationJob, url: str) -> list[DataItem]:
+    items = []
+    for season, video_list in get_video_list_from_jut_su(url).items():
+        for video in video_list:
+            title = video.title
+            if season:
+                title = f"{season}. {title}"
+
+            items.append(
+                DataItem(value=title, url=video.url)
+            )
 
     return items
 
