@@ -1,6 +1,7 @@
 ### SOURCE:
  * [grouple_co/](https://github.com/gil9red/SimplePyScripts/tree/15cf780f5f481c9a61b49671208d376f28fb234f/html_parsing/grouple_co)
  * [jut_su/](https://github.com/gil9red/SimplePyScripts/tree/0cfa47d91c95354ab3683eed24da8b4a093c2db7/html_parsing/jut_su)
+ * [litres_ru/get_books_by_author.py](https://github.com/gil9red/SimplePyScripts/blob/7bdcd73825884d442cabd08135796cd9ae23da4f/html_parsing/litres_ru/get_books_by_author.py)
  * [price_of_games/app_parser/utils.py (partially)](https://github.com/gil9red/price_of_games/blob/0ba20b658f47be3eba02bab1907aa6fc83ad6d4e/app_parser/utils.py)
  * [python_org/get_release_versions.py](https://github.com/gil9red/SimplePyScripts/blob/1d896ec6145d12f973423038a32a39cb8ee96c51/html_parsing/python_org/get_release_versions.py)
  * [ranobehub_org/](https://github.com/gil9red/SimplePyScripts/tree/c211581b8679199abfbfe8c59f5b301d0f4d19b7/html_parsing/ranobehub_org)
@@ -14,6 +15,5 @@
  * [ru_wikipedia_org__wiki__Список_эпизодов_мультсериала_Рик_и_Морти.py](https://github.com/gil9red/SimplePyScripts/blob/471094a519f61416e6f0d16beb13be848617ff9b/html_parsing/wikipedia/ru_wikipedia_org__wiki__%D0%A1%D0%BF%D0%B8%D1%81%D0%BE%D0%BA_%D1%8D%D0%BF%D0%B8%D0%B7%D0%BE%D0%B4%D0%BE%D0%B2_%D0%BC%D1%83%D0%BB%D1%8C%D1%82%D1%81%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%B0_%D0%A0%D0%B8%D0%BA_%D0%B8_%D0%9C%D0%BE%D1%80%D1%82%D0%B8.py)
  * [store_steampowered_com__check_early_access.py](store_steampowered_com__check_early_access.py)(https://github.com/gil9red/SimplePyScripts/blob/9cfb38bcf1ef590bd867b8965231dd1f02a7b418/html_parsing/store_steampowered_com__check_early_access.py)
  * [store_steampowered_com__check_exists_app.py](https://github.com/gil9red/SimplePyScripts/blob/786b384d29481d61989b3b4489dce73c16b12fb6/html_parsing/store_steampowered_com__check_exists_app.py)
- * [vitaly_zykov_ru_knigi__get_books.py](https://github.com/gil9red/SimplePyScripts/blob/ae5543922db83b10670096ac2e765608ab792880/html_parsing/vitaly_zykov_ru_knigi__get_books.py)
  * [youtube_com__results_search_query.py](https://github.com/gil9red/SimplePyScripts/blob/086bca3ea20744060da9bb2ea913d3905f75a52d/html_parsing/youtube_com__results_search_query.py)
  * [ru_wikipedia_org__wiki__Список_эпизодов_мультсериала_Южный_Парк.py](https://github.com/gil9red/SimplePyScripts/blob/0216be489f2df82b44c2a6d6b8382c588a884f14/html_parsing/ru_wikipedia_org__wiki__%D0%A1%D0%BF%D0%B8%D1%81%D0%BE%D0%BA_%D1%8D%D0%BF%D0%B8%D0%B7%D0%BE%D0%B4%D0%BE%D0%B2_%D0%BC%D1%83%D0%BB%D1%8C%D1%82%D1%81%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%B0_%D0%AE%D0%B6%D0%BD%D1%8B%D0%B9_%D0%9F%D0%B0%D1%80%D0%BA.py)
