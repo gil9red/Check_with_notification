@@ -42,5 +42,7 @@ run_notification_job(
     get_items,
     save_mode=SavedModeEnum.DATA_ITEM,
     send_new_items_separately=True,
-    formats=FORMATS_VIDEO,
+    formats=FORMATS_VIDEO.replace(
+        prefix="🪠",
+    ),
 )
