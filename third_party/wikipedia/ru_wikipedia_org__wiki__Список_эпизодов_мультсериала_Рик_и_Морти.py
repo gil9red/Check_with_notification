@@ -6,14 +6,15 @@ __author__ = "ipetrash"
 
 import re
 
-import requests
 from bs4 import BeautifulSoup
+
+from common import session
 
 
 def get_seasons() -> dict[str, list[str]]:
     url = "https://ru.wikipedia.org/wiki/Список_эпизодов_мультсериала_«Рик_и_Морти»"
 
-    rs = requests.get(url)
+    rs = session.get(url)
     root = BeautifulSoup(rs.content, "html.parser")
 
     season_by_series = dict()
@@ -59,7 +60,6 @@ def get_all_series() -> list[str]:
         for season, series_list in get_seasons().items()
         for series in series_list
     ]
-
 
 
 if __name__ == "__main__":
