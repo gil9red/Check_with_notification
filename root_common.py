@@ -557,6 +557,11 @@ class NotificationJob:
 
                 # Слишком много подряд неудачных попыток в режиме is_single
                 if self.is_single and attempts >= self.max_attempts_for_is_single:
+                    # Отключение отправки уведомления из log_uncaught_exceptions
+                    # Т.к. выше уже будет отправлено уведомление об ошибке
+                    global IS_CAN_SEND_ERROR_NOTIFICATIONS
+                    IS_CAN_SEND_ERROR_NOTIFICATIONS = False
+
                     raise e
 
                 self.log.debug(self.formats.on_exception_next_attempt, self.timeout_exception_seconds)
