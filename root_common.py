@@ -559,7 +559,6 @@ class NotificationJob:
                 if self.is_single and attempts >= self.max_attempts_for_is_single:
                     # Отключение отправки уведомления из log_uncaught_exceptions
                     # Т.к. выше уже будет отправлено уведомление об ошибке
-                    global IS_CAN_SEND_ERROR_NOTIFICATIONS
                     IS_CAN_SEND_ERROR_NOTIFICATIONS = False
 
                     raise e
