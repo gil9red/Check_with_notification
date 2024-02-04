@@ -539,9 +539,9 @@ class NotificationJob:
                 # При повторных подряд идущих неуспешных выполнениях сначала отправляется ошибка
                 # в первый раз после, на каждые N-раз ошибка с указанием номера попытки
                 if (
-                    self.notify_after_sequence_of_errors
+                    self.need_notification
+                    and self.notify_after_sequence_of_errors
                     and attempts >= self.report_errors_for_first_time_after_attempts
-                    and self.need_notification
                 ):
                     if not has_sending_first_report_error:
                         self.log.info("Sending a notification")
