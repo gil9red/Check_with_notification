@@ -88,7 +88,7 @@ class TimeoutWait:
 
 def get_logger(
     name,
-    file="log.txt",
+    file: str | Path = "log.txt",
     encoding="utf-8",
     log_stdout=True,
     log_file=True,
