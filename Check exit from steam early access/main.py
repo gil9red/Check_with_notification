@@ -39,6 +39,14 @@ def get_games() -> list[Game]:
             title="Turbo Overkill",
             url="https://store.steampowered.com/app/1328350/Turbo_Overkill/",
         ),
+        Game(
+            title="Wizordum",
+            url="https://store.steampowered.com/app/1715590/Wizordum/",
+        ),
+        Game(
+            title="Soulstone Survivors",
+            url="https://store.steampowered.com/app/2066020/Soulstone_Survivors/",
+        )
     ]
 
 
