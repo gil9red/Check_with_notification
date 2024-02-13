@@ -1,5 +1,5 @@
 ### SOURCE:
- * [grouple_co/](https://github.com/gil9red/SimplePyScripts/tree/15cf780f5f481c9a61b49671208d376f28fb234f/html_parsing/grouple_co)
+ * [grouple_co/](https://github.com/gil9red/SimplePyScripts/tree/7f7e217257c84322aca162a9909966c94012cc3e/html_parsing/grouple_co)
  * [jut_su/](https://github.com/gil9red/SimplePyScripts/tree/0cfa47d91c95354ab3683eed24da8b4a093c2db7/html_parsing/jut_su)
  * [litres_ru/get_books_by_author.py](https://github.com/gil9red/SimplePyScripts/blob/7bdcd73825884d442cabd08135796cd9ae23da4f/html_parsing/litres_ru/get_books_by_author.py)
  * [price_of_games/app_parser/utils.py (partially)](https://github.com/gil9red/price_of_games/blob/0ba20b658f47be3eba02bab1907aa6fc83ad6d4e/app_parser/utils.py)
