@@ -15,4 +15,5 @@
  * [kanobu_ru__games__collections__igry_s_podderzhkoi_rtx.py](https://github.com/gil9red/SimplePyScripts/blob/9433358f9e7eacb13519e4e2fee428c652b022a7/html_parsing/kanobu_ru__games__collections__igry_s_podderzhkoi_rtx.py)
  * [store_steampowered_com__check_early_access.py](store_steampowered_com__check_early_access.py)(https://github.com/gil9red/SimplePyScripts/blob/9cfb38bcf1ef590bd867b8965231dd1f02a7b418/html_parsing/store_steampowered_com__check_early_access.py)
  * [store_steampowered_com__check_exists_app.py](https://github.com/gil9red/SimplePyScripts/blob/786b384d29481d61989b3b4489dce73c16b12fb6/html_parsing/store_steampowered_com__check_exists_app.py)
+ * [theboys_fun.py](https://github.com/gil9red/SimplePyScripts/blob/e40576d2822ef4274b8630baedf12e557d9eee02/html_parsing/theboys_fun.py)
  * [youtube_com__results_search_query.py](https://github.com/gil9red/SimplePyScripts/blob/086bca3ea20744060da9bb2ea913d3905f75a52d/html_parsing/youtube_com__results_search_query.py)
