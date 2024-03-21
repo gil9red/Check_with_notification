@@ -29,25 +29,24 @@ class Game:
     url: str
 
 
-def get_games() -> list[Game]:
-    return [
-        Game(
-            title="Ultrakill",
-            url="https://store.steampowered.com/app/1229490/ULTRAKILL/",
-        ),
-        Game(
-            title="Turbo Overkill",
-            url="https://store.steampowered.com/app/1328350/Turbo_Overkill/",
-        ),
-        Game(
-            title="Wizordum",
-            url="https://store.steampowered.com/app/1715590/Wizordum/",
-        ),
-        Game(
-            title="Soulstone Survivors",
-            url="https://store.steampowered.com/app/2066020/Soulstone_Survivors/",
-        )
-    ]
+GAMES: list[Game] = [
+    Game(
+        title="Ultrakill",
+        url="https://store.steampowered.com/app/1229490/ULTRAKILL/",
+    ),
+    Game(
+        title="Turbo Overkill",
+        url="https://store.steampowered.com/app/1328350/Turbo_Overkill/",
+    ),
+    Game(
+        title="Wizordum",
+        url="https://store.steampowered.com/app/1715590/Wizordum/",
+    ),
+    Game(
+        title="Soulstone Survivors",
+        url="https://store.steampowered.com/app/2066020/Soulstone_Survivors/",
+    ),
+]
 
 
 def get_items(_: NotificationJob) -> list[DataItem]:
@@ -56,7 +55,7 @@ def get_items(_: NotificationJob) -> list[DataItem]:
             value=game.title + (" в раннем доступе" if is_early_access(game.url) else " готова!"),
             url=game.url,
         )
-        for game in get_games()
+        for game in GAMES
     ]
 
 
