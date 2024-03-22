@@ -65,7 +65,7 @@ def steam_search_game_price_list(name: str, log_common: Logger = None) -> List[T
                 price = 0
             else:
                 # Только значение цены
-                if "pуб" not in price:
+                if "pуб" not in price and "руб" not in price:
                     log_common and log_common.warning(
                         f'АХТУНГ! Неизвестный формат цены: "{price}".'
                     )
