@@ -39,6 +39,10 @@ GAMES: list[Game] = [
         title="Cat Quest III",
         url="https://store.steampowered.com/app/2305840/Cat_Quest_III/",
     ),
+    Game(
+        title="Titan Quest II",
+        url="https://store.steampowered.com/app/1154030/Titan_Quest_II/",
+    ),
 ]
 
 
