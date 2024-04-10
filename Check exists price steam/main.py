@@ -43,6 +43,10 @@ GAMES: list[Game] = [
         title="Titan Quest II",
         url="https://store.steampowered.com/app/1154030/Titan_Quest_II/",
     ),
+    Game(
+        title="MOUSE",
+        url="https://store.steampowered.com/app/2416450/MOUSE/",
+    ),
 ]
 
 
