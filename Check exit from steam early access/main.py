@@ -46,6 +46,10 @@ GAMES: list[Game] = [
         title="Soulstone Survivors",
         url="https://store.steampowered.com/app/2066020/Soulstone_Survivors/",
     ),
+    Game(
+        title="Hades II",
+        url="https://store.steampowered.com/app/1145350/Hades_II/",
+    )
 ]
 
 
