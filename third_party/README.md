@@ -1,5 +1,6 @@
 ### SOURCE:
- * [grouple_co/](https://github.com/gil9red/SimplePyScripts/tree/7f7e217257c84322aca162a9909966c94012cc3e/html_parsing/grouple_co)
+ * [github_api__examples/](https://github.com/gil9red/SimplePyScripts/blob/53f23ca6394ad53545f6f83ab52eb3d6a1ba68f6/github_api__examples)
+ * [grouple_co/](https://github.com/gil9red/SimplePyScripts/tree/15cf780f5f481c9a61b49671208d376f28fb234f/html_parsing/grouple_co)
  * [jut_su/](https://github.com/gil9red/SimplePyScripts/tree/0cfa47d91c95354ab3683eed24da8b4a093c2db7/html_parsing/jut_su)
  * [litres_ru/get_books_by_author.py](https://github.com/gil9red/SimplePyScripts/blob/296f8977c209c412cbf8beff060ab03e165da35e/html_parsing/litres_ru/get_books_by_author.py)
  * [price_of_games/app_parser/utils.py (partially)](https://github.com/gil9red/price_of_games/blob/0ba20b658f47be3eba02bab1907aa6fc83ad6d4e/app_parser/utils.py)
@@ -10,7 +11,7 @@
  * [add_notify_telegram.py](https://github.com/gil9red/telegram_notifications_bot/blob/5473d04dda61b0a066eb04c75e22a5e3e34c0f17/add_notify_use_web.py#L18) (PARTIALLY)
  * [anivost_org.py](https://github.com/gil9red/SimplePyScripts/blob/d5437b669d700082673f1bef51aa6d1a5ed0ef0c/html_parsing/anivost_org.py)
  * [gamestatus_info__lastcrackedgames.py](https://github.com/gil9red/SimplePyScripts/blob/e1ee7ee97a8f9855c8ed3c529605afbba41b3ae3/html_parsing/gamestatus_info__lastcrackedgames.py)
- * [get_stargazers.py](https://github.com/gil9red/SimplePyScripts/blob/3e10361a88f18828f6f88fc9ab6183d01d8e0564/github_api__examples/get_stargazers.py)
+ * [gitmanga_com__get_chapters.py](https://github.com/gil9red/SimplePyScripts/blob/ea22545ffa4164497e7763136836ddb9e2578b9d/html_parsing/gitmanga_com__get_chapters.py)
  * [kanobu_ru__games__collections__igry_s_podderzhkoi_rtx.py](https://github.com/gil9red/SimplePyScripts/blob/9433358f9e7eacb13519e4e2fee428c652b022a7/html_parsing/kanobu_ru__games__collections__igry_s_podderzhkoi_rtx.py)
  * [readberserk_com__get_chapters.py](https://github.com/gil9red/SimplePyScripts/blob/95c5e65e77958684550f7502c14b46dbaa52c5b1/html_parsing/readberserk_com__get_chapters.py)
  * [store_steampowered_com__check_early_access.py](store_steampowered_com__check_early_access.py)(https://github.com/gil9red/SimplePyScripts/blob/9fc2013fd614d486be587ad0c6f180478a5c8d6c/html_parsing/store_steampowered_com__check_early_access.py)
