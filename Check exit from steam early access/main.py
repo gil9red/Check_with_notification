@@ -49,7 +49,11 @@ GAMES: list[Game] = [
     Game(
         title="Hades II",
         url="https://store.steampowered.com/app/1145350/Hades_II/",
-    )
+    ),
+    Game(
+        title="Death Must Die",
+        url="https://store.steampowered.com/app/2334730/Death_Must_Die/",
+    ),
 ]
 
 
