@@ -54,6 +54,10 @@ GAMES: list[Game] = [
         title="Death Must Die",
         url="https://store.steampowered.com/app/2334730/Death_Must_Die/",
     ),
+    Game(
+        title="Deep Rock Galactic: Survivor",
+        url="https://store.steampowered.com/app/2321470/Deep_Rock_Galactic_Survivor/",
+    ),
 ]
 
 
