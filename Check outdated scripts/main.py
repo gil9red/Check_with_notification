@@ -21,8 +21,8 @@ from formats import FORMATS_DEFAULT
 from root_common import NotificationJob, run_notification_job
 
 
-IGNORED = [".deprecated", "examples", str(DIR.name)]
-DAYS_DIVIDER = 180
+IGNORED: list[str] = [".deprecated", "examples", str(DIR.name)]
+DAYS_DIVIDER: int = 180
 
 
 def get_scripts() -> list[tuple[str, int]]:
@@ -33,10 +33,11 @@ def get_scripts() -> list[tuple[str, int]]:
             continue
 
         script_name = file.parent.name
+
         modified_datetime = datetime.fromtimestamp(file.stat().st_mtime)
         delta = datetime.now() - modified_datetime
-        delta_in_days = int(delta.total_seconds()) // (3600 * 24)
-        items.append((script_name, delta_in_days))
+
+        items.append((script_name, delta.days))
 
     return items
 
