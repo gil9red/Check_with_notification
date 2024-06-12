@@ -10,16 +10,14 @@ __author__ = "ipetrash"
 """
 
 
-import sys
-
 from pathlib import Path
-
-DIR = Path(__file__).resolve().parent
-sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from formats import FORMATS_GAME
 from root_common import NotificationJob, DataItem, run_notification_job
 from third_party.gamesvoice_ru__get_finished import get_games
+
+
+DIR = Path(__file__).resolve().parent
 
 
 def get_items(_: NotificationJob) -> list[DataItem]:
