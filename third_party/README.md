@@ -12,7 +12,6 @@
  * [anivost_org.py](https://github.com/gil9red/SimplePyScripts/blob/d5437b669d700082673f1bef51aa6d1a5ed0ef0c/html_parsing/anivost_org.py)
  * [gamestatus_info__lastcrackedgames.py](https://github.com/gil9red/SimplePyScripts/blob/e1ee7ee97a8f9855c8ed3c529605afbba41b3ae3/html_parsing/gamestatus_info__lastcrackedgames.py)
  * [gamesvoice_ru__get_finished.py](https://github.com/gil9red/SimplePyScripts/blob/2d9bedefc353ea7ff9a18314e587b2297300299e/html_parsing/gamesvoice_ru__get_finished.py)
- * [readberserk_com__get_chapters.py](https://github.com/gil9red/SimplePyScripts/blob/95c5e65e77958684550f7502c14b46dbaa52c5b1/html_parsing/readberserk_com__get_chapters.py)
  * [store_steampowered_com__check_early_access.py](store_steampowered_com__check_early_access.py)(https://github.com/gil9red/SimplePyScripts/blob/9fc2013fd614d486be587ad0c6f180478a5c8d6c/html_parsing/store_steampowered_com__check_early_access.py)
  * [store_steampowered_com__check_exists_app.py](https://github.com/gil9red/SimplePyScripts/blob/786b384d29481d61989b3b4489dce73c16b12fb6/html_parsing/store_steampowered_com__check_exists_app.py)
  * [youtube_com__results_search_query.py](https://github.com/gil9red/SimplePyScripts/blob/086bca3ea20744060da9bb2ea913d3905f75a52d/html_parsing/youtube_com__results_search_query.py)
