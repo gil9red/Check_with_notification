@@ -58,6 +58,10 @@ GAMES: list[Game] = [
         title="Deep Rock Galactic: Survivor",
         url="https://store.steampowered.com/app/2321470/Deep_Rock_Galactic_Survivor/",
     ),
+    Game(
+        title="Древние Русы",
+        url="https://store.steampowered.com/app/2669860/_/",
+    ),
 ]
 
 
