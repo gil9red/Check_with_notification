@@ -39,6 +39,8 @@ sys.path.append(str(DIR / "third_party"))
 from third_party.add_notify_telegram import add_notify
 from third_party.youtube_com__results_search_query import search_youtube
 from third_party.jut_su.anime_get_video_list import get_video_list as get_video_list_from_jut_su
+from third_party.rutube.get_videos_from_playlist import get_videos as get_videos_from_playlist_rutube
+from third_party.rutube.get_videos_from_channel import get_videos as get_videos_from_channel_rutube
 
 
 session = requests.session()
@@ -617,6 +619,22 @@ def get_items_from_jut_su(_: NotificationJob, url: str) -> list[DataItem]:
             )
 
     return items
+
+
+def get_items_from_rutube(
+    _: NotificationJob,
+    url: str,
+    max_items: int | None = None
+) -> list[DataItem]:
+    if "/plst/" in url:
+        videos = get_videos_from_playlist_rutube(url, max_items=max_items)
+    else:
+        videos = get_videos_from_channel_rutube(url, max_items=max_items)
+
+    return [
+        DataItem(value=video.title, url=video.url)
+        for video in videos
+    ]
 
 
 def run_notification_job(
