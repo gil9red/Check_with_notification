@@ -29,7 +29,6 @@ run_notification_job(
     "Пацаны [Rutube]",
     DIR,
     lambda job: get_items_from_rutube(job, URL),
-    send_new_items_as_group=True,
     formats=FORMATS_VIDEO,
     save_mode=SavedModeEnum.DATA_ITEM,
 )
