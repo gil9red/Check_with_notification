@@ -19,10 +19,22 @@ ROOT_DIR = DIR.parent
 sys.path.append(str(ROOT_DIR))  # Путь к папке выше
 
 from formats import FORMATS_VIDEO
-from root_common import SavedModeEnum, run_notification_job, get_items_from_rutube
+from root_common import (
+    NotificationJob,
+    SavedModeEnum,
+    run_notification_job,
+    get_items_from_rutube,
+)
 
 
 URL = "https://rutube.ru/plst/328068/"
+
+
+def on_first_start_detected(job: NotificationJob):
+    job.log.debug("На первый запуск выполняется сохранение всех видео")
+
+    items = get_items_from_rutube(job, URL)
+    job.save_items(items)
 
 
 run_notification_job(
@@ -32,4 +44,8 @@ run_notification_job(
     send_new_items_as_group=True,
     formats=FORMATS_VIDEO,
     save_mode=SavedModeEnum.DATA_ITEM,
+    callbacks=NotificationJob.Callbacks(
+        on_first_start_detected=on_first_start_detected,
+    ),
+    need_to_store_items=9999,
 )
