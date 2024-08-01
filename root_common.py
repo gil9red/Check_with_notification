@@ -22,7 +22,7 @@ from requests.exceptions import RequestException
 
 from simple_wait import wait
 
-from formats import Formats, FORMATS_DEFAULT
+from formats import Formats, FORMATS_DEFAULT, FORMATS_VIDEO
 from root_config import (
     API_ID,
     TO,
@@ -690,6 +690,31 @@ def run_notification_job(
         debug_logging_current_items=debug_logging_current_items,
         debug_logging_get_new_items=debug_logging_get_new_items,
     ).run()
+
+
+def run_notification_job_rutube_many(
+    name: str,
+    script_dir: Path,
+    url: str,
+    formats: Formats = FORMATS_VIDEO,
+):
+    def on_first_start_detected(job: NotificationJob):
+        job.log.debug("На первый запуск выполняется сохранение всех видео")
+
+        items = get_items_from_rutube(job, url)
+        job.save_items(items)
+
+    run_notification_job(
+        name,
+        script_dir,
+        lambda job: get_items_from_rutube(job, url, max_items=100),
+        formats=formats,
+        save_mode=SavedModeEnum.DATA_ITEM,
+        callbacks=NotificationJob.Callbacks(
+            on_first_start_detected=on_first_start_detected,
+        ),
+        need_to_store_items=9999,
+    )
 
 
 if __name__ == "__main__":
