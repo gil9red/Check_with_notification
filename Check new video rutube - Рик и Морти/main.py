@@ -10,25 +10,12 @@ __author__ = "ipetrash"
 """
 
 
-import sys
 from pathlib import Path
-
-DIR = Path(__file__).resolve().parent
-ROOT_DIR = DIR.parent
-
-sys.path.append(str(ROOT_DIR))  # Путь к папке выше
-
-from formats import FORMATS_VIDEO
-from root_common import SavedModeEnum, run_notification_job, get_items_from_rutube
+from root_common import run_notification_job_rutube
 
 
-URL = "https://rutube.ru/channel/34757635/videos/"
-
-
-run_notification_job(
-    "Рик и Морти [Rutube]",
-    DIR,
-    lambda job: get_items_from_rutube(job, URL),
-    formats=FORMATS_VIDEO,
-    save_mode=SavedModeEnum.DATA_ITEM,
+run_notification_job_rutube(
+    name="Рик и Морти",
+    script_dir=Path(__file__).resolve().parent,
+    url="https://rutube.ru/channel/34757635/videos/",
 )

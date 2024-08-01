@@ -692,28 +692,38 @@ def run_notification_job(
     ).run()
 
 
-def run_notification_job_rutube_many(
+def run_notification_job_rutube(
     name: str,
     script_dir: Path,
     url: str,
-    formats: Formats = FORMATS_VIDEO,
+    many: bool = False,
 ):
-    def on_first_start_detected(job: NotificationJob):
-        job.log.debug("На первый запуск выполняется сохранение всех видео")
+    title = f"{name} [Rutube]"
 
-        items = get_items_from_rutube(job, url)
-        job.save_items(items)
+    max_items = callbacks = need_to_store_items = None
+    if many:
+        max_items = 100
+
+        def on_first_start_detected(job: NotificationJob):
+            job.log.debug("На первый запуск выполняется сохранение всех видео")
+
+            items = get_items_from_rutube(job, url)
+            job.save_items(items)
+
+        callbacks = NotificationJob.Callbacks(
+            on_first_start_detected=on_first_start_detected,
+        )
+
+        need_to_store_items = 9999
 
     run_notification_job(
-        name,
+        title,
         script_dir,
-        lambda job: get_items_from_rutube(job, url, max_items=100),
-        formats=formats,
+        lambda job: get_items_from_rutube(job, url, max_items=max_items),
+        formats=FORMATS_VIDEO,
         save_mode=SavedModeEnum.DATA_ITEM,
-        callbacks=NotificationJob.Callbacks(
-            on_first_start_detected=on_first_start_detected,
-        ),
-        need_to_store_items=9999,
+        callbacks=callbacks,
+        need_to_store_items=need_to_store_items,
     )
 
 

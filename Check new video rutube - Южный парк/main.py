@@ -11,11 +11,12 @@ __author__ = "ipetrash"
 
 
 from pathlib import Path
-from root_common import run_notification_job_rutube_many
+from root_common import run_notification_job_rutube
 
 
-run_notification_job_rutube_many(
-    name="Южный парк [Rutube]",
+run_notification_job_rutube(
+    name="Южный парк",
     script_dir=Path(__file__).resolve().parent,
     url="https://rutube.ru/channel/36379221/videos/",
+    many=True,
 )
