@@ -720,8 +720,10 @@ def run_notification_job_rutube(
         title,
         script_dir,
         lambda job: get_items_from_rutube(job, url, max_items=max_items),
+        send_new_items_as_group=True,
         formats=FORMATS_VIDEO,
         save_mode=SavedModeEnum.DATA_ITEM,
+
         callbacks=callbacks,
         need_to_store_items=need_to_store_items,
     )
