@@ -723,7 +723,6 @@ def run_notification_job_rutube(
         send_new_items_as_group=True,
         formats=FORMATS_VIDEO,
         save_mode=SavedModeEnum.DATA_ITEM,
-
         callbacks=callbacks,
         need_to_store_items=need_to_store_items,
     )
