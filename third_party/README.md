@@ -6,7 +6,7 @@
  * [price_of_games/app_parser/utils.py (partially)](https://github.com/gil9red/price_of_games/blob/0ba20b658f47be3eba02bab1907aa6fc83ad6d4e/app_parser/utils.py)
  * [python_org/get_release_versions.py](https://github.com/gil9red/SimplePyScripts/blob/1d896ec6145d12f973423038a32a39cb8ee96c51/html_parsing/python_org/get_release_versions.py)
  * [ranobehub_org/](https://github.com/gil9red/SimplePyScripts/tree/c211581b8679199abfbfe8c59f5b301d0f4d19b7/html_parsing/ranobehub_org)
- * [rutube/](https://github.com/gil9red/SimplePyScripts/tree/2a9e2e4fbb9535fe33ccef07592f89c0735c815f/html_parsing/rutube)
+ * [rutube/](https://github.com/gil9red/SimplePyScripts/tree/29797129513a907ca9f93b217e1e599549e38949/html_parsing/rutube)
  * [stackoverflow_site__parsing/user_rank_and_reputation.py](https://github.com/gil9red/SimplePyScripts/blob/1d7f58c816db60f6005b9e63b981eeabd1924fc6/stackoverflow_site__parsing/user_rank_and_reputation.py)
  * [wikipedia/](https://github.com/gil9red/SimplePyScripts/tree/d7b2b9fb29569f6f69e8ac414763a134ac312add/html_parsing/wikipedia)
  * [add_notify_telegram.py](https://github.com/gil9red/telegram_notifications_bot/blob/5473d04dda61b0a066eb04c75e22a5e3e34c0f17/add_notify_use_web.py#L18) (PARTIALLY)
