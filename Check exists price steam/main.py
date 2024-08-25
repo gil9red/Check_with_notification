@@ -36,8 +36,8 @@ GAMES: list[Game] = [
         url="https://store.steampowered.com/app/1198970/I_Am_Jesus_Christ/",
     ),
     Game(
-        title="Cat Quest III",
-        url="https://store.steampowered.com/app/2305840/Cat_Quest_III/",
+        title="Little Nightmares III",
+        url="https://store.steampowered.com/app/1392860/Little_Nightmares_III/",
     ),
     Game(
         title="Titan Quest II",
