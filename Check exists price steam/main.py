@@ -47,6 +47,10 @@ GAMES: list[Game] = [
         title="MOUSE",
         url="https://store.steampowered.com/app/2416450/MOUSE/",
     ),
+    Game(
+        title="Heroes of Might & Magic: Olden Era",
+        url="https://store.steampowered.com/app/3105440/Heroes_of_Might__Magic_Olden_Era/",
+    ),
 ]
 
 
