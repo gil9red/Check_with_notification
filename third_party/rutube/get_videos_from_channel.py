@@ -29,14 +29,35 @@ except ImportError:
 
 def _get_channel_videos(data: dict[str, Any]) -> dict[str, Any]:
     try:
-        result = data["userChannel"]["videos"]
+        try:
+            result = data["userChannel"]["videos"]
+        except KeyError:
+            raise KeyError("Не удалось найти userChannel/videos!")
+
+        if not result:
+            raise KeyError("Пустое значение userChannel/videos!")
+
+        return result
+
     except KeyError:
-        raise Exception("Не удалось найти userChannel/videos!")
+        try:
+            # Поиск ключа вида "videos(<id канала>)"
+            items: list[dict[str, Any]] = [
+                v
+                for k, v in data["api"]["queries"].items()
+                if k.startswith("videos")
+            ]
+        except KeyError:
+            raise KeyError("Не удалось найти api/queries!")
 
-    if not result:
-        raise Exception("Пустое значение userChannel/videos!")
+        if not items or not items[0]:
+            raise KeyError("Не удалось найти api/queries/videos!")
 
-    return result
+        result: dict[str, Any] | None = items[0].get("data")
+        if not result:
+            raise KeyError("Пустое значение api/queries/videos/data!")
+
+        return result
 
 
 def _get_video_list(channel_videos_data: dict[str, Any]) -> list[Video]:
@@ -108,13 +129,13 @@ def get_videos(url: str, max_items: int | None = None) -> list[Video]:
 
 
 if __name__ == "__main__":
-    url = "https://rutube.ru/channel/32869212/videos/"
-    items = get_videos(url, max_items=10)
-    assert len(items) == 10
-
     # # NOTE: Для получения всех логов
     # import logging
     # logger.setLevel(logging.DEBUG)
+
+    url = "https://rutube.ru/channel/32869212/videos/"
+    items = get_videos(url, max_items=10)
+    assert len(items) == 10
 
     items = get_videos(url, max_items=50)
     print(f"Video ({len(items)}):")
