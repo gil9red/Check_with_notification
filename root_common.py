@@ -697,6 +697,7 @@ def run_notification_job_rutube(
     script_dir: Path,
     url: str,
     many: bool = False,
+    formats=FORMATS_VIDEO,
 ):
     title = f"{name} [Rutube]"
 
@@ -721,7 +722,7 @@ def run_notification_job_rutube(
         script_dir,
         lambda job: get_items_from_rutube(job, url, max_items=max_items),
         send_new_items_as_group=True,
-        formats=FORMATS_VIDEO,
+        formats=formats,
         save_mode=SavedModeEnum.DATA_ITEM,
         callbacks=callbacks,
         need_to_store_items=need_to_store_items,
