@@ -20,6 +20,6 @@ run_notification_job_rutube(
     script_dir=Path(__file__).resolve().parent,
     url="https://rutube.ru/u/mamavshapke/videos/",
     formats=FORMATS_VIDEO.replace(
-        prefix="🧙‍♀️",
+        prefix="👒",
     ),
 )
