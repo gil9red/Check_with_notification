@@ -1,6 +1,6 @@
 ### SOURCE:
  * [github_api__examples/](https://github.com/gil9red/SimplePyScripts/blob/53f23ca6394ad53545f6f83ab52eb3d6a1ba68f6/github_api__examples)
- * [grouple_co/](https://github.com/gil9red/SimplePyScripts/tree/37f03d9f4de2fb3566496ebcd849c52d37aadd4b/html_parsing/grouple_co)
+ * [grouple_co/](https://github.com/gil9red/SimplePyScripts/blob/d6cf195a54bc1f49acbe8d4cf6022d889a0b9609/html_parsing/grouple_co/)
  * [jut_su/](https://github.com/gil9red/SimplePyScripts/tree/0cfa47d91c95354ab3683eed24da8b4a093c2db7/html_parsing/jut_su)
  * [litres_ru/get_books_by_author.py](https://github.com/gil9red/SimplePyScripts/blob/296f8977c209c412cbf8beff060ab03e165da35e/html_parsing/litres_ru/get_books_by_author.py)
  * [price_of_games/app_parser/utils.py (partially)](https://github.com/gil9red/price_of_games/blob/0ba20b658f47be3eba02bab1907aa6fc83ad6d4e/app_parser/utils.py)
