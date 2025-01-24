@@ -62,6 +62,10 @@ GAMES: list[Game] = [
         title="Древние Русы",
         url="https://store.steampowered.com/app/2669860/_/",
     ),
+    Game(
+        title="Jotunnslayer: Hordes of Hel",
+        url="https://store.steampowered.com/app/2820820/Jotunnslayer_Hordes_of_Hel/",
+    ),
 ]
 
 
