@@ -66,6 +66,10 @@ GAMES: list[Game] = [
         title="Jotunnslayer: Hordes of Hel",
         url="https://store.steampowered.com/app/2820820/Jotunnslayer_Hordes_of_Hel/",
     ),
+    Game(
+        title="Gloomwood",
+        url="https://store.steampowered.com/app/1150760/Gloomwood/?curator_clanid=34055240",
+    ),
 ]
 
 
