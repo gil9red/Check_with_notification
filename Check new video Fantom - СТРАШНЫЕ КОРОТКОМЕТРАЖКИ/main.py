@@ -5,7 +5,7 @@ __author__ = "ipetrash"
 
 
 """
-Скрипт для уведомления о появлении новых видео плейлиста Fantom АНАЛОГОВЫЕ и ЦИФРОВЫЕ ХОРРОРЫ.
+Скрипт для уведомления о появлении новых видео плейлиста Fantom СТРАШНЫЕ КОРОТКОМЕТРАЖКИ.
 
 """
 
@@ -25,9 +25,9 @@ from root_common import (
 
 
 run_notification_job(
-    "АНАЛОГОВЫЕ и ЦИФРОВЫЕ ХОРРОРЫ [Fantom]",
+    "СТРАШНЫЕ КОРОТКОМЕТРАЖКИ [Fantom]",
     DIR,
-    lambda _: get_yt_playlist_video_list("PLqZA9icnp9qffDCuClNUL2AExxEbLBtzs"),
+    lambda _: get_yt_playlist_video_list("PLqZA9icnp9qdGIkdz5CHhY5h0BSzpsm6D"),
     save_mode=SavedModeEnum.DATA_ITEM,
     send_new_items_separately=True,
     formats=FORMATS_VIDEO,
