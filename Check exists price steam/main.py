@@ -14,14 +14,15 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
+from bs4 import BeautifulSoup, Tag
+
 DIR = Path(__file__).resolve().parent
 ROOT_DIR = DIR.parent
 
 sys.path.append(str(ROOT_DIR))  # Путь к папке выше
 
 from formats import Formats
-from root_common import DataItem, run_notification_job, NotificationJob
-from third_party.price_of_games.app_parser.utils import get_price
+from root_common import DataItem, run_notification_job, NotificationJob, session
 
 
 @dataclass
@@ -54,10 +55,27 @@ GAMES: list[Game] = [
 ]
 
 
-def get_items(job: NotificationJob) -> list[DataItem]:
+def get_price(url: str) -> int | None:
+    rs = session.get(url)
+    rs.raise_for_status()
+
+    soup = BeautifulSoup(rs.content, "html.parser")
+
+    meta_price: Tag | None = soup.select_one("meta[itemprop=price]")
+    if meta_price is None:
+        return
+
+    value: str | None = meta_price.get("content")
+    if value is None:
+        return
+
+    return int(value)
+
+
+def get_items(_: NotificationJob) -> list[DataItem]:
     items: list[DataItem] = []
     for game in GAMES:
-        price = get_price(game.title, job.log)
+        price = get_price(game.url)
         title = (
             f"Игра {game.title!r} доступна для покупки"
             if price
