@@ -44,8 +44,8 @@ GAMES: list[Game] = [
         url="https://store.steampowered.com/app/1154030/Titan_Quest_II/",
     ),
     Game(
-        title="MOUSE",
-        url="https://store.steampowered.com/app/2416450/MOUSE/",
+        title="MOUSE: P.I. For Hire",
+        url="https://store.steampowered.com/app/2416450/MOUSE_PI_For_Hire/",
     ),
     Game(
         title="Heroes of Might & Magic: Olden Era",
