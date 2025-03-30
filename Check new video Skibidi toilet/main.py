@@ -27,11 +27,11 @@ from root_common import (
 
 
 def get_items(_: NotificationJob) -> list[DataItem]:
-    # Не всегда вовремя в плейлист кладет, поэтому для актуальности брать с страницы
+    # Не всегда вовремя в плейлист кладет, поэтому для актуальности брать со страницы
     url = "https://www.youtube.com/@DaFuqBoom/videos"
     return [
         item
-        for item in get_yt_video_list(url)
+        for item in get_yt_video_list(url, maximum_items=100)
         if "skibidi toilet" in item.title.lower()
     ]
 
