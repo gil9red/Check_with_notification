@@ -20,25 +20,16 @@ from formats import FORMATS_VIDEO
 from root_common import (
     run_notification_job,
     SavedModeEnum,
-    get_yt_video_list_from_playlists,
+    get_yt_video_list,
 )
-
-
-PLAYLISTS = [
-    ("Видеоэссе", "PLfCe0Mzdeup2haesPLO5tGwgVVLpI_hWu"),
-    ("Психоанализ героев видеоигр", "PLfCe0Mzdeup0kYxejFl8Vjw6DtZCmuR-Z"),
-    ("ТОПы", "PLfCe0Mzdeup3T-JaqrSvUhmVPNpVotU5L"),
-    ("Расцвет и Упадок", "PLfCe0Mzdeup2GUW_1lH0q-_rRmxubo8c5"),
-    ("Облик Эпохи", "PLfCe0Mzdeup3V856n4aHTS2_3_LakQt3a"),
-]
 
 
 run_notification_job(
     "TVG",
     DIR,
-    lambda job: get_yt_video_list_from_playlists(job, PLAYLISTS),
+    lambda _: get_yt_video_list("https://www.youtube.com/@TVGofficial/videos"),
     save_mode=SavedModeEnum.DATA_ITEM,
-    # Чтобы не было "каши", т.к. видео собирается из нескольких плейлистов
-    send_new_items_separately=True,
+    need_to_store_items=9999,
+    send_new_items_as_group=True,
     formats=FORMATS_VIDEO,
 )
