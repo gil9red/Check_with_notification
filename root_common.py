@@ -211,6 +211,7 @@ def send_telegram_notification_error(name: str, message: str):
 
 IS_CAN_SEND_ERROR_NOTIFICATIONS: bool = False
 IS_SINGLE: bool = "--single" in sys.argv
+
 DEFAULT_NEED_TO_STORE_ITEMS: int = 10_000
 
 
