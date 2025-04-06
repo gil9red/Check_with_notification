@@ -29,7 +29,6 @@ run_notification_job(
     DIR,
     lambda _: get_yt_video_list("https://www.youtube.com/@TVGofficial/videos"),
     save_mode=SavedModeEnum.DATA_ITEM,
-    need_to_store_items=9999,
     send_new_items_as_group=True,
     formats=FORMATS_VIDEO,
 )

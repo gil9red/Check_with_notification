@@ -50,5 +50,4 @@ run_notification_job(
     ),
     save_mode=SavedModeEnum.DATA_ITEM,
     send_new_items_separately=True,
-    need_to_store_items=500,
 )

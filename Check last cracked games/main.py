@@ -49,5 +49,4 @@ run_notification_job(
     timeout=TimeoutWait(days=1),
     formats=FORMATS_GAME,
     send_new_items_as_group=True,
-    need_to_store_items=10_000,
 )

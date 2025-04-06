@@ -211,6 +211,7 @@ def send_telegram_notification_error(name: str, message: str):
 
 IS_CAN_SEND_ERROR_NOTIFICATIONS: bool = False
 IS_SINGLE: bool = "--single" in sys.argv
+DEFAULT_NEED_TO_STORE_ITEMS: int = 10_000
 
 
 def log_uncaught_exceptions(ex_cls, ex, tb):
@@ -264,7 +265,7 @@ class NotificationJob:
         save_mode: SavedModeEnum = SavedModeEnum.SIMPLE,
         url: str = None,
         callbacks: Callbacks = None,
-        need_to_store_items: int = None,
+        need_to_store_items: int | None = DEFAULT_NEED_TO_STORE_ITEMS,
         notify_after_sequence_of_errors: bool = True,
         report_errors_for_first_time_after_attempts: int = 5,  # NOTE: Default after 25 minutes
         report_errors_after_each_attempts: int = 100,  # NOTE: Default every 8 hours
@@ -655,7 +656,7 @@ def run_notification_job(
     save_mode: SavedModeEnum = SavedModeEnum.SIMPLE,
     url: str = None,
     callbacks: NotificationJob.Callbacks = None,
-    need_to_store_items: int = None,
+    need_to_store_items: int | None = DEFAULT_NEED_TO_STORE_ITEMS,
     notify_after_sequence_of_errors: bool = True,
     report_errors_for_first_time_after_attempts: int = 5,  # NOTE: Default after 25 minutes
     report_errors_after_each_attempts: int = 100,  # NOTE: Default every 8 hours
@@ -701,7 +702,7 @@ def run_notification_job_rutube(
 ):
     title = f"{name} [Rutube]"
 
-    max_items = callbacks = need_to_store_items = None
+    max_items = callbacks = None
     if many:
         max_items = 100
 
@@ -715,8 +716,6 @@ def run_notification_job_rutube(
             on_first_start_detected=on_first_start_detected,
         )
 
-        need_to_store_items = 9999
-
     run_notification_job(
         title,
         script_dir,
@@ -725,7 +724,6 @@ def run_notification_job_rutube(
         formats=formats,
         save_mode=SavedModeEnum.DATA_ITEM,
         callbacks=callbacks,
-        need_to_store_items=need_to_store_items,
     )
 
 

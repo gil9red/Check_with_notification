@@ -62,5 +62,4 @@ run_notification_job(
     callbacks=NotificationJob.Callbacks(
         on_first_start_detected=on_first_start_detected,
     ),
-    need_to_store_items=500,  # Будем помнить последние 500 манг
 )
