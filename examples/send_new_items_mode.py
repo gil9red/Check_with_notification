@@ -18,7 +18,7 @@ from pathlib import Path
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
-from root_common import NotificationJob, run_notification_job
+from root_common import SendNewItemsModeEnum, NotificationJob, run_notification_job
 
 
 def get_items(_: NotificationJob) -> list[str]:
@@ -30,8 +30,7 @@ run_notification_job(
     DIR,
     get_items,
     is_single=True,
-    send_new_items_as_group=False,  # Default True
-    send_new_items_separately=False,  # Default False
+    send_new_items_mode=SendNewItemsModeEnum.SINGLE_MESSAGE,
 )
 
 run_notification_job(
@@ -39,8 +38,7 @@ run_notification_job(
     DIR,
     get_items,
     is_single=True,
-    send_new_items_as_group=False,  # Default True
-    send_new_items_separately=True,  # Default False
+    send_new_items_mode=SendNewItemsModeEnum.SEPARATELY,
 )
 
 run_notification_job(
@@ -48,6 +46,5 @@ run_notification_job(
     DIR,
     get_items,
     is_single=True,
-    send_new_items_as_group=True,  # Default True
-    send_new_items_separately=False,  # Default False
+    send_new_items_mode=SendNewItemsModeEnum.GROUP,
 )
