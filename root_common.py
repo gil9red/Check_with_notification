@@ -38,13 +38,21 @@ sys.path.append(str(DIR / "third_party"))
 
 from third_party.add_notify_telegram import add_notify
 from third_party.youtube_com__results_search_query import search_youtube
-from third_party.jut_su.anime_get_video_list import get_video_list as get_video_list_from_jut_su
-from third_party.rutube.get_videos_from_playlist import get_videos as get_videos_from_playlist_rutube
-from third_party.rutube.get_videos_from_channel import get_videos as get_videos_from_channel_rutube
+from third_party.jut_su.anime_get_video_list import (
+    get_video_list as get_video_list_from_jut_su,
+)
+from third_party.rutube.get_videos_from_playlist import (
+    get_videos as get_videos_from_playlist_rutube,
+)
+from third_party.rutube.get_videos_from_channel import (
+    get_videos as get_videos_from_channel_rutube,
+)
 
 
 session = requests.session()
-session.headers["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0"
+session.headers[
+    "User-Agent"
+] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0"
 
 
 @dataclass
@@ -297,7 +305,9 @@ class NotificationJob:
         self.callbacks = callbacks or self.Callbacks()
         self.need_to_store_items = need_to_store_items
         self.notify_after_sequence_of_errors = notify_after_sequence_of_errors
-        self.report_errors_for_first_time_after_attempts = report_errors_for_first_time_after_attempts
+        self.report_errors_for_first_time_after_attempts = (
+            report_errors_for_first_time_after_attempts
+        )
         self.report_errors_after_each_attempts = report_errors_after_each_attempts
         self.is_single = is_single
         self.max_attempts_for_is_single = max_attempts_for_is_single
@@ -450,14 +460,14 @@ class NotificationJob:
                                 )
 
                         # Если один элемент или стоит флаг, разрешающий каждый элемент логировать отдельно
-                        elif (
-                            number_new_items == 1
-                            or self.send_new_items_mode in (
-                                SendNewItemsModeEnum.SEPARATELY,
-                                SendNewItemsModeEnum.GROUP
-                            )
+                        elif number_new_items == 1 or self.send_new_items_mode in (
+                            SendNewItemsModeEnum.SEPARATELY,
+                            SendNewItemsModeEnum.GROUP,
                         ):
-                            if self.send_new_items_mode == SendNewItemsModeEnum.GROUP and number_new_items > 1:
+                            if (
+                                self.send_new_items_mode == SendNewItemsModeEnum.GROUP
+                                and number_new_items > 1
+                            ):
                                 group = str(uuid.uuid4())
                                 group_max_number = number_new_items
                             else:
@@ -574,7 +584,10 @@ class NotificationJob:
 
                     raise e
 
-                self.log.debug(self.formats.on_exception_next_attempt, self.timeout_exception_seconds)
+                self.log.debug(
+                    self.formats.on_exception_next_attempt,
+                    self.timeout_exception_seconds,
+                )
 
                 # Wait <timeout_exception_seconds> before next attempt
                 time.sleep(self.timeout_exception_seconds)
@@ -623,9 +636,7 @@ def get_items_from_jut_su(_: NotificationJob, url: str) -> list[DataItem]:
             if season:
                 title = f"{season}. {title}"
 
-            items.append(
-                DataItem(value=title, url=video.url)
-            )
+            items.append(DataItem(value=title, url=video.url))
 
     return items
 
@@ -633,17 +644,14 @@ def get_items_from_jut_su(_: NotificationJob, url: str) -> list[DataItem]:
 def get_items_from_rutube(
     _: NotificationJob,
     url: str,
-    max_items: int | None = None
+    max_items: int | None = None,
 ) -> list[DataItem]:
     if "/plst/" in url:
         videos = get_videos_from_playlist_rutube(url, max_items=max_items)
     else:
         videos = get_videos_from_channel_rutube(url, max_items=max_items)
 
-    return [
-        DataItem(value=video.title, url=video.url)
-        for video in videos
-    ]
+    return [DataItem(value=video.title, url=video.url) for video in videos]
 
 
 def run_notification_job(
