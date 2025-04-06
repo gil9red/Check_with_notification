@@ -278,8 +278,8 @@ class NotificationJob:
         timeout_exception_seconds: int = 5 * 60,  # 5 minutes
         formats: Formats = FORMATS_DEFAULT,
         save_mode: SavedModeEnum = SavedModeEnum.SIMPLE,
-        url: str = None,
-        callbacks: Callbacks = None,
+        url: str | None = None,
+        callbacks: Callbacks | None = None,
         need_to_store_items: int | None = DEFAULT_NEED_TO_STORE_ITEMS,
         notify_after_sequence_of_errors: bool = True,
         report_errors_for_first_time_after_attempts: int = 5,  # NOTE: Default after 25 minutes
@@ -669,8 +669,8 @@ def run_notification_job(
     timeout_exception_seconds: int = 5 * 60,  # 5 minutes
     formats: Formats = FORMATS_DEFAULT,
     save_mode: SavedModeEnum = SavedModeEnum.SIMPLE,
-    url: str = None,
-    callbacks: NotificationJob.Callbacks = None,
+    url: str | None = None,
+    callbacks: NotificationJob.Callbacks | None = None,
     need_to_store_items: int | None = DEFAULT_NEED_TO_STORE_ITEMS,
     notify_after_sequence_of_errors: bool = True,
     report_errors_for_first_time_after_attempts: int = 5,  # NOTE: Default after 25 minutes
