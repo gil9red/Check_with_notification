@@ -88,5 +88,4 @@ run_notification_job(
     DIR,
     get_items,
     formats=FORMATS_GAME,
-    send_new_items_separately=True,
 )

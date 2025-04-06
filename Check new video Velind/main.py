@@ -29,7 +29,6 @@ run_notification_job(
     DIR,
     lambda _: get_yt_video_list("https://www.youtube.com/@Velind/videos"),
     save_mode=SavedModeEnum.DATA_ITEM,
-    send_new_items_separately=True,
     formats=FORMATS_VIDEO.replace(
         prefix="💀",
     ),

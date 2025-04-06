@@ -37,5 +37,4 @@ run_notification_job(
     formats=FORMATS_GAME.replace(
         prefix="📣",
     ),
-    send_new_items_separately=True,
 )

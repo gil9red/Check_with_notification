@@ -48,5 +48,4 @@ run_notification_job(
     save_mode=SavedModeEnum.DATA_ITEM,
     timeout=TimeoutWait(days=1),
     formats=FORMATS_GAME,
-    send_new_items_as_group=True,
 )

@@ -51,5 +51,4 @@ run_notification_job(
     DIR,
     get_all_items,
     formats=FORMATS_BOOK,
-    send_new_items_separately=True,
 )

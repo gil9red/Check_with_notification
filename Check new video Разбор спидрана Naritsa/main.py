@@ -29,6 +29,5 @@ run_notification_job(
     DIR,
     lambda _: get_yt_playlist_video_list("PLgHXSvDpcJQiG_H7HTpAEhUP6JbOEbg3Q"),
     save_mode=SavedModeEnum.DATA_ITEM,
-    send_new_items_separately=True,
     formats=FORMATS_VIDEO,
 )

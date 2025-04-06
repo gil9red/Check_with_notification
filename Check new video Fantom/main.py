@@ -32,7 +32,6 @@ run_notification_job(
         maximum_items=100,
     ),
     save_mode=SavedModeEnum.DATA_ITEM,
-    send_new_items_separately=True,
     formats=FORMATS_VIDEO.replace(
         prefix="👻",
     ),

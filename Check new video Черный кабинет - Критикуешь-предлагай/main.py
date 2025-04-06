@@ -29,7 +29,6 @@ run_notification_job(
     DIR,
     lambda _: get_yt_playlist_video_list("PLBZnChsbP-UOu2q00WioTn7KjP_jWAtwB"),
     save_mode=SavedModeEnum.DATA_ITEM,
-    send_new_items_separately=True,
     formats=FORMATS_VIDEO.replace(
         prefix="🎬",
     ),

@@ -67,5 +67,4 @@ run_notification_job(
         new_item="%s",
         prefix="⭐",
     ),
-    send_new_items_separately=True,
 )

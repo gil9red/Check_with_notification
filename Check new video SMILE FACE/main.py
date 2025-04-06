@@ -41,7 +41,6 @@ run_notification_job(
     DIR,
     get_items,
     save_mode=SavedModeEnum.DATA_ITEM,
-    send_new_items_separately=True,
     formats=FORMATS_VIDEO.replace(
         prefix="🎭",
     ),

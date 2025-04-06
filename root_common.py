@@ -214,6 +214,10 @@ IS_SINGLE: bool = "--single" in sys.argv
 
 DEFAULT_NEED_TO_STORE_ITEMS: int = 10_000
 
+# TODO: Enum? Send_New_Items_Mode: SINGLE_MESSAGE, SEPARATELY, GROUP
+DEFAULT_SEND_NEW_ITEMS_SEPARATELY: bool = False
+DEFAULT_SEND_NEW_ITEMS_AS_GROUP: bool = True
+
 
 def log_uncaught_exceptions(ex_cls, ex, tb):
     # Если было запрошено прерывание
@@ -257,8 +261,8 @@ class NotificationJob:
         file_name_saved_backup: str = FILE_NAME_SAVED_BACKUP,
         need_notification: bool = True,
         notify_when_empty: bool = True,
-        send_new_items_separately: bool = False,
-        send_new_items_as_group: bool = False,
+        send_new_items_separately: bool = DEFAULT_SEND_NEW_ITEMS_SEPARATELY,
+        send_new_items_as_group: bool = DEFAULT_SEND_NEW_ITEMS_AS_GROUP,
         send_new_item_diff: bool = False,
         timeout: TimeoutWait = DEFAULT_TIMEOUT_WAIT,
         timeout_exception_seconds: int = 5 * 60,  # 5 minutes
@@ -648,8 +652,8 @@ def run_notification_job(
     file_name_saved_backup: str = FILE_NAME_SAVED_BACKUP,
     need_notification: bool = True,
     notify_when_empty: bool = True,
-    send_new_items_separately: bool = False,
-    send_new_items_as_group: bool = False,
+    send_new_items_separately: bool = DEFAULT_SEND_NEW_ITEMS_SEPARATELY,
+    send_new_items_as_group: bool = DEFAULT_SEND_NEW_ITEMS_AS_GROUP,
     send_new_item_diff: bool = False,
     timeout: TimeoutWait = DEFAULT_TIMEOUT_WAIT,
     timeout_exception_seconds: int = 5 * 60,  # 5 minutes
@@ -721,7 +725,6 @@ def run_notification_job_rutube(
         title,
         script_dir,
         lambda job: get_items_from_rutube(job, url, max_items=max_items),
-        send_new_items_as_group=True,
         formats=formats,
         save_mode=SavedModeEnum.DATA_ITEM,
         callbacks=callbacks,

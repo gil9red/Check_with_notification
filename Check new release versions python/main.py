@@ -37,7 +37,6 @@ run_notification_job(
     "Новый релиз python",
     DIR,
     get_items,
-    send_new_items_separately=True,
     formats=FORMATS_DEFAULT.replace(
         new_item="Новая версия %s",
         prefix="🐍",

@@ -49,5 +49,4 @@ run_notification_job(
         prefix="🗿",
     ),
     save_mode=SavedModeEnum.DATA_ITEM,
-    send_new_items_separately=True,
 )

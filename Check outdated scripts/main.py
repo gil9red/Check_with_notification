@@ -67,5 +67,4 @@ run_notification_job(
         prefix="🚮",
     ),
     notify_when_empty=False,
-    send_new_items_separately=True,
 )

@@ -43,7 +43,5 @@ run_notification_job(
     DIR,
     lambda job: get_yt_video_list_from_playlists(job, PLAYLISTS),
     save_mode=SavedModeEnum.DATA_ITEM,
-    # Чтобы не было "каши", т.к. видео собирается из нескольких плейлистов
-    send_new_items_separately=True,
     formats=FORMATS_VIDEO,
 )
