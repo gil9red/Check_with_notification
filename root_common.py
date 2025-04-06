@@ -74,6 +74,12 @@ class SavedModeEnum(enum.Enum):
     DATA_ITEM = enum.auto()
 
 
+class SendNewItemsModeEnum(enum.Enum):
+    SINGLE_MESSAGE = enum.auto()
+    SEPARATELY = enum.auto()
+    GROUP = enum.auto()
+
+
 @dataclass
 class TimeoutWait:
     days: int = 0
@@ -213,10 +219,7 @@ IS_CAN_SEND_ERROR_NOTIFICATIONS: bool = False
 IS_SINGLE: bool = "--single" in sys.argv
 
 DEFAULT_NEED_TO_STORE_ITEMS: int = 10_000
-
-# TODO: Enum? Send_New_Items_Mode: SINGLE_MESSAGE, SEPARATELY, GROUP
-DEFAULT_SEND_NEW_ITEMS_SEPARATELY: bool = False
-DEFAULT_SEND_NEW_ITEMS_AS_GROUP: bool = True
+DEFAULT_SEND_NEW_ITEMS_MODE: SendNewItemsModeEnum = SendNewItemsModeEnum.GROUP
 
 
 def log_uncaught_exceptions(ex_cls, ex, tb):
@@ -261,8 +264,7 @@ class NotificationJob:
         file_name_saved_backup: str = FILE_NAME_SAVED_BACKUP,
         need_notification: bool = True,
         notify_when_empty: bool = True,
-        send_new_items_separately: bool = DEFAULT_SEND_NEW_ITEMS_SEPARATELY,
-        send_new_items_as_group: bool = DEFAULT_SEND_NEW_ITEMS_AS_GROUP,
+        send_new_items_mode: SendNewItemsModeEnum = DEFAULT_SEND_NEW_ITEMS_MODE,
         send_new_item_diff: bool = False,
         timeout: TimeoutWait = DEFAULT_TIMEOUT_WAIT,
         timeout_exception_seconds: int = 5 * 60,  # 5 minutes
@@ -285,8 +287,7 @@ class NotificationJob:
         self.file_name_saved_backup = file_name_saved_backup
         self.need_notification = need_notification
         self.notify_when_empty = notify_when_empty
-        self.send_new_items_separately = send_new_items_separately
-        self.send_new_items_as_group = send_new_items_as_group
+        self.send_new_items_mode = send_new_items_mode
         self.send_new_item_diff = send_new_item_diff
         self.timeout = timeout
         self.timeout_exception_seconds = timeout_exception_seconds
@@ -451,10 +452,12 @@ class NotificationJob:
                         # Если один элемент или стоит флаг, разрешающий каждый элемент логировать отдельно
                         elif (
                             number_new_items == 1
-                            or self.send_new_items_separately
-                            or self.send_new_items_as_group
+                            or self.send_new_items_mode in (
+                                SendNewItemsModeEnum.SEPARATELY,
+                                SendNewItemsModeEnum.GROUP
+                            )
                         ):
-                            if self.send_new_items_as_group and number_new_items > 1:
+                            if self.send_new_items_mode == SendNewItemsModeEnum.GROUP and number_new_items > 1:
                                 group = str(uuid.uuid4())
                                 group_max_number = number_new_items
                             else:
@@ -652,8 +655,7 @@ def run_notification_job(
     file_name_saved_backup: str = FILE_NAME_SAVED_BACKUP,
     need_notification: bool = True,
     notify_when_empty: bool = True,
-    send_new_items_separately: bool = DEFAULT_SEND_NEW_ITEMS_SEPARATELY,
-    send_new_items_as_group: bool = DEFAULT_SEND_NEW_ITEMS_AS_GROUP,
+    send_new_items_mode: SendNewItemsModeEnum = DEFAULT_SEND_NEW_ITEMS_MODE,
     send_new_item_diff: bool = False,
     timeout: TimeoutWait = DEFAULT_TIMEOUT_WAIT,
     timeout_exception_seconds: int = 5 * 60,  # 5 minutes
@@ -678,8 +680,7 @@ def run_notification_job(
         file_name_saved_backup=file_name_saved_backup,
         need_notification=need_notification,
         notify_when_empty=notify_when_empty,
-        send_new_items_separately=send_new_items_separately,
-        send_new_items_as_group=send_new_items_as_group,
+        send_new_items_mode=send_new_items_mode,
         send_new_item_diff=send_new_item_diff,
         timeout=timeout,
         timeout_exception_seconds=timeout_exception_seconds,
