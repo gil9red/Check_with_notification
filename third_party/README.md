@@ -8,7 +8,7 @@
  * [ranobehub_org/](https://github.com/gil9red/SimplePyScripts/tree/c211581b8679199abfbfe8c59f5b301d0f4d19b7/html_parsing/ranobehub_org)
  * [rutube/](https://github.com/gil9red/SimplePyScripts/tree/ce125de2c8d54a40eaf756fa23da845afebc7726/html_parsing/rutube)
  * [stackoverflow_site__parsing/user_rank_and_reputation.py](https://github.com/gil9red/SimplePyScripts/blob/1d7f58c816db60f6005b9e63b981eeabd1924fc6/stackoverflow_site__parsing/user_rank_and_reputation.py)
- * [wikipedia/](https://github.com/gil9red/SimplePyScripts/tree/d7b2b9fb29569f6f69e8ac414763a134ac312add/html_parsing/wikipedia)
+ * [wikipedia/](https://github.com/gil9red/SimplePyScripts/tree/65254e10f84ce1ec31512c1a7f7e60b64b1486cf/html_parsing/wikipedia)
  * [add_notify_telegram.py](https://github.com/gil9red/telegram_notifications_bot/blob/5473d04dda61b0a066eb04c75e22a5e3e34c0f17/add_notify_use_web.py#L18) (PARTIALLY)
  * [anivost_org.py](https://github.com/gil9red/SimplePyScripts/blob/d5437b669d700082673f1bef51aa6d1a5ed0ef0c/html_parsing/anivost_org.py)
  * [gamestatus_info__lastcrackedgames.py](https://github.com/gil9red/SimplePyScripts/blob/e1ee7ee97a8f9855c8ed3c529605afbba41b3ae3/html_parsing/gamestatus_info__lastcrackedgames.py)
