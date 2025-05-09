@@ -22,4 +22,5 @@ run_notification_job_rutube(
     formats=FORMATS_VIDEO.replace(
         prefix="👒",
     ),
+    many=True,
 )
