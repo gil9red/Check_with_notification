@@ -18,5 +18,4 @@ run_notification_job_rutube(
     name="Южный парк",
     script_dir=Path(__file__).resolve().parent,
     url="https://rutube.ru/channel/36379221/videos/",
-    many=True,
 )
