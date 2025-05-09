@@ -651,7 +651,10 @@ def get_items_from_rutube(
     else:
         videos = get_videos_from_channel_rutube(url, max_items=max_items)
 
-    return [DataItem(value=video.title, url=video.url) for video in videos]
+    return [
+        DataItem(value=video.id, title=video.title, url=video.url)
+        for video in videos
+    ]
 
 
 def run_notification_job(
