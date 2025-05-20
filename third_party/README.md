@@ -9,6 +9,7 @@
  * [rutube/](https://github.com/gil9red/SimplePyScripts/tree/f68b51af3d170682d41145927ac61564b0c534ae/html_parsing/rutube)
  * [stackoverflow_site__parsing/user_rank_and_reputation.py](https://github.com/gil9red/SimplePyScripts/blob/1d7f58c816db60f6005b9e63b981eeabd1924fc6/stackoverflow_site__parsing/user_rank_and_reputation.py)
  * [wikipedia/](https://github.com/gil9red/SimplePyScripts/tree/65254e10f84ce1ec31512c1a7f7e60b64b1486cf/html_parsing/wikipedia)
+ * [youtube_com/api/](https://github.com/gil9red/SimplePyScripts/blob/8d7d356443e0461177b97ea6b7916b4bd39652d8/html_parsing/youtube_com/api)
  * [add_notify_telegram.py](https://github.com/gil9red/telegram_notifications_bot/blob/5473d04dda61b0a066eb04c75e22a5e3e34c0f17/add_notify_use_web.py#L18) (PARTIALLY)
  * [anivost_org.py](https://github.com/gil9red/SimplePyScripts/blob/d5437b669d700082673f1bef51aa6d1a5ed0ef0c/html_parsing/anivost_org.py)
  * [gamestatus_info__lastcrackedgames.py](https://github.com/gil9red/SimplePyScripts/blob/e1ee7ee97a8f9855c8ed3c529605afbba41b3ae3/html_parsing/gamestatus_info__lastcrackedgames.py)
@@ -16,4 +17,3 @@
  * [memepedia_ru.py](https://github.com/gil9red/SimplePyScripts/blob/648fe8604ea9d5b21f2813040d49a2a4db31bd62/html_parsing/memepedia_ru.py)
  * [store_steampowered_com__check_early_access.py](store_steampowered_com__check_early_access.py)(https://github.com/gil9red/SimplePyScripts/blob/9fc2013fd614d486be587ad0c6f180478a5c8d6c/html_parsing/store_steampowered_com__check_early_access.py)
  * [store_steampowered_com__check_exists_app.py](https://github.com/gil9red/SimplePyScripts/blob/786b384d29481d61989b3b4489dce73c16b12fb6/html_parsing/store_steampowered_com__check_exists_app.py)
- * [youtube_com__results_search_query.py](https://github.com/gil9red/SimplePyScripts/blob/086bca3ea20744060da9bb2ea913d3905f75a52d/html_parsing/youtube_com__results_search_query.py)
