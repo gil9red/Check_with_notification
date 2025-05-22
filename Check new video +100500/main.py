@@ -18,28 +18,27 @@ sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from formats import FORMATS_VIDEO
 from root_common import (
-    # DataItem,
+    DataItem,
     run_notification_job,
     SavedModeEnum,
     get_yt_playlist_video_list,
-    # NotificationJob,
+    NotificationJob,
 )
 
-# TODO: ...
 
-# def get_items(_: NotificationJob) -> list[DataItem]:
-#     items = get_yt_playlist_video_list("PLC6A0625DCA9AAE2D")
-#
-#     # Проверка работы скрипта для извлечения видео из youtube
-#     assert len(items) > 100, f"Количество видео меньше или равно 100: {len(items)}"
-#
-#     return items
+def get_items(_: NotificationJob) -> list[DataItem]:
+    items = get_yt_playlist_video_list("PLC6A0625DCA9AAE2D")
+
+    # Проверка работы скрипта для извлечения видео из youtube
+    assert len(items) > 100, f"Количество видео меньше или равно 100: {len(items)}"
+
+    return items
 
 
 run_notification_job(
     "+100500",
     DIR,
-    lambda job: get_yt_playlist_video_list("PLC6A0625DCA9AAE2D"),
+    get_items,
     save_mode=SavedModeEnum.DATA_ITEM,
     formats=FORMATS_VIDEO,
 )
