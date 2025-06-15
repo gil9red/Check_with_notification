@@ -27,21 +27,41 @@ from third_party.ranobehub_org.get_bookmarks import get_bookmarks
 from third_party.ranobehub_org.get_ranobe_info import get_ranobe_info
 
 
-USER_ID = 19803
+USER_ID: int = 19803
 
 
-def get_all_items(_: NotificationJob) -> list[DataItem]:
-    items = []
-    for bookmark in get_bookmarks(USER_ID):
-        if bookmark.status != "Прочитано":
-            # Небольшая задержка перед загрузкой страницы ранобе
-            time.sleep(0.5)
+def get_all_items(job: NotificationJob) -> list[DataItem]:
+    items: list[DataItem] = []
 
-            status = get_ranobe_info(bookmark.url).status
-            if status == "Завершено":
-                items.append(
-                    DataItem(value=bookmark.title, url=bookmark.url)
-                )
+    # Для кеширования
+    current_items: list[str] = [item.value for item in job.read_items()]
+
+    job.log.debug(f"Загрузка закладок USER_ID={USER_ID}")
+
+    bookmarks = get_bookmarks(USER_ID)
+    job.log.debug(f"Закладки: {len(bookmarks)}")
+
+    bookmarks = [obj for obj in bookmarks if obj.status != "Прочитано"]
+    job.log.debug(f"Закладки (не прочитано): {len(bookmarks)}")
+
+    for i, bookmark in enumerate(bookmarks, 1):
+        item = DataItem(value=bookmark.title, url=bookmark.url)
+
+        if bookmark.title in current_items:
+            job.log.debug(f"{i}. Закладка {bookmark.title!r} уже проверена. Пропуск")
+            items.append(item)
+            continue
+
+        # Небольшая задержка перед загрузкой страницы ранобе
+        time.sleep(1.5)
+
+        job.log.debug(f"{i}. Загрузка {bookmark.url}")
+
+        status = get_ranobe_info(bookmark.url).status
+        job.log.debug(f"{i}. Статус: {status}")
+
+        if status == "Завершено":
+            items.append(item)
 
     return items
 
