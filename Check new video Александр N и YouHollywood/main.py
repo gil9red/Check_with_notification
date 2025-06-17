@@ -11,6 +11,8 @@ __author__ = "ipetrash"
 
 
 import sys
+import re
+
 from pathlib import Path
 
 DIR = Path(__file__).resolve().parent
@@ -33,8 +35,13 @@ def get_items(_: NotificationJob) -> list[DataItem]:
         item
         for item in get_yt_video_list(url)
         if (
-            "курс" not in item.title.lower()
-            and "школ" not in item.title.lower()
+            # Слова в черном списке
+            not re.search(
+                "Проект Про|курс|школ",
+                item.title,
+                flags=re.IGNORECASE,
+            )
+            and "Александр N".lower() in item.title.lower()
         )
     ]
 
