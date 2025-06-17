@@ -32,10 +32,7 @@ def get_items(_: NotificationJob) -> list[DataItem]:
     return [
         item
         for item in get_yt_video_list(url)
-        if (
-            "курс" not in item.title.lower()
-            and "youhollywood" not in item.title.lower()
-        )
+        if "курс" not in item.title.lower()
     ]
 
 
