@@ -600,6 +600,8 @@ def get_yt_video_list(text_or_url: str, *args, **kwargs) -> list[DataItem]:
     return [
         DataItem(value=video.id, title=video.title, url=video.url)
         for video in search_youtube(text_or_url, *args, **kwargs)
+        # NOTE: У видео с названием вида "[Deleted video]" duration_text = None
+        if video.duration_text
     ]
 
 
