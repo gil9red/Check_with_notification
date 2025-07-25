@@ -14,6 +14,5 @@
  * [anivost_org.py](https://github.com/gil9red/SimplePyScripts/blob/d5437b669d700082673f1bef51aa6d1a5ed0ef0c/html_parsing/anivost_org.py)
  * [gamestatus_info__lastcrackedgames.py](https://github.com/gil9red/SimplePyScripts/blob/e1ee7ee97a8f9855c8ed3c529605afbba41b3ae3/html_parsing/gamestatus_info__lastcrackedgames.py)
  * [gamesvoice_ru__get_finished.py](https://github.com/gil9red/SimplePyScripts/blob/14c6f49108b7d92f115f59943dbc0792d677b2a1/html_parsing/gamesvoice_ru__get_finished.py)
- * [memepedia_ru.py](https://github.com/gil9red/SimplePyScripts/blob/648fe8604ea9d5b21f2813040d49a2a4db31bd62/html_parsing/memepedia_ru.py)
  * [store_steampowered_com__check_early_access.py](store_steampowered_com__check_early_access.py)(https://github.com/gil9red/SimplePyScripts/blob/9fc2013fd614d486be587ad0c6f180478a5c8d6c/html_parsing/store_steampowered_com__check_early_access.py)
  * [store_steampowered_com__check_exists_app.py](https://github.com/gil9red/SimplePyScripts/blob/786b384d29481d61989b3b4489dce73c16b12fb6/html_parsing/store_steampowered_com__check_exists_app.py)
