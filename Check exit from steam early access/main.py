@@ -70,6 +70,10 @@ GAMES: list[Game] = [
         title="Gloomwood",
         url="https://store.steampowered.com/app/1150760/Gloomwood/?curator_clanid=34055240",
     ),
+    Game(
+        title="Titan Quest II",
+        url="https://store.steampowered.com/app/1154030/Titan_Quest_II/",
+    ),
 ]
 
 
