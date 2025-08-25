@@ -15,8 +15,6 @@ import sys
 
 from pathlib import Path
 
-import requests
-
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
