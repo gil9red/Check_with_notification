@@ -68,4 +68,5 @@ run_notification_job(
         new_item="%s",
         prefix="⭐",
     ),
+    need_to_store_items=None,
 )
