@@ -435,7 +435,9 @@ class NotificationJob:
                 if not current_items:
                     self.save_items(items)
                 else:
-                    new_items: list[DataItem] = [x for x in items if x not in current_items]
+                    new_items: list[DataItem] = [
+                        x for x in items if x not in current_items
+                    ]
                     if new_items:
                         number_new_items: int = len(new_items)
 
@@ -549,7 +551,10 @@ class NotificationJob:
                         self.log.warning(text)
 
                         if self.need_notification:
-                            send_telegram_notification_error(name=title_formatted, message=text)
+                            send_telegram_notification_error(
+                                name=title_formatted,
+                                message=text,
+                            )
 
                         sys.exit(0)
                     raise e
@@ -576,14 +581,20 @@ class NotificationJob:
                     if not has_sending_first_report_error:
                         self.log.info("Sending a notification")
 
-                        send_telegram_notification_error(name=title_formatted, message=str(e))
+                        send_telegram_notification_error(
+                            name=title_formatted,
+                            message=str(e),
+                        )
                         has_sending_first_report_error = True
 
                     elif attempts % self.report_errors_after_each_attempts == 0:
                         self.log.info("Sending a notification")
 
                         text = self.formats.on_exception_with_attempts % (attempts, e)
-                        send_telegram_notification_error(name=title_formatted, message=text)
+                        send_telegram_notification_error(
+                            name=title_formatted,
+                            message=text,
+                        )
 
                 # Слишком много подряд неудачных попыток в режиме is_single
                 if self.is_single and attempts >= self.max_attempts_for_is_single:
@@ -774,7 +785,7 @@ if __name__ == "__main__":
     item = DataItem(
         value="1s1e",
         title="1 season. 1 episode",
-        notification_title="OTHER_SITE"
+        notification_title="OTHER_SITE",
     )
     assert "[#] OTHER_SITE" == item.process_notification_title(
         formats=FORMATS_DEFAULT.replace(prefix="[#]"),
