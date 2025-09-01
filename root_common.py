@@ -250,7 +250,7 @@ def log_uncaught_exceptions(ex_cls, ex, tb):
 
     # Посылаем уведомление только при запуске через задачу
     if IS_CAN_SEND_ERROR_NOTIFICATIONS:
-        send_telegram_notification_error("root_common.py", text)
+        send_telegram_notification_error(name="root_common.py", message=text)
 
     sys.exit(1)
 
@@ -364,7 +364,7 @@ class NotificationJob:
             _save_to(self.file_name_saved_backup, items_backup)
 
     def _get_text_items(self, items: list[DataItem]) -> str:
-        items = [x.title for x in items]
+        items: list[str] = [x.title for x in items]
         return (
             str(items)
             if self.debug_logging_current_items
@@ -385,8 +385,8 @@ class NotificationJob:
 
         title = self.formats.process(self.log.name)
 
-        has_sending_first_report_error = False
-        attempts = 0
+        has_sending_first_report_error: bool = False
+        attempts: int = 0
 
         while True:
             try:
@@ -407,16 +407,16 @@ class NotificationJob:
                         continue
 
                 # Загрузка текущего списка из файла
-                current_items = self.read_items()
+                current_items: list[DataItem] = self.read_items()
 
-                text_current_items = self._get_text_items(current_items)
+                text_current_items: str = self._get_text_items(current_items)
                 self.log.debug(
                     self.formats.current_items, len(current_items), text_current_items
                 )
 
                 self.log.debug(self.formats.get_items)
 
-                items = self.get_new_items(self)
+                items: list[DataItem | str] = self.get_new_items(self)
                 if not items and self.notify_when_empty and self.need_notification:
                     self.log.info("An empty list was returned. Sending a notification")
                     send_telegram_notification_error(
@@ -427,17 +427,16 @@ class NotificationJob:
                 if items and isinstance(items[0], str):
                     items = [DataItem(value=x) for x in items]
 
-                text_items = self._get_text_items(items)
+                text_items: str = self._get_text_items(items)
                 self.log.debug(self.formats.items, len(items), text_items)
 
                 # Если текущих список пустой
                 if not current_items:
                     self.save_items(items)
-
                 else:
-                    new_items = [x for x in items if x not in current_items]
+                    new_items: list[DataItem] = [x for x in items if x not in current_items]
                     if new_items:
-                        number_new_items = len(new_items)
+                        number_new_items: int = len(new_items)
 
                         # Если один элемент и стоит флаг на вывод разницы элементов
                         if number_new_items == 1 and self.send_new_item_diff:
@@ -475,15 +474,16 @@ class NotificationJob:
                                 self.send_new_items_mode == SendNewItemsModeEnum.GROUP
                                 and number_new_items > 1
                             ):
-                                group = str(uuid.uuid4())
-                                group_max_number = number_new_items
+                                group: str | None = str(uuid.uuid4())
+                                group_max_number: int | None = number_new_items
                             else:
-                                group = None
-                                group_max_number = None
+                                group: str | None = None
+                                group_max_number: int | None = None
 
                             for item in new_items:
-                                text = self.formats.new_item % item.title
+                                text: str = self.formats.new_item % item.title
                                 self.log.debug(text)
+
                                 if self.need_notification:
                                     url = self.url if self.url else item.url
 
@@ -504,7 +504,7 @@ class NotificationJob:
 
                         else:
                             # Новые элементы логируем все разом
-                            text = self.formats.new_items % (
+                            text: str = self.formats.new_items % (
                                 number_new_items,
                                 "\n".join(x.title for x in new_items),
                             )
@@ -516,7 +516,7 @@ class NotificationJob:
 
                         # Если нужно определенное количество элементов хранить
                         if self.need_to_store_items:
-                            items = list(current_items)
+                            items: list[DataItem] = list(current_items)
                             # Добавим новые в начало списка
                             for item in new_items:
                                 items.insert(0, item)
@@ -546,8 +546,10 @@ class NotificationJob:
                     if "Invalid argument" in str(e):
                         text = "Unexpected happened - unable to write to stdout, script will exit"
                         self.log.warning(text)
+
                         if self.need_notification:
-                            send_telegram_notification_error(self.log.name, text)
+                            send_telegram_notification_error(name=title_formatted, message=text)
+
                         sys.exit(0)
                     raise e
 
