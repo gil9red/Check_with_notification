@@ -383,7 +383,7 @@ class NotificationJob:
             self.log.debug(self.formats.first_start_detected)
             self.callbacks.on_first_start_detected(self)
 
-        title = self.formats.process(self.log.name)
+        title_formatted: str = self.formats.process(self.log.name)
 
         has_sending_first_report_error: bool = False
         attempts: int = 0
@@ -421,6 +421,8 @@ class NotificationJob:
                     self.log.info("An empty list was returned. Sending a notification")
                     send_telegram_notification_error(
                         title, self.formats.when_empty_items
+                        name=title_formatted,
+                        message=self.formats.when_empty_items,
                     )
 
                 # Поддержка старого формата
@@ -443,26 +445,25 @@ class NotificationJob:
                             current_item: str = (
                                 current_items[0].title if current_items else ""
                             )
-                            new_item: DataItem = new_items[0]
-                            text = self.formats.new_item_diff % (
+                            item: DataItem = new_items[0]
+                            text: str = self.formats.new_item_diff % (
                                 current_item,
-                                new_item.title,
+                                item.title,
                             )
                             self.log.debug(text)
+
                             if self.need_notification:
-                                url = self.url if self.url else new_item.url
-
-                                notification_title: str = new_item.process_notification_title(
-                                    formats=self.formats,
-                                    default=title,
-                                )
-
                                 send_telegram_notification(
-                                    name=notification_title,
+                                    name=item.process_notification_title(
+                                        formats=self.formats,
+                                        # NOTE: Тут нельзя использовать title_formatted,
+                                        #       чтобы не было дублирования префиксов
+                                        default=self.log.name,
+                                    ),
                                     message=text,
-                                    url=url,
+                                    url=self.url or item.url,
                                     show_type=False,
-                                    need_html_escape_content=new_item.need_html_escape_content,
+                                    need_html_escape_content=item.need_html_escape_content,
                                 )
 
                         # Если один элемент или стоит флаг, разрешающий каждый элемент логировать отдельно
@@ -485,17 +486,15 @@ class NotificationJob:
                                 self.log.debug(text)
 
                                 if self.need_notification:
-                                    url = self.url if self.url else item.url
-
-                                    notification_title: str = item.process_notification_title(
-                                        formats=self.formats,
-                                        default=title,
-                                    )
-
                                     send_telegram_notification(
-                                        name=notification_title,
+                                        name=item.process_notification_title(
+                                            formats=self.formats,
+                                            # NOTE: Тут нельзя использовать title_formatted,
+                                            #       чтобы не было дублирования префиксов
+                                            default=self.log.name,
+                                        ),
                                         message=text,
-                                        url=url,
+                                        url=self.url or item.url,
                                         show_type=False,
                                         group=group,
                                         group_max_number=group_max_number,
@@ -511,7 +510,10 @@ class NotificationJob:
                             self.log.debug(text)
                             if self.need_notification:
                                 send_telegram_notification(
-                                    title, text, url=self.url, show_type=False
+                                    name=title_formatted,
+                                    message=text,
+                                    url=self.url,
+                                    show_type=False,
                                 )
 
                         # Если нужно определенное количество элементов хранить
@@ -575,14 +577,14 @@ class NotificationJob:
                     if not has_sending_first_report_error:
                         self.log.info("Sending a notification")
 
-                        send_telegram_notification_error(self.log.name, str(e))
+                        send_telegram_notification_error(name=title_formatted, message=str(e))
                         has_sending_first_report_error = True
 
                     elif attempts % self.report_errors_after_each_attempts == 0:
                         self.log.info("Sending a notification")
 
                         text = self.formats.on_exception_with_attempts % (attempts, e)
-                        send_telegram_notification_error(self.log.name, text)
+                        send_telegram_notification_error(name=title_formatted, message=text)
 
                 # Слишком много подряд неудачных попыток в режиме is_single
                 if self.is_single and attempts >= self.max_attempts_for_is_single:
