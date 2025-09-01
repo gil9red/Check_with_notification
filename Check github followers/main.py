@@ -52,6 +52,7 @@ def get_items(job: NotificationJob) -> list[DataItem]:
                     value=f"-{item.value}",
                     title=f"{item.value} отписался (всего подписчиков {total_stars})",
                     need_html_escape_content=False,
+                    prefix="💔",
                 )
             )
 
