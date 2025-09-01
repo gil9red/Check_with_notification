@@ -426,7 +426,7 @@ class NotificationJob:
 
                 # Поддержка старого формата
                 if items and isinstance(items[0], str):
-                    items = [DataItem(value=x) for x in items]
+                    items: list[DataItem] = [DataItem(value=x) for x in items]
 
                 text_items: str = self._get_text_items(items)
                 self.log.debug(self.formats.items, len(items), text_items)
