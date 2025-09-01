@@ -200,7 +200,7 @@ def send_telegram_notification(
     type: str = "INFO",
     url: str = None,
     has_delete_button: bool = False,
-    show_type: bool = True,
+    show_type: bool = False,
     group: str = None,
     group_max_number: int = None,
     need_html_escape_content: bool = True,
@@ -228,7 +228,13 @@ def send_telegram_notification(
 
 
 def send_telegram_notification_error(name: str, message: str):
-    send_telegram_notification(name, message, "ERROR", has_delete_button=True)
+    send_telegram_notification(
+        name=name,
+        message=message,
+        type="ERROR",
+        has_delete_button=True,
+        show_type=True,
+    )
 
 
 IS_CAN_SEND_ERROR_NOTIFICATIONS: bool = False
@@ -463,7 +469,6 @@ class NotificationJob:
                                     ),
                                     message=text,
                                     url=self.url or item.url,
-                                    show_type=False,
                                     need_html_escape_content=item.need_html_escape_content,
                                 )
 
@@ -496,7 +501,6 @@ class NotificationJob:
                                         ),
                                         message=text,
                                         url=self.url or item.url,
-                                        show_type=False,
                                         group=group,
                                         group_max_number=group_max_number,
                                         need_html_escape_content=item.need_html_escape_content,
@@ -514,7 +518,6 @@ class NotificationJob:
                                     name=title_formatted,
                                     message=text,
                                     url=self.url,
-                                    show_type=False,
                                 )
 
                         # Если нужно определенное количество элементов хранить
