@@ -61,15 +61,23 @@ class DataItem:
     title: str = field(compare=False, default="")
     url: str = field(compare=False, default="")
     notification_title: str = field(compare=False, repr=False, default="")
+    prefix: str = field(compare=False, repr=False, default="")
     need_html_escape_content: bool = field(compare=False, repr=False, default=True)
 
     def __post_init__(self):
         if not self.title:
             self.title = self.value
 
+    def process_notification_title(self, formats: Formats, default: str) -> str:
+        notification_title: str = self.notification_title or default
+        if self.prefix:
+            formats = formats.replace(prefix=self.prefix)
+        return formats.process(notification_title)
+
     def dumps(self) -> dict[str, str]:
         data = asdict(self)
         data.pop("need_html_escape_content")  # Не нужно его выгружать
+        data.pop("prefix")
         return data
 
     @classmethod
@@ -445,11 +453,10 @@ class NotificationJob:
                             if self.need_notification:
                                 url = self.url if self.url else new_item.url
 
-                                notification_title = title
-                                if new_item.notification_title:
-                                    notification_title = self.formats.process(
-                                        new_item.notification_title
-                                    )
+                                notification_title: str = new_item.process_notification_title(
+                                    formats=self.formats,
+                                    default=title,
+                                )
 
                                 send_telegram_notification(
                                     name=notification_title,
@@ -480,11 +487,10 @@ class NotificationJob:
                                 if self.need_notification:
                                     url = self.url if self.url else item.url
 
-                                    notification_title = title
-                                    if item.notification_title:
-                                        notification_title = self.formats.process(
-                                            item.notification_title
-                                        )
+                                    notification_title: str = item.process_notification_title(
+                                        formats=self.formats,
+                                        default=title,
+                                    )
 
                                     send_telegram_notification(
                                         name=notification_title,
@@ -747,6 +753,42 @@ def run_notification_job_rutube(
 
 
 if __name__ == "__main__":
+    # TODO: В тесты
+
+    item = DataItem(
+        value="1s1e",
+        title="1 season. 1 episode",
+    )
+    assert "MYSITE" == item.process_notification_title(
+        formats=FORMATS_DEFAULT.replace(prefix=""),
+        default="MYSITE",
+    )
+    assert "[#] MYSITE" == item.process_notification_title(
+        formats=FORMATS_DEFAULT.replace(prefix="[#]"),
+        default="MYSITE",
+    )
+
+    item = DataItem(
+        value="1s1e",
+        title="1 season. 1 episode",
+        notification_title="OTHER_SITE"
+    )
+    assert "[#] OTHER_SITE" == item.process_notification_title(
+        formats=FORMATS_DEFAULT.replace(prefix="[#]"),
+        default="MYSITE",
+    )
+
+    item = DataItem(
+        value="1s1e",
+        title="1 season. 1 episode",
+        notification_title="OTHER_SITE",
+        prefix="@",
+    )
+    assert "@ OTHER_SITE" == item.process_notification_title(
+        formats=FORMATS_DEFAULT.replace(prefix="[#]"),
+        default="MYSITE",
+    )
+
     try:
         items = get_short_repr_list([])
         assert items == "[]"
