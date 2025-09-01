@@ -420,7 +420,6 @@ class NotificationJob:
                 if not items and self.notify_when_empty and self.need_notification:
                     self.log.info("An empty list was returned. Sending a notification")
                     send_telegram_notification_error(
-                        title, self.formats.when_empty_items
                         name=title_formatted,
                         message=self.formats.when_empty_items,
                     )
