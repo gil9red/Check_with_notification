@@ -77,14 +77,31 @@ GAMES: list[Game] = [
 ]
 
 
-def get_items(_: NotificationJob) -> list[DataItem]:
-    return [
-        DataItem(
-            value=game.title + (" в раннем доступе" if is_early_access(game.url) else " готова!"),
-            url=game.url,
+def get_items(job: NotificationJob) -> list[DataItem]:
+    current_items: list[DataItem] = job.read_items()
+
+    new_items: list[DataItem] = []
+    for game in GAMES:
+        title_is_ready: str = f"{game.title} готова!"
+
+        # Если игра уже была в списке как готовая, то пропуск проверки в стиме
+        if any(item for item in current_items if item.value == title_is_ready):
+            continue
+
+        title: str = (
+            f"{game.title} в раннем доступе"
+            if is_early_access(game.url)
+            else title_is_ready
         )
-        for game in GAMES
-    ]
+
+        new_items.append(
+            DataItem(
+                value=title,
+                url=game.url,
+            )
+        )
+
+    return new_items
 
 
 run_notification_job(
