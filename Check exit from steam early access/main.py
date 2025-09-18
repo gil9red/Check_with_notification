@@ -11,6 +11,7 @@ __author__ = "ipetrash"
 
 
 import sys
+import time
 
 from dataclasses import dataclass
 from pathlib import Path
@@ -100,6 +101,8 @@ def get_items(job: NotificationJob) -> list[DataItem]:
                 url=game.url,
             )
         )
+
+        time.sleep(1)
 
     return new_items
 
