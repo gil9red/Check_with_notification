@@ -11,6 +11,8 @@ __author__ = "ipetrash"
 
 
 import sys
+import time
+
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -72,24 +74,33 @@ def get_price(url: str) -> int | None:
     return int(value)
 
 
-def get_items(_: NotificationJob) -> list[DataItem]:
-    items: list[DataItem] = []
+def get_items(job: NotificationJob) -> list[DataItem]:
+    current_items: list[DataItem] = job.read_items()
+
+    new_items: list[DataItem] = []
     for game in GAMES:
-        price = get_price(game.url)
-        title = (
-            f"Игра {game.title!r} доступна для покупки"
-            if price
+        title_is_ready: str = f"Игра {game.title!r} доступна для покупки"
+
+        # Если игра уже была в списке как готовая, то пропуск проверки в стиме
+        if any(item for item in current_items if item.value == title_is_ready):
+            continue
+
+        title: str = (
+            title_is_ready
+            if get_price(game.url)
             else f"Игра {game.title!r} не доступна для покупки"
         )
 
-        items.append(
+        new_items.append(
             DataItem(
                 value=title,
                 url=game.url,
             )
         )
 
-    return items
+        time.sleep(1)
+
+    return new_items
 
 
 run_notification_job(
