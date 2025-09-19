@@ -74,14 +74,14 @@ class DataItem:
             formats = formats.replace(prefix=self.prefix)
         return formats.process(notification_title)
 
-    def dumps(self) -> dict[str, str]:
+    def dumps(self) -> dict[str, Any]:
         data = asdict(self)
         data.pop("need_html_escape_content")  # Не нужно его выгружать
         data.pop("prefix")
         return data
 
     @classmethod
-    def loads(cls, data: dict[str, str]):
+    def loads(cls, data: dict[str, Any]):
         return cls(**data)
 
 
