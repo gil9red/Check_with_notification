@@ -13,7 +13,6 @@ __author__ = "ipetrash"
 import sys
 import time
 
-from dataclasses import dataclass
 from pathlib import Path
 
 from bs4 import BeautifulSoup, Tag
@@ -24,37 +23,23 @@ ROOT_DIR = DIR.parent
 sys.path.append(str(ROOT_DIR))  # Путь к папке выше
 
 from formats import Formats
-from root_common import DataItem, run_notification_job, NotificationJob, session
+from root_common import (
+    DataItem,
+    SavedModeEnum,
+    read_data_items,
+    run_notification_job,
+    NotificationJob,
+    session,
+)
 
 
-@dataclass
-class Game:
-    title: str
-    url: str
+PATH_ITEMS: Path = DIR / "items.json"
 
 
-GAMES: list[Game] = [
-    Game(
-        title="I Am Jesus Christ",
-        url="https://store.steampowered.com/app/1198970/I_Am_Jesus_Christ/",
-    ),
-    Game(
-        title="Little Nightmares III",
-        url="https://store.steampowered.com/app/1392860/Little_Nightmares_III/",
-    ),
-    Game(
-        title="Titan Quest II",
-        url="https://store.steampowered.com/app/1154030/Titan_Quest_II/",
-    ),
-    Game(
-        title="MOUSE: P.I. For Hire",
-        url="https://store.steampowered.com/app/2416450/MOUSE_PI_For_Hire/",
-    ),
-    Game(
-        title="Heroes of Might & Magic: Olden Era",
-        url="https://store.steampowered.com/app/3105440/Heroes_of_Might__Magic_Olden_Era/",
-    ),
-]
+GAMES: list[DataItem] = read_data_items(
+    file_name=PATH_ITEMS,
+    save_mode=SavedModeEnum.DATA_ITEM,
+)
 
 
 def get_price(url: str) -> int | None:
