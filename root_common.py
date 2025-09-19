@@ -14,7 +14,7 @@ import uuid
 
 from dataclasses import asdict, dataclass, field
 from logging.handlers import RotatingFileHandler
-from typing import Callable
+from typing import Any, Callable
 from pathlib import Path
 
 import requests
@@ -94,6 +94,42 @@ class SendNewItemsModeEnum(enum.Enum):
     SINGLE_MESSAGE = enum.auto()
     SEPARATELY = enum.auto()
     GROUP = enum.auto()
+
+
+def read_data_items(
+    file_name: str | Path,
+    save_mode: SavedModeEnum,
+) -> list[DataItem]:
+    try:
+        with open(file_name, encoding="utf-8") as f:
+            obj = json.load(f)
+
+            # Должен быть список, но если в файле будет что-то другое - это будет неправильно
+            if not isinstance(obj, list):
+                return []
+
+            # Поддержка старого формата
+            if save_mode == SavedModeEnum.SIMPLE or isinstance(obj[0], str):
+                return [DataItem(value=x) for x in obj]
+
+            return [DataItem.loads(x) for x in obj]
+
+    except:
+        return []
+
+
+def write_data_items(
+    file_name: str | Path,
+    items: list[DataItem],
+    save_mode: SavedModeEnum,
+):
+    with open(file_name, mode="w", encoding="utf-8") as f:
+        if save_mode == SavedModeEnum.SIMPLE:
+            result: list[str] = [x.value for x in items]
+        else:
+            result: list[dict[str, Any]] = [x.dumps() for x in items]
+
+        json.dump(result, f, ensure_ascii=False, indent=4)
 
 
 @dataclass
@@ -336,38 +372,25 @@ class NotificationJob:
         self.file_name_skip = self.script_dir / "skip"
 
     def read_items(self) -> list[DataItem]:
-        try:
-            with open(self.file_name_items, encoding="utf-8") as f:
-                obj = json.load(f)
-
-                # Должен быть список, но если в файле будет что-то другое - это будет неправильно
-                if not isinstance(obj, list):
-                    return []
-
-                # Поддержка старого формата
-                if self.save_mode == SavedModeEnum.SIMPLE or isinstance(obj[0], str):
-                    return [DataItem(value=x) for x in obj]
-                else:
-                    return [DataItem.loads(x) for x in obj]
-
-        except:
-            return []
+        return read_data_items(
+            file_name=self.file_name_items,
+            save_mode=self.save_mode,
+        )
 
     def save_items(self, items: list[DataItem], items_backup: list[DataItem] = None):
-        def _save_to(file_name: str, data: list[DataItem]):
-            with open(file_name, mode="w", encoding="utf-8") as f:
-                if self.save_mode == SavedModeEnum.SIMPLE:
-                    result = [x.value for x in data]
-                else:
-                    result = [x.dumps() for x in data]
-
-                json.dump(result, f, ensure_ascii=False, indent=4)
-
-        _save_to(self.file_name_items, items)
+        write_data_items(
+            file_name=self.file_name_items,
+            items=items,
+            save_mode=self.save_mode,
+        )
 
         # Если элементы для бекапа переданы
         if items_backup:
-            _save_to(self.file_name_saved_backup, items_backup)
+            write_data_items(
+                file_name=self.file_name_saved_backup,
+                items=items_backup,
+                save_mode=self.save_mode,
+            )
 
     def _get_text_items(self, items: list[DataItem]) -> str:
         items: list[str] = [x.title for x in items]
