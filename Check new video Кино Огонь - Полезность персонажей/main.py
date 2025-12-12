@@ -27,7 +27,7 @@ from root_common import (
 
 
 def get_items(_: NotificationJob) -> list[DataItem]:
-    url = "https://www.youtube.com/@kinoogon/search?query=полезность полезный"
+    url = "https://www.youtube.com/@kinoogon/videos"
     return [item for item in get_yt_video_list(url) if "полезн" in item.title.lower()]
 
 
