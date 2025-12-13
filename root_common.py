@@ -422,6 +422,9 @@ class NotificationJob:
         attempts: int = 0
         attempts_for_when_empty: int = 0
 
+        if self.is_single:
+            self.log.debug(self.formats.on_run_is_single)
+
         while True:
             try:
                 self.log.debug(self.formats.on_start_check)
