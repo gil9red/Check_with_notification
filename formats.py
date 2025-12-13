@@ -23,8 +23,8 @@ class Formats:
     when_empty_items: str = "Вернулся пустой список!"
     file_skip_exists: str = 'Обнаружен файл "%s", пропускаю проверку.'
     on_exception: str = "Ошибка:"
-    on_exception_with_attempts: str = "Попытка #%s\n%s"
-    on_exception_next_attempt: str = "Повторная попытка будет через %s секунд"
+    on_with_attempts: str = "Попытка #%s\n%s"
+    on_next_attempt_timeout: str = "Повторная попытка будет через %s секунд"
     on_finish: str = "Завершение"
     on_run_is_single: str = "Использование is_single режима"
     prefix: str = ""

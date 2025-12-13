@@ -322,6 +322,8 @@ class NotificationJob:
         file_name_saved_backup: str = FILE_NAME_SAVED_BACKUP,
         need_notification: bool = True,
         notify_when_empty: bool = True,
+        timeout_for_when_empty_seconds: int = 60,  # 1 minute
+        max_attempts_for_when_empty: int = 3,  # NOTE: Default after 3 minutes
         send_new_items_mode: SendNewItemsModeEnum = DEFAULT_SEND_NEW_ITEMS_MODE,
         send_new_item_diff: bool = False,
         timeout: TimeoutWait = DEFAULT_TIMEOUT_WAIT,
@@ -345,6 +347,8 @@ class NotificationJob:
         self.file_name_saved_backup = file_name_saved_backup
         self.need_notification = need_notification
         self.notify_when_empty = notify_when_empty
+        self.timeout_for_when_empty_seconds = timeout_for_when_empty_seconds
+        self.max_attempts_for_when_empty = max_attempts_for_when_empty
         self.send_new_items_mode = send_new_items_mode
         self.send_new_item_diff = send_new_item_diff
         self.timeout = timeout
@@ -416,12 +420,11 @@ class NotificationJob:
 
         has_sending_first_report_error: bool = False
         attempts: int = 0
+        attempts_for_when_empty: int = 0
 
         while True:
             try:
                 self.log.debug(self.formats.on_start_check)
-                if self.is_single:
-                    self.log.debug(self.formats.on_run_is_single)
 
                 self.callbacks.on_start_check(self)
 
@@ -446,12 +449,31 @@ class NotificationJob:
                 self.log.debug(self.formats.get_items)
 
                 items: list[DataItem | str] = self.get_new_items(self)
-                if not items and self.notify_when_empty and self.need_notification:
-                    self.log.info("An empty list was returned. Sending a notification")
-                    self.send_telegram_notification_error(
-                        name=title_formatted,
-                        message=self.formats.when_empty_items,
-                    )
+                if not items and self.notify_when_empty:
+                    attempts_for_when_empty += 1
+
+                    if attempts_for_when_empty < self.max_attempts_for_when_empty:
+                        self.log.debug(
+                            self.formats.on_with_attempts,
+                            attempts_for_when_empty,
+                            self.formats.when_empty_items
+                        )
+                        self.log.debug(
+                            self.formats.on_next_attempt_timeout,
+                            self.timeout_for_when_empty_seconds,
+                        )
+
+                        # Wait <timeout_exception_seconds> before next attempt
+                        time.sleep(self.timeout_for_when_empty_seconds)
+
+                        continue
+
+                    if self.need_notification:
+                        self.log.info("An empty list was returned. Sending a notification")
+                        self.send_telegram_notification_error(
+                            name=title_formatted,
+                            message=self.formats.when_empty_items,
+                        )
 
                 # Поддержка старого формата
                 if items and isinstance(items[0], str):
@@ -545,6 +567,9 @@ class NotificationJob:
                 self.log.debug(self.formats.on_finish_check)
                 self.callbacks.on_finish_check(self)
 
+                # NOTE: Сброс счетчика попыток для пустого списка в рамках одного запуска
+                attempts_for_when_empty: int = 0
+
                 if self.is_single:
                     break
 
@@ -599,7 +624,7 @@ class NotificationJob:
                     elif attempts % self.report_errors_after_each_attempts == 0:
                         self.log.info("Sending a notification")
 
-                        text = self.formats.on_exception_with_attempts % (attempts, e)
+                        text = self.formats.on_with_attempts % (attempts, e)
                         self.send_telegram_notification_error(
                             name=title_formatted,
                             message=text,
@@ -614,7 +639,7 @@ class NotificationJob:
                     raise e
 
                 self.log.debug(
-                    self.formats.on_exception_next_attempt,
+                    self.formats.on_next_attempt_timeout,
                     self.timeout_exception_seconds,
                 )
 
@@ -753,6 +778,8 @@ def run_notification_job(
     file_name_saved_backup: str = FILE_NAME_SAVED_BACKUP,
     need_notification: bool = True,
     notify_when_empty: bool = True,
+    timeout_for_when_empty_seconds: int = 60,  # 1 minute
+    max_attempts_for_when_empty: int = 3,  # NOTE: Default after 3 minutes
     send_new_items_mode: SendNewItemsModeEnum = DEFAULT_SEND_NEW_ITEMS_MODE,
     send_new_item_diff: bool = False,
     timeout: TimeoutWait = DEFAULT_TIMEOUT_WAIT,
@@ -778,6 +805,8 @@ def run_notification_job(
         file_name_saved_backup=file_name_saved_backup,
         need_notification=need_notification,
         notify_when_empty=notify_when_empty,
+        timeout_for_when_empty_seconds=timeout_for_when_empty_seconds,
+        max_attempts_for_when_empty=max_attempts_for_when_empty,
         send_new_items_mode=send_new_items_mode,
         send_new_item_diff=send_new_item_diff,
         timeout=timeout,
