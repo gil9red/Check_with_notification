@@ -47,6 +47,7 @@ def get_items(job: NotificationJob) -> list[DataItem]:
 
         # Если игра уже была в списке как готовая, то пропуск проверки в стиме
         if any(item for item in current_items if item.value == title_is_ready):
+            print(f"Пропуск {game.title!r}, так как уже готова")
             continue
 
         title: str = (
