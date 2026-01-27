@@ -29,7 +29,7 @@ from root_common import (
 
 def get_items(_: NotificationJob) -> list[DataItem]:
     # Не всегда вовремя в плейлист кладет, поэтому для актуальности брать со страницы
-    items = [
+    items: list[DataItem] = [
         item
         for item in get_yt_video_list(
             "https://www.youtube.com/@JohnKalligan/videos",
