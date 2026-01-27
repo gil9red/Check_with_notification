@@ -27,7 +27,7 @@ from root_common import (
 
 
 def get_items(_: NotificationJob) -> list[DataItem]:
-    # Не всегда вовремя в плейлист кладет, поэтому для актуальности брать с страницы
+    # Не всегда вовремя в плейлист кладет, поэтому для актуальности брать со страницы
     url = "https://www.youtube.com/@DisturbingHorrorGames/videos"
     return [
         item
