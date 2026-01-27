@@ -140,5 +140,6 @@ LOGIN_PASSWORD.txt
 *.sqlite
 saved.json
 saved_backup.json
+runs.json
 .gigaide/
 .idea/
