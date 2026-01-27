@@ -41,5 +41,4 @@ run_notification_job(
         new_item="Новая версия %s",
         prefix="🐍",
     ),
-    need_notification=False,
 )
