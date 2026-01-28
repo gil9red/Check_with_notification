@@ -11,6 +11,8 @@ __author__ = "ipetrash"
 
 
 import sys
+import re
+
 from pathlib import Path
 
 DIR = Path(__file__).resolve().parent
@@ -25,14 +27,22 @@ from root_common import (
     NotificationJob,
 )
 
+# NOTE: Варианты "Skibidi Toilet", "скибиди туалет", "туалет skibidi"
+PATTERN: re.Pattern = re.compile(
+    pattern="(?=.*(skibidi|скибиди))(?=.*(toilet|туалет))",
+    flags=re.IGNORECASE,
+)
+
 
 def get_items(_: NotificationJob) -> list[DataItem]:
     # Не всегда вовремя в плейлист кладет, поэтому для актуальности брать со страницы
-    url = "https://www.youtube.com/@DaFuqBoom/videos"
     return [
         item
-        for item in get_yt_video_list(url, maximum_items=100)
-        if "skibidi toilet" in item.title.lower()
+        for item in get_yt_video_list(
+            "https://www.youtube.com/@DaFuqBoom/videos",
+            maximum_items=100,
+        )
+        if PATTERN.search(item.title)
     ]
 
 
