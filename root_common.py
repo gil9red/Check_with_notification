@@ -18,6 +18,7 @@ from typing import Any, Callable
 from pathlib import Path
 
 import requests
+from requests.adapters import HTTPAdapter
 from requests.exceptions import RequestException
 
 from simple_wait import wait
@@ -49,7 +50,22 @@ from third_party.rutube.get_videos_from_channel import (
 from third_party.youtube_com.api.search import search_youtube
 
 
+class TimeoutHTTPAdapter(HTTPAdapter):
+    def __init__(self, timeout, *args, **kwargs):
+        self._timeout = timeout
+        super().__init__(*args, **kwargs)
+
+    def send(self, request, timeout=None, **kwargs):
+        if timeout is None:
+            timeout = self._timeout
+        return super().send(request, timeout=timeout, **kwargs)
+
+
+adapter = TimeoutHTTPAdapter(timeout=60)
+
 session = requests.session()
+session.mount('http://', adapter)
+session.mount('https://', adapter)
 session.headers[
     "User-Agent"
 ] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0"
