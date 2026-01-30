@@ -4,7 +4,7 @@
  * [jut_su/](https://github.com/gil9red/SimplePyScripts/tree/0cfa47d91c95354ab3683eed24da8b4a093c2db7/html_parsing/jut_su)
  * [litres_ru/get_books_by_author.py](https://github.com/gil9red/SimplePyScripts/blob/296f8977c209c412cbf8beff060ab03e165da35e/html_parsing/litres_ru/get_books_by_author.py)
  * [price_of_games/app_parser/utils.py (partially)](https://github.com/gil9red/price_of_games/blob/0ba20b658f47be3eba02bab1907aa6fc83ad6d4e/app_parser/utils.py)
- * [python_org/get_release_versions.py](https://github.com/gil9red/SimplePyScripts/blob/1d896ec6145d12f973423038a32a39cb8ee96c51/html_parsing/python_org/get_release_versions.py)
+ * [python_org/get_release_versions.py](https://github.com/gil9red/SimplePyScripts/blob/052221615911af39bd6d7014af72d85ddb9828c6/html_parsing/python_org/get_release_versions.py)
  * [ranobehub_org/](https://github.com/gil9red/SimplePyScripts/tree/c211581b8679199abfbfe8c59f5b301d0f4d19b7/html_parsing/ranobehub_org)
  * [rutube/](https://github.com/gil9red/SimplePyScripts/blob/c4c424efab26399938c28487ff3cf49597b91161/html_parsing/rutube)
  * [stackoverflow_site__parsing/user_rank_and_reputation.py](https://github.com/gil9red/SimplePyScripts/blob/1d7f58c816db60f6005b9e63b981eeabd1924fc6/stackoverflow_site__parsing/user_rank_and_reputation.py)
