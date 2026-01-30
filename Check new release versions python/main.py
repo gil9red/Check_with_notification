@@ -19,17 +19,13 @@ ROOT_DIR = DIR.parent
 sys.path.append(str(ROOT_DIR))  # Путь к папке выше
 
 from formats import FORMATS_DEFAULT
-from root_common import run_notification_job, NotificationJob, DataItem
+from root_common import TimeoutWait, NotificationJob, DataItem, run_notification_job
 from third_party.python_org.get_release_versions import get_release_versions
 
 
 def get_items(_: NotificationJob) -> list[DataItem]:
     return [
-        DataItem(
-            value=version,
-            url=f"https://docs.python.org/{version[0]}/whatsnew/{version}.html",
-        )
-        for version in get_release_versions()
+        DataItem(value=v.version, url=v.url_whatsnew) for v in get_release_versions()
     ]
 
 
@@ -37,8 +33,9 @@ run_notification_job(
     "Новый релиз python",
     DIR,
     get_items,
+    timeout=TimeoutWait(weeks=1),
     formats=FORMATS_DEFAULT.replace(
-        new_item="Новая версия %s",
+        new_item="%s",
         prefix="🐍",
     ),
 )
