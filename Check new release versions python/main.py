@@ -11,6 +11,8 @@ __author__ = "ipetrash"
 
 
 import sys
+
+from datetime import date
 from pathlib import Path
 
 DIR = Path(__file__).resolve().parent
@@ -25,7 +27,9 @@ from third_party.python_org.get_release_versions import get_release_versions
 
 def get_items(_: NotificationJob) -> list[DataItem]:
     return [
-        DataItem(value=v.version, url=v.url_whatsnew) for v in get_release_versions()
+        DataItem(value=v.version, url=v.url_whatsnew)
+        for v in get_release_versions()
+        if v.release_start < date.today()
     ]
 
 
