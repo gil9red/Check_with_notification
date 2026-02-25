@@ -36,7 +36,7 @@ def get_all_items() -> list[DataItem]:
     return items
 
 
-def on_first_start_detected(job: NotificationJob):
+def on_first_start_detected(job: NotificationJob) -> None:
     job.log.debug("На первый запуск выполняется сохранение всех манг")
 
     items = get_all_items()
