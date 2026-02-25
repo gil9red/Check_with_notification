@@ -51,7 +51,7 @@ from third_party.youtube_com.api.search import search_youtube
 
 
 class TimeoutHTTPAdapter(HTTPAdapter):
-    def __init__(self, timeout, *args, **kwargs):
+    def __init__(self, timeout, *args, **kwargs) -> None:
         self._timeout = timeout
         super().__init__(*args, **kwargs)
 
@@ -80,7 +80,7 @@ class DataItem:
     prefix: str = field(compare=False, repr=False, default="")
     need_html_escape_content: bool = field(compare=False, repr=False, default=True)
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if not self.title:
             self.title = self.value
 
@@ -138,7 +138,7 @@ def write_data_items(
     file_name: str | Path,
     items: list[DataItem],
     save_mode: SavedModeEnum,
-):
+) -> None:
     with open(file_name, mode="w", encoding="utf-8") as f:
         if save_mode == SavedModeEnum.SIMPLE:
             result: list[str] = [x.value for x in items]
@@ -204,7 +204,7 @@ def get_short_repr_list(items: list) -> str:
     return "[" + ", ".join(first) + ", ..., " + last + "]"
 
 
-def send_sms(api_id: str, to: str, text: str, log):
+def send_sms(api_id: str, to: str, text: str, log) -> None:
     api_id = api_id.strip()
     to = to.strip()
 
@@ -279,7 +279,7 @@ def send_telegram_notification(
         raise e
 
 
-def send_telegram_notification_error(name: str, message: str):
+def send_telegram_notification_error(name: str, message: str) -> None:
     send_telegram_notification(
         name=name,
         message=message,
@@ -296,7 +296,7 @@ DEFAULT_NEED_TO_STORE_ITEMS: int = 10_000
 DEFAULT_SEND_NEW_ITEMS_MODE: SendNewItemsModeEnum = SendNewItemsModeEnum.GROUP
 
 
-def log_uncaught_exceptions(ex_cls, ex, tb):
+def log_uncaught_exceptions(ex_cls, ex, tb) -> None:
     # Если было запрошено прерывание
     if isinstance(ex, KeyboardInterrupt):
         sys.exit()
@@ -356,7 +356,7 @@ class NotificationJob:
         max_attempts_for_is_single: int = 5,  # NOTE: Default after 25 minutes
         debug_logging_current_items: bool = DEBUG_LOGGING_CURRENT_ITEMS,
         debug_logging_get_new_items: bool = DEBUG_LOGGING_GET_NEW_ITEMS,
-    ):
+    ) -> None:
         self.script_dir = script_dir
         self.get_new_items = get_new_items
         self.file_name_saved = file_name_saved
@@ -397,7 +397,7 @@ class NotificationJob:
             save_mode=self.save_mode,
         )
 
-    def save_items(self, items: list[DataItem], items_backup: list[DataItem] = None):
+    def save_items(self, items: list[DataItem], items_backup: list[DataItem] = None) -> None:
         write_data_items(
             file_name=self.file_name_items,
             items=items,
@@ -679,7 +679,7 @@ class NotificationJob:
         group: str = None,
         group_max_number: int = None,
         need_html_escape_content: bool = True,
-    ):
+    ) -> None:
         if not self.need_notification:
             return
 
@@ -695,7 +695,7 @@ class NotificationJob:
             need_html_escape_content=need_html_escape_content,
         )
 
-    def send_telegram_notification_error(self, name: str, message: str):
+    def send_telegram_notification_error(self, name: str, message: str) -> None:
         self.send_telegram_notification(
             name=name,
             message=message,
@@ -710,7 +710,7 @@ class NotificationJob:
         item: DataItem,
         group: str | None = None,
         group_max_number: int | None = None,
-    ):
+    ) -> None:
         self.send_telegram_notification(
             name=item.process_notification_title(
                 formats=self.formats,
@@ -815,7 +815,7 @@ def run_notification_job(
     max_attempts_for_is_single: int = 5,  # NOTE: Default after 25 minutes
     debug_logging_current_items: bool = DEBUG_LOGGING_CURRENT_ITEMS,
     debug_logging_get_new_items: bool = DEBUG_LOGGING_GET_NEW_ITEMS,
-):
+) -> None:
     NotificationJob(
         log__or__log_name=log__or__log_name,
         script_dir=script_dir,
@@ -851,14 +851,14 @@ def run_notification_job_rutube(
     url: str,
     many: bool = True,
     formats=FORMATS_VIDEO,
-):
+) -> None:
     title = f"{name} [Rutube]"
 
     max_items = callbacks = None
     if many:
         max_items = 100
 
-        def on_first_start_detected(job: NotificationJob):
+        def on_first_start_detected(job: NotificationJob) -> None:
             job.log.debug("На первый запуск выполняется сохранение всех видео")
 
             items = get_items_from_rutube(job, url)
