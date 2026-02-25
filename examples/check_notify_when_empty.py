@@ -47,11 +47,11 @@ print("\n" + "-" * 100 + "\n")
 
 
 # Process OK on second attempt
-def on_start(job: NotificationJob):
+def on_start(job: NotificationJob) -> None:
     job.attempts = 0
 
 
-def on_start_check(job: NotificationJob):
+def on_start_check(job: NotificationJob) -> None:
     job.attempts += 1
 
 
