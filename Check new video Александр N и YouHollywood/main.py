@@ -41,7 +41,8 @@ def get_items(_: NotificationJob) -> list[DataItem]:
                 item.title,
                 flags=re.IGNORECASE,
             )
-            and "Александр N".lower() in item.title.lower()
+            # NOTE: Перестал добавлять имя
+            # and "Александр N".lower() in item.title.lower()
         )
     ]
 
