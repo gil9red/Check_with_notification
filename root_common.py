@@ -773,14 +773,14 @@ def get_items_from_jut_su(_: NotificationJob, url: str) -> list[DataItem]:
     return items
 
 
-def get_items_from_rutube(
+def get_rutube_video_list(
     url: str,
-    max_items: int | None = None,
+    maximum_items: int | None = None,
 ) -> list[DataItem]:
     if "/plst/" in url:
-        videos = get_videos_from_playlist_rutube(url, max_items=max_items)
+        videos = get_videos_from_playlist_rutube(url, max_items=maximum_items)
     else:
-        videos = get_videos_from_channel_rutube(url, max_items=max_items)
+        videos = get_videos_from_channel_rutube(url, max_items=maximum_items)
 
     return [
         DataItem(value=video.id, title=video.title, url=video.url) for video in videos
@@ -860,7 +860,7 @@ def run_notification_job_rutube(
         def on_first_start_detected(job: NotificationJob) -> None:
             job.log.debug("На первый запуск выполняется сохранение всех видео")
 
-            items = get_items_from_rutube(url)
+            items = get_rutube_video_list(url)
             job.save_items(items)
 
         callbacks = NotificationJob.Callbacks(
@@ -870,7 +870,7 @@ def run_notification_job_rutube(
     run_notification_job(
         title,
         script_dir,
-        lambda job: get_items_from_rutube(url, max_items=max_items),
+        lambda job: get_rutube_video_list(url, maximum_items=max_items),
         formats=formats.replace(
             get_items=f"Запрос {max_items} видео",
         ),
