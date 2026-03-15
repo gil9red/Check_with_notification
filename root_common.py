@@ -460,7 +460,11 @@ class NotificationJob:
             save_mode=self.save_mode,
         )
 
-    def save_items(self, items: list[DataItem], items_backup: list[DataItem] = None) -> None:
+    def save_items(
+        self,
+        items: list[DataItem],
+        items_backup: list[DataItem] | None = None,
+    ) -> None:
         write_data_items(
             file_name=self.file_name_items,
             items=items,
@@ -581,7 +585,7 @@ class NotificationJob:
                         self.log.debug(
                             self.formats.on_with_attempts,
                             attempts_for_when_empty,
-                            self.formats.when_empty_items
+                            self.formats.when_empty_items,
                         )
                         self.log.debug(
                             self.formats.on_next_attempt_timeout,
@@ -596,7 +600,9 @@ class NotificationJob:
                         continue
 
                     if self.need_notification:
-                        self.log.info("An empty list was returned. Sending a notification")
+                        self.log.info(
+                            "An empty list was returned. Sending a notification"
+                        )
                         self.send_telegram_notification_error(
                             name=title_formatted,
                             message=self.formats.when_empty_items,
