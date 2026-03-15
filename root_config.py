@@ -8,10 +8,10 @@ import os
 from pathlib import Path
 
 
-DIR = Path(__file__).resolve().parent
+DIR: Path = Path(__file__).resolve().parent
 
-SMS_TOKEN_FILE_NAME = DIR / "SMS_TOKEN.txt"
-SMS_TOKEN = (
+SMS_TOKEN_FILE_NAME: Path = DIR / "SMS_TOKEN.txt"
+SMS_TOKEN: str = (
     os.environ.get("SMS_TOKEN") or SMS_TOKEN_FILE_NAME.read_text("utf-8").strip()
 )
 
@@ -20,6 +20,8 @@ API_ID, TO = SMS_TOKEN.split(":")
 
 FILE_NAME_SAVED = "saved.json"
 FILE_NAME_SAVED_BACKUP = "saved_backup.json"
+FILE_NAME_SAVED: str = "saved.json"
+FILE_NAME_SAVED_BACKUP: str = "saved_backup.json"
 
-DEBUG_LOGGING_CURRENT_ITEMS = False
-DEBUG_LOGGING_GET_NEW_ITEMS = False
+DEBUG_LOGGING_CURRENT_ITEMS: bool = False
+DEBUG_LOGGING_GET_NEW_ITEMS: bool = False
