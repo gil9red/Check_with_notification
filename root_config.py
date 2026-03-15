@@ -18,10 +18,9 @@ SMS_TOKEN: str = (
 # <API_ID>:<PHONE>
 API_ID, TO = SMS_TOKEN.split(":")
 
-FILE_NAME_SAVED = "saved.json"
-FILE_NAME_SAVED_BACKUP = "saved_backup.json"
 FILE_NAME_SAVED: str = "saved.json"
 FILE_NAME_SAVED_BACKUP: str = "saved_backup.json"
+FILE_NAME_RUNS: str = "runs.json"
 
 DEBUG_LOGGING_CURRENT_ITEMS: bool = False
 DEBUG_LOGGING_GET_NEW_ITEMS: bool = False

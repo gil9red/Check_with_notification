@@ -13,6 +13,7 @@ import traceback
 import uuid
 
 from dataclasses import asdict, dataclass, field
+from datetime import datetime
 from logging.handlers import RotatingFileHandler
 from typing import Any, Callable
 from pathlib import Path
@@ -29,6 +30,7 @@ from root_config import (
     DIR,
     FILE_NAME_SAVED,
     FILE_NAME_SAVED_BACKUP,
+    FILE_NAME_RUNS,
     DEBUG_LOGGING_CURRENT_ITEMS,
     DEBUG_LOGGING_GET_NEW_ITEMS,
 )
@@ -94,6 +96,70 @@ class DataItem:
     @classmethod
     def loads(cls, data: dict[str, Any]):
         return cls(**data)
+
+
+class RunResultEnum(enum.Enum):
+    OK = "OK"
+    ERROR = "ERROR"
+    EMPTY = "EMPTY"
+    IN_PROGRESS = "IN_PROGRESS"
+
+
+@dataclass
+class RunInfo:
+    started_dt: datetime
+    result: RunResultEnum
+    finished_dt: datetime | None = None
+    total_items: int | None = None
+    details: str | None = None
+
+    @classmethod
+    def create(
+        cls,
+        result: RunResultEnum,
+        total_items: int | None = None,
+        details: str | None = None,
+    ) -> "RunInfo":
+        finished_dt = datetime.now() if result != RunResultEnum.IN_PROGRESS else None
+        started_dt = datetime.now()
+
+        return cls(
+            started_dt=started_dt,
+            finished_dt=finished_dt,
+            result=result,
+            total_items=total_items,
+            details=details,
+        )
+
+    def dumps(self) -> dict[str, Any]:
+        def _get_dt_str(dt: datetime | None) -> str | None:
+            return dt.isoformat(timespec="seconds") if dt else None
+
+        data = {
+            "started_dt": _get_dt_str(self.started_dt),
+            "finished_dt": _get_dt_str(self.finished_dt),
+            "result": self.result.value,
+        }
+
+        if self.total_items:
+            data["total_items"] = self.total_items
+
+        if self.details:
+            data["details"] = self.details
+
+        return data
+
+    @classmethod
+    def loads(cls, data: dict[str, Any]):
+        return cls(
+            started_dt=datetime.fromisoformat(data["started_dt"]),
+            result=RunResultEnum(data["result"]),
+            finished_dt=datetime.fromisoformat(data["finished_dt"])
+            if data["finished_dt"]
+            else None,
+            total_items=data.get("total_items"),
+            details=data.get("details"),
+        )
 
 
 class SavedModeEnum(enum.Enum):
@@ -331,6 +397,7 @@ class NotificationJob:
         *,
         file_name_saved: str = FILE_NAME_SAVED,
         file_name_saved_backup: str = FILE_NAME_SAVED_BACKUP,
+        file_name_runs: str = FILE_NAME_RUNS,
         need_notification: bool = True,
         notify_when_empty: bool = True,
         timeout_for_when_empty_seconds: int = 60,  # 1 minute
@@ -356,6 +423,7 @@ class NotificationJob:
         self.get_new_items = get_new_items
         self.file_name_saved = file_name_saved
         self.file_name_saved_backup = file_name_saved_backup
+        self.file_name_runs = file_name_runs
         self.need_notification = need_notification
         self.notify_when_empty = notify_when_empty
         self.timeout_for_when_empty_seconds = timeout_for_when_empty_seconds
@@ -415,6 +483,49 @@ class NotificationJob:
             else get_short_repr_list(items)
         )
 
+    def add_run(
+        self,
+        result: RunResultEnum,
+        total_items: int | None = None,
+        details: str | None = None,
+    ) -> None:
+        runs: list[RunInfo] = []
+
+        if Path(self.file_name_runs).exists():
+            with open(self.file_name_runs, encoding="utf-8") as f:
+                obj: list[dict[str, Any]] = json.load(f)
+                runs = [RunInfo.loads(x) for x in obj]
+
+        # Обновление результата текущего запуска
+        # Если были запуски и результат последнего запуска IN_PROGRESS,
+        # и новый запуск не IN_PROGRESS
+        if (
+            runs
+            and runs[0].result == RunResultEnum.IN_PROGRESS
+            and result != RunResultEnum.IN_PROGRESS
+        ):
+            last_run: RunInfo = runs[0]
+            last_run.result = result
+            last_run.finished_dt = datetime.now()
+            last_run.total_items = total_items
+            last_run.details = details
+        else:
+            run = RunInfo.create(
+                result=result,
+                total_items=total_items,
+                details=details,
+            )
+            runs.insert(0, run)
+            runs = runs[:100]  # NOTE: Max 100 runs
+
+        with open(self.file_name_runs, mode="w", encoding="utf-8") as f:
+            json.dump(
+                [run.dumps() for run in runs],
+                f,
+                ensure_ascii=False,
+                indent=4,
+            )
+
     def run(self):
         global IS_CAN_SEND_ERROR_NOTIFICATIONS
         IS_CAN_SEND_ERROR_NOTIFICATIONS = self.need_notification
@@ -439,8 +550,8 @@ class NotificationJob:
         while True:
             try:
                 self.log.debug(self.formats.on_start_check)
-
                 self.callbacks.on_start_check(self)
+                self.add_run(result=RunResultEnum.IN_PROGRESS)
 
                 if self.file_name_skip.exists():
                     self.log.info(
@@ -476,6 +587,8 @@ class NotificationJob:
                             self.formats.on_next_attempt_timeout,
                             self.timeout_for_when_empty_seconds,
                         )
+
+                        self.add_run(result=RunResultEnum.EMPTY)
 
                         # Wait <timeout_exception_seconds> before next attempt
                         time.sleep(self.timeout_for_when_empty_seconds)
@@ -584,6 +697,11 @@ class NotificationJob:
                 # NOTE: Сброс счетчика попыток для пустого списка в рамках одного запуска
                 attempts_for_when_empty: int = 0
 
+                if items:
+                    self.add_run(result=RunResultEnum.OK, total_items=len(items))
+                else:
+                    self.add_run(result=RunResultEnum.EMPTY)
+
                 if self.is_single:
                     break
 
@@ -611,6 +729,8 @@ class NotificationJob:
                 break
 
             except Exception as e:
+                self.add_run(result=RunResultEnum.ERROR, details=str(e))
+
                 # При ошибках с сетью пишем текст ошибке, а не стек
                 if isinstance(e, RequestException):
                     self.log.error(f"{self.formats.on_exception} {e}")
