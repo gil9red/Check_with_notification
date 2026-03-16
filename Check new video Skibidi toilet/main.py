@@ -39,7 +39,7 @@ def get_items(_: NotificationJob) -> list[DataItem]:
     return [
         item
         for item in get_yt_video_list(
-            "https://www.youtube.com/@DaFuqBoom/videos",
+            "https://www.youtube.com/channel/UCsSsgPaZ2GSmO6il8Cb5iGA/videos",
             maximum_items=100,
         )
         if PATTERN.search(item.title)
