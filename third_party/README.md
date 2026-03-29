@@ -3,6 +3,7 @@
  * [grouple_co/](https://github.com/gil9red/SimplePyScripts/blob/c551ea40e3715a939bf36a3f575821ce5b79756f/html_parsing/grouple_co/)
  * [jut_su/](https://github.com/gil9red/SimplePyScripts/tree/0cfa47d91c95354ab3683eed24da8b4a093c2db7/html_parsing/jut_su)
  * [litres_ru/get_books_by_author.py](https://github.com/gil9red/SimplePyScripts/blob/296f8977c209c412cbf8beff060ab03e165da35e/html_parsing/litres_ru/get_books_by_author.py)
+ * [mangalib_me/get_chapters.py](https://github.com/gil9red/SimplePyScripts/blob/fd1adc3dd5df1a52f23dd6f33ef938c7c9e000bb/html_parsing/mangalib_me/get_chapters.py)
  * [price_of_games/app_parser/utils.py (partially)](https://github.com/gil9red/price_of_games/blob/0ba20b658f47be3eba02bab1907aa6fc83ad6d4e/app_parser/utils.py)
  * [python_org/get_release_versions.py](https://github.com/gil9red/SimplePyScripts/blob/052221615911af39bd6d7014af72d85ddb9828c6/html_parsing/python_org/get_release_versions.py)
  * [ranobehub_org/](https://github.com/gil9red/SimplePyScripts/blob/1dca8458e0323e790ee0a12d1bb98bdf926f3619/html_parsing/ranobehub_org)
