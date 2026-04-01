@@ -51,8 +51,7 @@ def get_game_title(game: Game) -> str:
         📅 <b>Дата релиза:</b> <code>{release_date}</code>
         🔓 <b>Дата взлома:</b> <code>{crack_date}</code>
         🛡 <b>Защита:</b> <code>{protection}</code>
-        🏴‍☠️ <b>Взломана:</b>
-        <blockquote>{hacked}</blockquote>
+        🏴‍☠️ <b>Взломана:</b> <code>{hacked}</code>
         """
     ).strip()
 
