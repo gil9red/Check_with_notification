@@ -13,7 +13,7 @@
  * [youtube_com/api/](https://github.com/gil9red/SimplePyScripts/blob/ca9c31927baf38cbf84e025ceca7279884866df7/html_parsing/youtube_com/api/)
  * [add_notify_telegram.py](https://github.com/gil9red/telegram_notifications_bot/blob/5473d04dda61b0a066eb04c75e22a5e3e34c0f17/add_notify_use_web.py#L18) (PARTIALLY)
  * [anivost_org.py](https://github.com/gil9red/SimplePyScripts/blob/d5437b669d700082673f1bef51aa6d1a5ed0ef0c/html_parsing/anivost_org.py)
- * [gamestatus_info__lastcrackedgames.py](https://github.com/gil9red/SimplePyScripts/blob/a0461730cf63e1d1fe79f793272940200c2c3e3e/for_games/gamestatus_info__lastcrackedgames.py)
+ * [gamestatus_info__lastcrackedgames.py](https://github.com/gil9red/SimplePyScripts/blob/af0a3e6f24046a6d401e0dabe2cf454048a7dc90/for_games/gamestatus_info__lastcrackedgames.py)
  * [gamesvoice_ru__get_finished.py](https://github.com/gil9red/SimplePyScripts/blob/0b72f4cfc990004b87afedf28b7910df269bb741/html_parsing/gamesvoice_ru__get_finished.py)
  * [store_steampowered_com__check_early_access.py](store_steampowered_com__check_early_access.py)(https://github.com/gil9red/SimplePyScripts/blob/9fc2013fd614d486be587ad0c6f180478a5c8d6c/html_parsing/store_steampowered_com__check_early_access.py)
  * [store_steampowered_com__check_exists_app.py](https://github.com/gil9red/SimplePyScripts/blob/786b384d29481d61989b3b4489dce73c16b12fb6/html_parsing/store_steampowered_com__check_exists_app.py)
