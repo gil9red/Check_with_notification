@@ -24,7 +24,7 @@ from root_common import (
 )
 
 run_notification_job(
-    "Разбор",
+    "Разбор [Василий Гальперов]",
     DIR,
     lambda _: get_yt_playlist_video_list("PLL1mBUdBcoHqu83JI3TDDauDD4pi3-pF6"),
     save_mode=SavedModeEnum.DATA_ITEM,
