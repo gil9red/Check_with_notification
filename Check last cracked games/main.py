@@ -59,7 +59,7 @@ def get_game_title(game: Game) -> str:
 def get_items(_: NotificationJob) -> list[DataItem]:
     return [
         DataItem(
-            value=game.url,
+            value=f"{game.url}, hacked_groups: {game.hacked_groups.lower()[:20].strip()}",
             title=get_game_title(game),
             url=game.url,
             need_html_escape_content=False,
