@@ -25,7 +25,7 @@ from root_common import (
 
 
 run_notification_job(
-    "Fantom",
+    "Fantom [Youtube]",
     DIR,
     lambda _: get_yt_video_list(
         "https://www.youtube.com/@YaFanTom/videos",

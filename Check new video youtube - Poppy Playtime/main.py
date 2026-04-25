@@ -25,7 +25,7 @@ from root_common import (
 
 
 run_notification_job(
-    "Poppy Playtime",
+    "Poppy Playtime [Youtube]",
     DIR,
     lambda _: get_yt_playlist_video_list("PLejGw9J2xE9XXoMpS8xOPmkuzriJxyINS"),
     save_mode=SavedModeEnum.DATA_ITEM,

@@ -25,7 +25,7 @@ from root_common import (
 
 
 run_notification_job(
-    "Кубрик",
+    "Кубрик [Youtube]",
     DIR,
     lambda _: get_yt_video_list("https://www.youtube.com/@kubrik1985/videos"),
     save_mode=SavedModeEnum.DATA_ITEM,

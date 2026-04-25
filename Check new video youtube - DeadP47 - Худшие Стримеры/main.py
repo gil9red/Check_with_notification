@@ -25,7 +25,7 @@ from root_common import (
 
 
 run_notification_job(
-    "Худшие Стримеры [DeadP47]",
+    "Худшие Стримеры [DeadP47] [Youtube]",
     DIR,
     lambda _: get_yt_playlist_video_list("PLjdELgpd9M1uzBrb3yNsVM5-t2x7zBBLA"),
     save_mode=SavedModeEnum.DATA_ITEM,

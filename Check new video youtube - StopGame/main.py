@@ -39,7 +39,7 @@ PLAYLISTS = [
 
 
 run_notification_job(
-    "StopGame",
+    "StopGame [Youtube]",
     DIR,
     lambda job: get_yt_video_list_from_playlists(job, PLAYLISTS),
     save_mode=SavedModeEnum.DATA_ITEM,

@@ -25,7 +25,7 @@ from root_common import (
 
 
 run_notification_job(
-    "Crispy Crumb",
+    "Crispy Crumb [Youtube]",
     DIR,
     lambda _: get_yt_video_list("https://www.youtube.com/@Crispy_Crumb/videos"),
     save_mode=SavedModeEnum.DATA_ITEM,

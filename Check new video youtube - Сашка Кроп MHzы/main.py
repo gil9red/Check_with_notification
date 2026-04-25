@@ -25,7 +25,7 @@ from root_common import (
 
 
 run_notification_job(
-    "Сашка Кроп MHz'ы",
+    "Сашка Кроп MHz'ы [Youtube]",
     DIR,
     lambda _: get_yt_playlist_video_list("PL24NJvgUw-cyZ6Mz25pAhMSa1l8uYLzo9"),
     save_mode=SavedModeEnum.DATA_ITEM,
