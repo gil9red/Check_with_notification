@@ -29,7 +29,7 @@ def get_items(_: NotificationJob) -> list[str]:
 
 
 run_notification_job(
-    "Богиня благословляет этот прекрасный мир",
+    "Богиня благословляет этот прекрасный мир [wiki]",
     DIR,
     get_items,
     formats=FORMATS_SEASON,
