@@ -26,7 +26,7 @@ from third_party.wikipedia.ru_wikipedia_org__wiki__Пацаны_телесери
 
 
 run_notification_job(
-    "Пацаны",
+    "Пацаны [wiki]",
     DIR,
     lambda _: get_all_series(),
     formats=FORMATS_VIDEO,
