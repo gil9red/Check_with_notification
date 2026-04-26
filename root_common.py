@@ -63,9 +63,9 @@ if not hasattr(requests.Session.send, "_is_patched"):
     requests.Session.send = patched_requests_send
 
 session = requests.session()
-session.headers[
-    "User-Agent"
-] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0"
+session.headers["User-Agent"] = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0"
+)
 
 
 @dataclass
@@ -154,9 +154,11 @@ class RunInfo:
         return cls(
             started_dt=datetime.fromisoformat(data["started_dt"]),
             result=RunResultEnum(data["result"]),
-            finished_dt=datetime.fromisoformat(data["finished_dt"])
-            if data["finished_dt"]
-            else None,
+            finished_dt=(
+                datetime.fromisoformat(data["finished_dt"])
+                if data["finished_dt"]
+                else None
+            ),
             total_items=data.get("total_items"),
             details=data.get("details"),
         )
