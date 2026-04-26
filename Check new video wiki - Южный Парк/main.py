@@ -26,7 +26,7 @@ from third_party.wikipedia.ru_wikipedia_org__wiki__Список_эпизодов
 
 
 run_notification_job(
-    "Южный Парк",
+    "Южный Парк [wiki]",
     DIR,
     lambda _: get_all_series(),
     formats=FORMATS_VIDEO,
