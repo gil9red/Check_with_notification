@@ -7,7 +7,6 @@ __author__ = "ipetrash"
 import os
 from pathlib import Path
 
-
 DIR: Path = Path(__file__).resolve().parent
 
 SMS_TOKEN_FILE_NAME: Path = DIR / "SMS_TOKEN.txt"
