@@ -89,8 +89,10 @@ class DataItem:
 
     def dumps(self) -> dict[str, Any]:
         data = asdict(self)
-        data.pop("need_html_escape_content")  # Не нужно его выгружать
+        if not self.notification_title:
+            data.pop("notification_title")
         data.pop("prefix")
+        data.pop("need_html_escape_content")  # Не нужно его выгружать
         return data
 
     @classmethod
