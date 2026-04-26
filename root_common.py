@@ -48,8 +48,8 @@ from third_party.rutube.get_videos_from_playlist import (
 from third_party.rutube.get_videos_from_channel import (
     get_videos as get_videos_from_channel_rutube,
 )
+from third_party.vkvideo.get_videos import get_first_videos as get_videos_from_vkvideo
 from third_party.youtube_com.api.search import search_youtube
-
 
 if not hasattr(requests.Session.send, "_is_patched"):
     original_requests_send = requests.Session.send
@@ -905,6 +905,13 @@ def get_rutube_video_list(
 
     return [
         DataItem(value=video.id, title=video.title, url=video.url) for video in videos
+    ]
+
+
+def get_vkvideo_video_list(url: str) -> list[DataItem]:
+    return [
+        DataItem(value=str(video.id), title=video.title, url=video.url)
+        for video in get_videos_from_vkvideo(url)
     ]
 
 
