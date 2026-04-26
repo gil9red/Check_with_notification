@@ -1,0 +1,19 @@
+[project]
+name = "check-with-notification"
+version = "2026.4.26"
+description = "Personal set of scripts for notifications on different things"
+requires-python = ">=3.12"
+authors = [
+    { name = "gil9red", email = "ilya.petrash@inbox.ru" }
+]
+dependencies = [
+    "beautifulsoup4==4.10.0",
+    "dpath==2.0.6",
+    "playwright==1.50.0",
+    "requests==2.27.1",
+    "simple-wait==1.0.8",
+    "tzlocal==4.1",
+]
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE.txt"]
