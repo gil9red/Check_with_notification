@@ -25,7 +25,7 @@ URL = "https://jut.su/dr-stoune/"
 
 
 run_notification_job(
-    "Доктор Стоун",
+    "Доктор Стоун [jutsu]",
     DIR,
     lambda job: get_items_from_jut_su(job, URL),
     formats=FORMATS_VIDEO,

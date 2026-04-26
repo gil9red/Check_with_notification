@@ -25,7 +25,7 @@ URL = "https://jut.su/kono-subarashii/"
 
 
 run_notification_job(
-    "Богиня благословляет этот прекрасный мир",
+    "Богиня благословляет этот прекрасный мир [jutsu]",
     DIR,
     lambda job: get_items_from_jut_su(job, URL),
     formats=FORMATS_VIDEO,

@@ -25,7 +25,7 @@ URL = "https://jut.su/spy-family/"
 
 
 run_notification_job(
-    "Семья шпиона",
+    "Семья шпиона [jutsu]",
     DIR,
     lambda job: get_items_from_jut_su(job, URL),
     formats=FORMATS_VIDEO,

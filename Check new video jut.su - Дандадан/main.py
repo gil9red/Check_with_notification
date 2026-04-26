@@ -25,7 +25,7 @@ URL = "https://jut.su/dandadan/"
 
 
 run_notification_job(
-    "Дандадан",
+    "Дандадан [jutsu]",
     DIR,
     lambda job: get_items_from_jut_su(job, URL),
     formats=FORMATS_VIDEO,
