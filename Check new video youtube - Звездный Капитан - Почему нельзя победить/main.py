@@ -25,7 +25,7 @@ from root_common import (
 
 
 run_notification_job(
-    "Почему нельзя победить [Звездный Капитан] [Youtube]",
+    "Почему нельзя победить [Звездный Капитан] [youtube]",
     DIR,
     lambda _: get_yt_playlist_video_list("PLkwtTj4NJdVlEcsOLbJzaP0AxJsgTrGKA"),
     save_mode=SavedModeEnum.DATA_ITEM,

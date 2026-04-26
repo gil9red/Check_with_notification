@@ -972,7 +972,7 @@ def run_notification_job_rutube(
     many: bool = True,
     formats=FORMATS_VIDEO,
 ) -> None:
-    title = f"{name} [Rutube]"
+    title = f"{name} [rutube]"
 
     max_items = callbacks = None
     if many:

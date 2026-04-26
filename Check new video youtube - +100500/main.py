@@ -36,7 +36,7 @@ def get_items(_: NotificationJob) -> list[DataItem]:
 
 
 run_notification_job(
-    "+100500 [Youtube]",
+    "+100500 [youtube]",
     DIR,
     get_items,
     save_mode=SavedModeEnum.DATA_ITEM,

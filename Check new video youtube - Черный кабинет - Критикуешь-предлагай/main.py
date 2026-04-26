@@ -25,7 +25,7 @@ from root_common import (
 
 
 run_notification_job(
-    "Критикуешь-предлагай [Черный кабинет] [Youtube]",
+    "Критикуешь-предлагай [Черный кабинет] [youtube]",
     DIR,
     lambda _: get_yt_playlist_video_list("PLBZnChsbP-UOu2q00WioTn7KjP_jWAtwB"),
     save_mode=SavedModeEnum.DATA_ITEM,

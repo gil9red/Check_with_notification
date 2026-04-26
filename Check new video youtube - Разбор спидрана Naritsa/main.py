@@ -25,7 +25,7 @@ from root_common import (
 
 
 run_notification_job(
-    "Разбор спидрана! [Naritsa] [Youtube]",
+    "Разбор спидрана! [Naritsa] [youtube]",
     DIR,
     lambda _: get_yt_playlist_video_list("PLgHXSvDpcJQiG_H7HTpAEhUP6JbOEbg3Q"),
     save_mode=SavedModeEnum.DATA_ITEM,

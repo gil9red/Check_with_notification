@@ -37,7 +37,7 @@ def get_items(_: NotificationJob) -> list[DataItem]:
 
 
 run_notification_job(
-    "Disturbing Horror Games [Youtube]",
+    "Disturbing Horror Games [youtube]",
     DIR,
     get_items,
     save_mode=SavedModeEnum.DATA_ITEM,

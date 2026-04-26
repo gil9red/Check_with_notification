@@ -32,7 +32,7 @@ def get_items(_: NotificationJob) -> list[DataItem]:
 
 
 run_notification_job(
-    "Кино Огонь [Youtube]",
+    "Кино Огонь [youtube]",
     DIR,
     get_items,
     save_mode=SavedModeEnum.DATA_ITEM,

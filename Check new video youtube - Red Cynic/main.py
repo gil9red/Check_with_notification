@@ -25,7 +25,7 @@ from root_common import (
 
 
 run_notification_job(
-    "Обзоры Red Cynic [Youtube]",
+    "Обзоры Red Cynic [youtube]",
     DIR,
     lambda _: get_yt_playlist_video_list("PLBoSqopCxgMm6fRnlgL_BTYT9Jy8iciG9"),
     save_mode=SavedModeEnum.DATA_ITEM,

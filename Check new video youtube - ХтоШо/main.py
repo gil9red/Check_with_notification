@@ -25,7 +25,7 @@ from root_common import (
 
 
 run_notification_job(
-    "ХтоШо [Youtube]",
+    "ХтоШо [youtube]",
     DIR,
     lambda _: get_yt_video_list("https://www.youtube.com/@HtoShoChannel/videos"),
     save_mode=SavedModeEnum.DATA_ITEM,

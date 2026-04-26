@@ -36,7 +36,7 @@ def get_items(_: NotificationJob) -> list[DataItem]:
 
 
 run_notification_job(
-    "Страшно, вырубай! [Василий Гальперов] [Youtube]",
+    "Страшно, вырубай! [Василий Гальперов] [youtube]",
     DIR,
     get_items,
     save_mode=SavedModeEnum.DATA_ITEM,
