@@ -71,7 +71,7 @@ def get_items(job: NotificationJob) -> list[DataItem]:
 
 
 run_notification_job(
-    "Новые главы манги [mangalib.me]",
+    "Новые главы манги [mangalib]",
     DIR,
     get_items,
     formats=FORMATS_CHAPTER,
