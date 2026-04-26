@@ -20,7 +20,6 @@ from formats import FORMATS_BOOK
 from root_common import NotificationJob, run_notification_job
 from third_party.litres_ru.get_books_by_author import get_books
 
-
 URL = "https://www.litres.ru/author/vitaliy-zykov/"
 
 

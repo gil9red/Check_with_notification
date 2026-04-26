@@ -19,7 +19,6 @@ sys.path.append(str(DIR.parent))  # Путь к папке выше
 from formats import Formats
 from root_common import run_notification_job, NotificationJob, session
 
-
 URL = "https://bash.im"
 
 

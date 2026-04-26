@@ -15,7 +15,6 @@ from pathlib import Path
 from formats import FORMATS_VIDEO
 from root_common import run_notification_job_rutube
 
-
 run_notification_job_rutube(
     name="Кот Костян",
     script_dir=Path(__file__).resolve().parent,

@@ -13,7 +13,6 @@ __author__ = "ipetrash"
 from pathlib import Path
 from root_common import run_notification_job_rutube
 
-
 run_notification_job_rutube(
     name="Goblin News",
     script_dir=Path(__file__).resolve().parent,

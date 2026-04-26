@@ -23,7 +23,6 @@ from root_common import DataItem, run_notification_job, NotificationJob
 sys.path.append(str(ROOT_DIR / "third_party" / "github_api__examples"))
 from third_party.github_api__examples.get_stargazers import get_stargazers
 
-
 OWNER = "gil9red"
 REPOSITORY = "SimplePyScripts"
 

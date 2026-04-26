@@ -29,9 +29,7 @@ def get_all_items() -> list[DataItem]:
     for bookmarks in get_all_bookmarks().values():
         for x in bookmarks:
             title = x.get_title_with_tags()
-            items.append(
-                DataItem(value=title, url=x.url)
-            )
+            items.append(DataItem(value=title, url=x.url))
 
     return items
 

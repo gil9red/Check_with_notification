@@ -20,7 +20,6 @@ sys.path.append(str(DIR.parent))  # Путь к папке выше
 from formats import FORMATS_DEFAULT
 from root_common import NotificationJob, run_notification_job
 
-
 IGNORED: list[str] = [".deprecated", "examples", str(DIR.name)]
 DAYS_DIVIDER: int = 180
 

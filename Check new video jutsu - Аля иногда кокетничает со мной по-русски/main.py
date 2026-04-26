@@ -21,7 +21,6 @@ sys.path.append(str(ROOT_DIR))  # Путь к папке выше
 from formats import FORMATS_VIDEO
 from root_common import run_notification_job, get_items_from_jut_su
 
-
 URL = "https://jut.su/tokidoki-alya/"
 
 

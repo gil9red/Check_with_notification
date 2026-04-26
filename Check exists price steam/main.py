@@ -32,7 +32,6 @@ from root_common import (
     session,
 )
 
-
 PATH_ITEMS: Path = DIR / "items.json"
 
 

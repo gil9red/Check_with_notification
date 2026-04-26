@@ -22,8 +22,9 @@ sys.path.append(str(ROOT_DIR / "third_party" / "wikipedia"))
 
 from formats import FORMATS_VIDEO
 from root_common import run_notification_job
-from third_party.wikipedia.ru_wikipedia_org__wiki__Пацаны_телесериал_Список_эпизодов import get_all_series
-
+from third_party.wikipedia.ru_wikipedia_org__wiki__Пацаны_телесериал_Список_эпизодов import (
+    get_all_series,
+)
 
 run_notification_job(
     "Пацаны [wiki]",

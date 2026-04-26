@@ -23,7 +23,6 @@ from root_common import (
     get_yt_playlist_video_list,
 )
 
-
 run_notification_job(
     "Почему нельзя победить [Звездный Капитан] [youtube]",
     DIR,

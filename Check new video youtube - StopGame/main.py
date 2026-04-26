@@ -23,7 +23,6 @@ from root_common import (
     get_yt_video_list_from_playlists,
 )
 
-
 PLAYLISTS = [
     ("История серии Diablo", "PLZfhqd1-Hl3DtfKRjleAWB-zYJ-pj7apK"),
     ("История серии Final Fantasy", "PLZfhqd1-Hl3DnNDG-x6SgDqlBJee-50E1"),

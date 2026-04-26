@@ -29,11 +29,7 @@ from root_common import (
 def get_items(_: NotificationJob) -> list[DataItem]:
     # Не всегда вовремя в плейлист кладет, поэтому для актуальности брать со страницы
     url = "https://www.youtube.com/@DisturbingHorrorGames/videos"
-    return [
-        item
-        for item in get_yt_video_list(url)
-        if "DHG #" in item.title
-    ]
+    return [item for item in get_yt_video_list(url) if "DHG #" in item.title]
 
 
 run_notification_job(

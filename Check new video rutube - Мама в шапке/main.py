@@ -14,7 +14,6 @@ from pathlib import Path
 from root_common import run_notification_job_rutube
 from formats import FORMATS_VIDEO
 
-
 run_notification_job_rutube(
     name="Мама в шапке",
     script_dir=Path(__file__).resolve().parent,

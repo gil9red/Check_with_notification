@@ -29,7 +29,6 @@ from root_common import (
 )
 from third_party.gamestatus_info__lastcrackedgames import Game, get_games
 
-
 DATE_FORMAT: str = "%d.%m.%Y"
 
 
@@ -44,16 +43,14 @@ def get_game_title(game: Game) -> str:
         game.crack_date.strftime(DATE_FORMAT) if game.crack_date else "Не взломана"
     )
 
-    return cleandoc(
-        f"""
+    return cleandoc(f"""
         <b>{title}</b>
         
         📅 <b>Дата релиза:</b> <code>{release_date}</code>
         🔓 <b>Дата взлома:</b> <code>{crack_date}</code>
         🛡 <b>Защита:</b> <code>{protection}</code>
         🏴‍☠️ <b>Взломана:</b> <code>{hacked}</code>
-        """
-    ).strip()
+        """).strip()
 
 
 def get_items(_: NotificationJob) -> list[DataItem]:

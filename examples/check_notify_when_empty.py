@@ -18,7 +18,6 @@ sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from root_common import NotificationJob, run_notification_job
 
-
 # Process error
 run_notification_job(
     "Тест",

@@ -23,11 +23,12 @@ from root_common import (
     get_yt_video_list,
 )
 
-
 run_notification_job(
     "Даниэль [youtube]",
     DIR,
-    lambda _: get_yt_video_list("https://www.youtube.com/@Daniel-DungeonMasters/videos"),
+    lambda _: get_yt_video_list(
+        "https://www.youtube.com/@Daniel-DungeonMasters/videos"
+    ),
     save_mode=SavedModeEnum.DATA_ITEM,
     formats=FORMATS_VIDEO.replace(
         prefix="♂️",

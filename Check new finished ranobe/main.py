@@ -26,7 +26,6 @@ from root_common import DataItem, NotificationJob, run_notification_job
 from third_party.ranobehub_org.get_bookmarks import get_bookmarks
 from third_party.ranobehub_org.get_ranobe_info import get_ranobe_info
 
-
 USER_ID: int = 19803
 
 

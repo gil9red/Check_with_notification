@@ -24,7 +24,6 @@ from root_common import (
     get_yt_video_list,
 )
 
-
 run_notification_job(
     "Шизоидус [youtube]",
     DIR,

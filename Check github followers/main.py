@@ -23,7 +23,6 @@ from root_common import DataItem, run_notification_job, NotificationJob
 sys.path.append(str(ROOT_DIR / "third_party" / "github_api__examples"))
 from third_party.github_api__examples.get_followers import get_followers
 
-
 OWNER = "gil9red"
 
 

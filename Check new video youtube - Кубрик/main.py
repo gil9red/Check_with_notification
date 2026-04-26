@@ -23,7 +23,6 @@ from root_common import (
     run_notification_job,
 )
 
-
 run_notification_job(
     "Кубрик [youtube]",
     DIR,

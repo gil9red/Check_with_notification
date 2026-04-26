@@ -28,7 +28,6 @@ from root_common import (
 )
 from third_party.store_steampowered_com__check_early_access import is_early_access
 
-
 PATH_ITEMS: Path = DIR / "items.json"
 
 

@@ -21,7 +21,6 @@ sys.argv.append("--single")
 
 from root_common import run_notification_job
 
-
 run_notification_job(
     "Тест",
     DIR,
@@ -46,7 +45,7 @@ print("\n" + "-" * 50 + "\n")
 run_notification_job(
     "Тест",
     DIR,
-    lambda _: [str(1/0)],
+    lambda _: [str(1 / 0)],
     is_single=True,
     max_attempts_for_is_single=1,
     need_notification=False,
