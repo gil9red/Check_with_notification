@@ -52,7 +52,7 @@ def get_only_finished_items(_: NotificationJob) -> list[DataItem]:
 # На первый раз выполняется загрузка всех манг (через событие on_first_start_detected)
 # На последующие разы загружаются только переведенные (законченные и переведенные) манги
 run_notification_job(
-    "Завершенная манга",
+    "Завершенная манга [readmanga]",
     DIR,
     get_only_finished_items,
     formats=FORMATS_MANGA,
