@@ -66,7 +66,7 @@ def get_all_items(job: NotificationJob) -> list[DataItem]:
 
 
 run_notification_job(
-    "Завершенные ранобе",
+    "Завершенные ранобе [ranobehub]",
     DIR,
     get_all_items,
     formats=FORMATS_BOOK,
