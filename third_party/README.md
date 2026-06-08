@@ -8,7 +8,7 @@
  * [python_org/get_release_versions.py](https://github.com/gil9red/SimplePyScripts/blob/052221615911af39bd6d7014af72d85ddb9828c6/html_parsing/python_org/get_release_versions.py)
  * [ranobehub_org/](https://github.com/gil9red/SimplePyScripts/blob/1dca8458e0323e790ee0a12d1bb98bdf926f3619/html_parsing/ranobehub_org)
  * [rutube/](https://github.com/gil9red/SimplePyScripts/blob/c4c424efab26399938c28487ff3cf49597b91161/html_parsing/rutube)
- * [vkvideo/](https://github.com/gil9red/SimplePyScripts/blob/059777ebab9779bb7dd5703185add1fa648ef3b6/video_parsers/vkvideo/get_videos.py)
+ * [vkvideo/](https://github.com/gil9red/SimplePyScripts/blob/84d5e8656a2ce10b7d6fc3ec0b0f05897ef2dddc/video_parsers/vkvideo/get_videos.py)
  * [stackoverflow_site__parsing/user_rank_and_reputation.py](https://github.com/gil9red/SimplePyScripts/blob/1d7f58c816db60f6005b9e63b981eeabd1924fc6/stackoverflow_site__parsing/user_rank_and_reputation.py)
  * [wikipedia/](https://github.com/gil9red/SimplePyScripts/blob/65a8b65c14a0e1672413396438c40e34f974faad/html_parsing/wikipedia)
  * [youtube_com/api/](https://github.com/gil9red/SimplePyScripts/blob/c79921b68ad71957c094d952971ee0d36ad95ddc/video_parsers/youtube/api)
