@@ -65,12 +65,12 @@ def get_api_info(url: str) -> ApiInfo:
         def is_api(rs: Response) -> bool:
             url: str = rs.url
             return (
-                    "api" in url
-                    and rs.request.method == "POST"
-                    and rs.status == 200
-                    # NOTE: Уточнение с "?" в конце для исключения ссылки вида catalog.getVideoShowcase
-                    and ("/video.getFromAlbum?" in url or "/catalog.getVideo?" in url)
-                    and "json" in str(rs.headers)
+                "api" in url
+                and rs.request.method == "POST"
+                and rs.status == 200
+                # NOTE: Уточнение с "?" в конце для исключения ссылки вида catalog.getVideoShowcase
+                and ("/video.getFromAlbum?" in url or "/catalog.getVideo?" in url)
+                and "json" in str(rs.headers)
             )
 
         with page.expect_response(is_api) as response_info:
@@ -94,10 +94,10 @@ def parse_videos(rs: dict[str, Any]) -> list[VideoInfo]:
 
 
 def paginate_by_offset(
-        session: requests.Session,
-        url: str,
-        init_rq_data: dict[str, Any],
-        _: dict[str, Any],
+    session: requests.Session,
+    url: str,
+    init_rq_data: dict[str, Any],
+    _: dict[str, Any],
 ) -> Generator[list[VideoInfo], None, None]:
     """Генератор для постраничной пагинации (Альбомы)."""
 
@@ -121,10 +121,10 @@ def paginate_by_offset(
 
 
 def paginate_by_token(
-        session: requests.Session,
-        url: str,
-        init_rq_data: dict[str, Any],
-        init_rs_data: dict[str, Any],
+    session: requests.Session,
+    url: str,
+    init_rq_data: dict[str, Any],
+    init_rs_data: dict[str, Any],
 ) -> Generator[list[VideoInfo], None, None]:
     """Генератор для курсорной пагинации (Каталог)."""
 
@@ -161,8 +161,8 @@ def paginate_by_token(
 
 
 def get_videos(
-        url: str,
-        max_items: int | None = MAX_VIDEOS_SAFETY_LIMIT,
+    url: str,
+    max_items: int | None = MAX_VIDEOS_SAFETY_LIMIT,
 ) -> list[VideoInfo]:
     # Вернется первая порция запросов
     api_info: ApiInfo = get_api_info(url)
