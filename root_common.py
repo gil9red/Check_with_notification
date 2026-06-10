@@ -851,10 +851,10 @@ class NotificationJob:
         )
 
 
-def get_yt_video_list(text_or_url: str, maximum_items: int = 100) -> list[DataItem]:
+def get_yt_video_list(text_or_url: str, max_items: int = 100) -> list[DataItem]:
     return [
         DataItem(value=video.id, title=video.title, url=video.url)
-        for video in search_youtube(text_or_url, maximum_items=maximum_items)
+        for video in search_youtube(text_or_url, max_items=max_items)
         # NOTE: У видео с названием вида "[Deleted video]" duration_text = None
         if video.duration_text
     ]
@@ -862,7 +862,7 @@ def get_yt_video_list(text_or_url: str, maximum_items: int = 100) -> list[DataIt
 
 def get_yt_playlist_video_list(playlist_id: str) -> list[DataItem]:
     url = f"https://www.youtube.com/playlist?list={playlist_id}"
-    return get_yt_video_list(url, maximum_items=1_000)
+    return get_yt_video_list(url, max_items=1_000)
 
 
 def get_yt_video_list_from_playlists(

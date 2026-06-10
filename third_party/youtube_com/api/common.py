@@ -376,6 +376,9 @@ def get_generator_raw_items_from_data(
     while True:
         time.sleep(0.5)
 
+        if error := data.get("error"):
+            raise Exception(f"[#] Error code {error['code']}: {error['message']}")
+
         continuation_item: dict[str, Any]
         try:
             # Может вернуться несколько continuationItemRenderer, берем первый
@@ -506,7 +509,7 @@ class Video:
         raise ValueError("Not found any titles.")
 
     @classmethod
-    def parse_duration_seconds(cls, data_video: dict[str, Any]) -> int:
+    def parse_duration_seconds(cls, data_video: dict[str, Any]) -> int | None:
         # Если есть продолжительность в секундах
         try:
             return int(data_video["lengthSeconds"])
@@ -520,7 +523,10 @@ class Video:
                     "thumbnailBottomOverlayViewModel/badges/*/"
                     "thumbnailBadgeViewModel/text"
                 )
-                text = dpath.util.get(data_video, glob_duration)
+                try:
+                    text = dpath.util.get(data_video, glob_duration)
+                except KeyError:
+                    return
 
             return time_to_seconds(text)
 
