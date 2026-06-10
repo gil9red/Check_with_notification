@@ -5,7 +5,7 @@ __author__ = "ipetrash"
 
 
 """
-Скрипт для уведомления о появлении новых видео из конкретных плейлистов канала StopGame.
+Скрипт для уведомления о появлении новых видео Разбора полётов и Истории серий на канале StopGame.
 
 """
 
@@ -18,29 +18,27 @@ sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from formats import FORMATS_VIDEO
 from root_common import (
-    run_notification_job,
+    DataItem,
+    NotificationJob,
     SavedModeEnum,
-    get_yt_video_list_from_playlists,
+    run_notification_job,
+    get_yt_video_list,
 )
 
-PLAYLISTS: list[tuple[str, str]] = [
-    ("История серии Diablo", "PLZfhqd1-Hl3DtfKRjleAWB-zYJ-pj7apK"),
-    ("История серии Final Fantasy", "PLZfhqd1-Hl3DnNDG-x6SgDqlBJee-50E1"),
-    ("История серии Metroid", "PLZfhqd1-Hl3Di2yxyrrvH53vdREDrHU3c"),
-    ("История серии The Elder Scrolls", "PLZfhqd1-Hl3C0B3dmwhuKKzUJ-H30gGVj"),
-    ("За кадром", "PLZfhqd1-Hl3BEdYEAhuq62G5fRLtSXbJ9"),
-    ("Разбор полётов", "PLZfhqd1-Hl3BKhWwCgmqtENSlearqLlAV"),
-    ("Спидран в деталях", "PLZfhqd1-Hl3D5Y_DW3fD9lyaclvt89XsI"),
-    ("Страшно, вырубай!", "PLZfhqd1-Hl3CdAaP_DVgU2tpBSVLBNICD"),
-    ("Уэс и Флинн", "PLZfhqd1-Hl3C5AQ6LPcMsVBIpduqckjPB"),
-    ("Хардмод", "PLZfhqd1-Hl3BCuapQSaNrNyDAy3wLiOLL"),
-]
+
+def get_items(_: NotificationJob) -> list[DataItem]:
+    url = "https://www.youtube.com/@StopGameRu/videos"
+    return [
+        item
+        for item in get_yt_video_list(url, maximum_items=100)
+        if "Разбор полётов" in item.title or "История серии" in item.title
+    ]
 
 
 run_notification_job(
     "StopGame [youtube]",
     DIR,
-    lambda job: get_yt_video_list_from_playlists(job, PLAYLISTS),
+    get_items,
     save_mode=SavedModeEnum.DATA_ITEM,
     formats=FORMATS_VIDEO,
 )
