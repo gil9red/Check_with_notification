@@ -26,10 +26,7 @@ from root_common import (
 run_notification_job(
     "Fantom [youtube]",
     DIR,
-    lambda _: get_yt_video_list(
-        "https://www.youtube.com/@YaFanTom/videos",
-        maximum_items=100,
-    ),
+    lambda _: get_yt_video_list("https://www.youtube.com/@YaFanTom/videos"),
     save_mode=SavedModeEnum.DATA_ITEM,
     formats=FORMATS_VIDEO.replace(
         prefix="👻",

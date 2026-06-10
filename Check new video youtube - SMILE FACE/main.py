@@ -32,7 +32,7 @@ def get_items(_: NotificationJob) -> list[DataItem]:
         "https://www.youtube.com/@SMILEFACEru/videos",
         "https://www.youtube.com/@SFArchive/videos",
     ]:
-        items += get_yt_video_list(url, maximum_items=50)
+        items += get_yt_video_list(url)
     return items
 
 

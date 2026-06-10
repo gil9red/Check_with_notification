@@ -30,7 +30,7 @@ def get_items(_: NotificationJob) -> list[DataItem]:
     url = "https://www.youtube.com/@StopGameRu/videos"
     return [
         item
-        for item in get_yt_video_list(url, maximum_items=100)
+        for item in get_yt_video_list(url)
         if "Разбор полётов" in item.title or "История серии" in item.title
     ]
 
