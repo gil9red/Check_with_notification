@@ -32,7 +32,7 @@ def get_items(_: NotificationJob) -> list[DataItem]:
         "https://rutube.ru/channel/23547494/videos/",
         "https://rutube.ru/channel/30714439/videos/",
     ]:
-        items += get_rutube_video_list(url, maximum_items=50)
+        items += get_rutube_video_list(url, max_items=50)
     return items
 
 
