@@ -23,7 +23,7 @@ from root_common import (
     get_yt_video_list_from_playlists,
 )
 
-PLAYLISTS = [
+PLAYLISTS: list[tuple[str, str]] = [
     ("История серии Diablo", "PLZfhqd1-Hl3DtfKRjleAWB-zYJ-pj7apK"),
     ("История серии Final Fantasy", "PLZfhqd1-Hl3DnNDG-x6SgDqlBJee-50E1"),
     ("История серии Metroid", "PLZfhqd1-Hl3Di2yxyrrvH53vdREDrHU3c"),
