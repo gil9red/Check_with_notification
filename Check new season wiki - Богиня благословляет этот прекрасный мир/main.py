@@ -19,11 +19,14 @@ DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from formats import FORMATS_SEASON
-from root_common import run_notification_job, NotificationJob, session
+from root_common import run_notification_job, NotificationJob
+from third_party.wikipedia.common import session
 
 
 def get_items(_: NotificationJob) -> list[str]:
     rs = session.get("https://en.wikipedia.org/wiki/List_of_KonoSuba_episodes")
+    rs.raise_for_status()
+
     items = re.findall(r"Season \w+", rs.text)
     return sorted(set(items))
 
