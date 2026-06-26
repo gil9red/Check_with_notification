@@ -16,17 +16,10 @@ from pathlib import Path
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
-from formats import FORMATS_VIDEO
-from root_common import (
-    run_notification_job,
-    SavedModeEnum,
-    get_vkvideo_video_list,
-)
+from root_common import run_notification_job_vkvideo
 
-run_notification_job(
-    "+100500 [vkvideo]",
+run_notification_job_vkvideo(
+    "+100500",
     DIR,
-    lambda _: get_vkvideo_video_list("https://vkvideo.ru/playlist/-1719791_48513772"),
-    save_mode=SavedModeEnum.DATA_ITEM,
-    formats=FORMATS_VIDEO,
+    "https://vkvideo.ru/playlist/-1719791_48513772",
 )

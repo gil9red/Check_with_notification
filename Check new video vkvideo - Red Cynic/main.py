@@ -17,17 +17,12 @@ DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from formats import FORMATS_VIDEO
-from root_common import (
-    SavedModeEnum,
-    get_vkvideo_video_list,
-    run_notification_job,
-)
+from root_common import run_notification_job_vkvideo
 
-run_notification_job(
-    "Обзоры Red Cynic [vkvideo]",
+run_notification_job_vkvideo(
+    "Обзоры Red Cynic",
     DIR,
-    lambda _: get_vkvideo_video_list("https://vkvideo.ru/@public_redcynic/all"),
-    save_mode=SavedModeEnum.DATA_ITEM,
+    "https://vkvideo.ru/@public_redcynic/all",
     formats=FORMATS_VIDEO.replace(
         prefix="🔥",
     ),

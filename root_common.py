@@ -1044,6 +1044,29 @@ def run_notification_job_rutube(
     )
 
 
+def run_notification_job_vkvideo(
+    name: str,
+    script_dir: Path,
+    url_or_func: str | NewItemsFetcher,
+    formats: Formats = FORMATS_VIDEO,
+) -> None:
+    title: str = f"{name} [vkvideo]"
+
+    get_new_items: NewItemsFetcher
+    if callable(url_or_func):
+        get_new_items = url_or_func
+    else:
+        get_new_items = lambda job: get_vkvideo_video_list(url_or_func)
+
+    run_notification_job(
+        title,
+        script_dir,
+        get_new_items,
+        formats=formats,
+        save_mode=SavedModeEnum.DATA_ITEM,
+    )
+
+
 if __name__ == "__main__":
     # TODO: В тесты
 
