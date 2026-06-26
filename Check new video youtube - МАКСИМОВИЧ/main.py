@@ -16,6 +16,7 @@ from pathlib import Path
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
+from formats import FORMATS_VIDEO
 from root_common import (
     run_notification_job,
     SavedModeEnum,
@@ -27,4 +28,5 @@ run_notification_job(
     DIR,
     lambda _: get_yt_video_list("https://www.youtube.com/@Maksimovich94/videos"),
     save_mode=SavedModeEnum.DATA_ITEM,
+    formats=FORMATS_VIDEO,
 )
