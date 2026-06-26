@@ -16,6 +16,7 @@ from pathlib import Path
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
+from formats import FORMATS_VIDEO
 from root_common import (
     DataItem,
     NotificationJob,
@@ -40,4 +41,5 @@ run_notification_job(
     DIR,
     get_items,
     save_mode=SavedModeEnum.DATA_ITEM,
+    formats=FORMATS_VIDEO,
 )
