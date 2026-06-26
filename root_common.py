@@ -984,9 +984,10 @@ def run_notification_job_rutube(
     many: bool = True,
     formats: Formats = FORMATS_VIDEO,
 ) -> None:
-    title = f"{name} [rutube]"
+    title: str = f"{name} [rutube]"
 
-    max_items = callbacks = None
+    max_items: int | None = None
+    callbacks: NotificationJob.Callbacks | None = None
     if many:
         max_items = 100
 
