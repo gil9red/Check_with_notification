@@ -228,11 +228,11 @@ class TimeoutWait:
 
 
 def get_logger(
-    name,
+    name: str,
     file: str | Path = "log.txt",
-    encoding="utf-8",
-    log_stdout=True,
-    log_file=True,
+    encoding: str = "utf-8",
+    log_stdout: bool = True,
+    log_file: bool = True,
 ) -> logging.Logger:
     log = logging.getLogger(name)
 
@@ -982,7 +982,7 @@ def run_notification_job_rutube(
     script_dir: Path,
     url: str,
     many: bool = True,
-    formats=FORMATS_VIDEO,
+    formats: Formats = FORMATS_VIDEO,
 ) -> None:
     title = f"{name} [rutube]"
 
