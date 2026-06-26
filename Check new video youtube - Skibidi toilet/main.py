@@ -20,11 +20,10 @@ sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from formats import FORMATS_VIDEO
 from root_common import (
-    run_notification_job,
-    SavedModeEnum,
-    get_yt_video_list,
     DataItem,
     NotificationJob,
+    get_yt_video_list,
+    run_notification_job_youtube,
 )
 
 # NOTE: Варианты "Skibidi Toilet", "скибиди туалет", "туалет skibidi"
@@ -36,20 +35,14 @@ PATTERN: re.Pattern = re.compile(
 
 def get_items(_: NotificationJob) -> list[DataItem]:
     # Не всегда вовремя в плейлист кладет, поэтому для актуальности брать со страницы
-    return [
-        item
-        for item in get_yt_video_list(
-            "https://www.youtube.com/channel/UCsSsgPaZ2GSmO6il8Cb5iGA/videos"
-        )
-        if PATTERN.search(item.title)
-    ]
+    url: str = "https://www.youtube.com/channel/UCsSsgPaZ2GSmO6il8Cb5iGA/videos"
+    return [item for item in get_yt_video_list(url) if PATTERN.search(item.title)]
 
 
-run_notification_job(
-    "Skibidi toilet [youtube]",
+run_notification_job_youtube(
+    "Skibidi toilet",
     DIR,
     get_items,
-    save_mode=SavedModeEnum.DATA_ITEM,
     formats=FORMATS_VIDEO.replace(
         prefix="🚽",
     ),

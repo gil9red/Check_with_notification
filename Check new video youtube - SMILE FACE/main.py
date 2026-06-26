@@ -20,9 +20,8 @@ from formats import FORMATS_VIDEO
 from root_common import (
     DataItem,
     NotificationJob,
-    SavedModeEnum,
     get_yt_video_list,
-    run_notification_job,
+    run_notification_job_youtube,
 )
 
 
@@ -36,11 +35,10 @@ def get_items(_: NotificationJob) -> list[DataItem]:
     return items
 
 
-run_notification_job(
-    "SMILE FACE [youtube]",
+run_notification_job_youtube(
+    "SMILE FACE",
     DIR,
     get_items,
-    save_mode=SavedModeEnum.DATA_ITEM,
     formats=FORMATS_VIDEO.replace(
         prefix="🎭",
     ),

@@ -16,17 +16,10 @@ from pathlib import Path
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
-from formats import FORMATS_VIDEO
-from root_common import (
-    run_notification_job,
-    SavedModeEnum,
-    get_yt_playlist_video_list,
-)
+from root_common import run_notification_job_youtube
 
-run_notification_job(
-    "Сашка Кроп MHz'ы [youtube]",
+run_notification_job_youtube(
+    "Сашка Кроп MHz'ы",
     DIR,
-    lambda _: get_yt_playlist_video_list("PL24NJvgUw-cyZ6Mz25pAhMSa1l8uYLzo9"),
-    save_mode=SavedModeEnum.DATA_ITEM,
-    formats=FORMATS_VIDEO,
+    "PL24NJvgUw-cyZ6Mz25pAhMSa1l8uYLzo9",
 )

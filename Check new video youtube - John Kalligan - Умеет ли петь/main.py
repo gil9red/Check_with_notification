@@ -19,11 +19,10 @@ sys.path.append(str(DIR.parent))  # Путь к папке выше
 from formats import FORMATS_VIDEO
 from root_common import (
     DataItem,
-    SavedModeEnum,
     NotificationJob,
     get_yt_video_list,
     get_yt_playlist_video_list,
-    run_notification_job,
+    run_notification_job_youtube,
 )
 
 
@@ -43,11 +42,10 @@ def get_items(_: NotificationJob) -> list[DataItem]:
     return items
 
 
-run_notification_job(
-    "Умеет ли петь [John Kalligan] [youtube]",
+run_notification_job_youtube(
+    "Умеет ли петь [John Kalligan]",
     DIR,
     get_items,
-    save_mode=SavedModeEnum.DATA_ITEM,
     formats=FORMATS_VIDEO.replace(
         prefix="🎵",
     ),

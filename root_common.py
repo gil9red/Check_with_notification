@@ -67,6 +67,8 @@ session.headers["User-Agent"] = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0"
 )
 
+type NewItemsFetcher = Callable[["NotificationJob"], list[str | DataItem]]
+
 
 @dataclass
 class DataItem:
@@ -397,7 +399,7 @@ class NotificationJob:
         self,
         log__or__log_name: logging.Logger | str,
         script_dir: Path | str,
-        get_new_items: Callable[["NotificationJob"], list[str | DataItem]],
+        get_new_items: NewItemsFetcher,
         *,
         file_name_saved: str = FILE_NAME_SAVED,
         file_name_saved_backup: str = FILE_NAME_SAVED_BACKUP,
@@ -923,7 +925,7 @@ def get_vkvideo_video_list(url: str) -> list[DataItem]:
 def run_notification_job(
     log__or__log_name: logging.Logger | str,
     script_dir: Path | str,
-    get_new_items: Callable[["NotificationJob"], list[str | DataItem]],
+    get_new_items: NewItemsFetcher,
     *,
     file_name_saved: str = FILE_NAME_SAVED,
     file_name_saved_backup: str = FILE_NAME_SAVED_BACKUP,
@@ -975,6 +977,35 @@ def run_notification_job(
         debug_logging_current_items=debug_logging_current_items,
         debug_logging_get_new_items=debug_logging_get_new_items,
     ).run()
+
+
+def run_notification_job_youtube(
+    name: str,
+    script_dir: Path,
+    url_or_playlist_or_func: str | NewItemsFetcher,
+    formats: Formats = FORMATS_VIDEO,
+) -> None:
+    title: str = f"{name} [youtube]"
+
+    get_new_items: NewItemsFetcher
+    if callable(url_or_playlist_or_func):
+        get_new_items = url_or_playlist_or_func
+    else:
+        url_or_playlist: str = url_or_playlist_or_func
+        func = (
+            get_yt_video_list
+            if url_or_playlist.startswith("https://")
+            else get_yt_playlist_video_list
+        )
+        get_new_items = lambda job: func(url_or_playlist)
+
+    run_notification_job(
+        title,
+        script_dir,
+        get_new_items,
+        formats=formats,
+        save_mode=SavedModeEnum.DATA_ITEM,
+    )
 
 
 def run_notification_job_rutube(

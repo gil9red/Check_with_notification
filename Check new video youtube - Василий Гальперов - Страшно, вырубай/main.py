@@ -16,13 +16,11 @@ from pathlib import Path
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
-from formats import FORMATS_VIDEO
 from root_common import (
     DataItem,
     NotificationJob,
-    SavedModeEnum,
     get_yt_video_list,
-    run_notification_job,
+    run_notification_job_youtube,
 )
 
 
@@ -36,10 +34,8 @@ def get_items(_: NotificationJob) -> list[DataItem]:
     ]
 
 
-run_notification_job(
-    "Страшно, вырубай! [Василий Гальперов] [youtube]",
+run_notification_job_youtube(
+    "Страшно, вырубай! [Василий Гальперов]",
     DIR,
     get_items,
-    save_mode=SavedModeEnum.DATA_ITEM,
-    formats=FORMATS_VIDEO,
 )

@@ -20,8 +20,7 @@ from formats import FORMATS_VIDEO
 from root_common import (
     DataItem,
     NotificationJob,
-    SavedModeEnum,
-    run_notification_job,
+    run_notification_job_youtube,
     get_yt_video_list,
 )
 
@@ -35,10 +34,8 @@ def get_items(_: NotificationJob) -> list[DataItem]:
     ]
 
 
-run_notification_job(
-    "StopGame [youtube]",
+run_notification_job_youtube(
+    "StopGame",
     DIR,
     get_items,
-    save_mode=SavedModeEnum.DATA_ITEM,
-    formats=FORMATS_VIDEO,
 )

@@ -17,17 +17,12 @@ DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
 from formats import FORMATS_VIDEO
-from root_common import (
-    run_notification_job,
-    SavedModeEnum,
-    get_yt_playlist_video_list,
-)
+from root_common import run_notification_job_youtube
 
-run_notification_job(
-    "Критикуешь-предлагай [Черный кабинет] [youtube]",
+run_notification_job_youtube(
+    "Критикуешь-предлагай [Черный кабинет]",
     DIR,
-    lambda _: get_yt_playlist_video_list("PLBZnChsbP-UOu2q00WioTn7KjP_jWAtwB"),
-    save_mode=SavedModeEnum.DATA_ITEM,
+    "PLBZnChsbP-UOu2q00WioTn7KjP_jWAtwB",
     formats=FORMATS_VIDEO.replace(
         prefix="🎬",
     ),
