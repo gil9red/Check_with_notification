@@ -61,7 +61,18 @@ def get_api_info(url: str) -> ApiInfo:
         page = browser.new_page()
         page.set_default_timeout(DEFAULT_TIMEOUT_MS)
 
-        page.goto(url, wait_until="commit")
+        attempts: int = 3
+        for _ in range(attempts):
+            page.goto(url, wait_until="commit")
+            if page.url == url:
+                break
+
+            print(
+                f"[#] Failed to load {url!r}, redirecting to {page.url!r}. Retrying..."
+            )
+            time.sleep(5)
+        else:
+            raise Exception(f"Failed to load page {url!r} after {attempts} attempts")
 
         def is_api(rs: Response) -> bool:
             url: str = rs.url
@@ -166,6 +177,8 @@ def get_videos(
     max_items: int | None = MAX_VIDEOS_SAFETY_LIMIT,
     max_attempts: int = 5,
 ) -> list[VideoInfo]:
+    print(f"Loading {url!r}")
+
     # Вернется первая порция запросов
     api_info: ApiInfo | None = None
     for attempt in range(1, max_attempts + 1):
@@ -222,7 +235,6 @@ if __name__ == "__main__":
     # Пример из плейлиста (один запрос вернет 25 шт.)
     url: str = "https://vkvideo.ru/playlist/-1719791_48513772"
 
-    print(url)
     videos: list[VideoInfo] = get_videos(url, max_items=5)
     _print_videos(videos)
     assert len(videos) == 5
@@ -237,7 +249,6 @@ if __name__ == "__main__":
 
     print()
 
-    print(url)
     videos: list[VideoInfo] = get_videos(url, max_items=50)
     _print_videos(videos)
     assert len(videos) == 50
@@ -254,7 +265,6 @@ if __name__ == "__main__":
 
     print()
 
-    print(url)
     videos: list[VideoInfo] = get_videos(url, max_items=None)
     _print_videos(videos)
     assert len(videos) > 100
@@ -274,7 +284,6 @@ if __name__ == "__main__":
     # Пример из канала (один запрос вернет 20 шт.)
     url = "https://vkvideo.ru/@public_redcynic/all"
 
-    print(url)
     videos: list[VideoInfo] = get_videos(url, max_items=50)
     _print_videos(videos)
     assert len(videos) == 50
@@ -292,7 +301,6 @@ if __name__ == "__main__":
 
     print()
 
-    print(url)
     videos: list[VideoInfo] = get_videos(url, max_items=None)
     _print_videos(videos)
     assert len(videos) > 100
