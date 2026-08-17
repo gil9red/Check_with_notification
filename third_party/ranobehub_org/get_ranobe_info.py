@@ -12,15 +12,7 @@ from typing import Any
 
 from bs4 import BeautifulSoup, Tag
 
-from common import session
-
-
-def get_text(el: Tag) -> str:
-    for hidden in el.select('[aria-hidden="true"]'):
-        hidden.decompose()
-
-    text = el.get_text(strip=True)
-    return text.replace("\xa0", " ")
+from common import session, get_text
 
 
 def parse_characters(text: str) -> tuple[str, int]:
@@ -135,7 +127,7 @@ def parse_book_v2(soup: BeautifulSoup) -> Ranobe:
     #                                ["$","section",null,{"className": ...}]
     slice_genres_tags: str = ""
     for slice in re.findall(
-            r"""<script>self.__next_f.push\((\[.+?\])\).*?</script>""", str(soup)
+        r"""<script>self.__next_f.push\((\[.+?\])\).*?</script>""", str(soup)
     ):
         if "book-hero-taxonomy" in slice:
             slice_genres_tags = slice
@@ -154,10 +146,10 @@ def parse_book_v2(soup: BeautifulSoup) -> Ranobe:
     assert isinstance(data, dict), f"В data не словарь, а {type(data)}: {data!r}"
 
     def deep_find(
-            data: dict[str, Any],
-            has_key: str,
-            has_value: str,
-            target_key: str,
+        data: dict[str, Any],
+        has_key: str,
+        has_value: str,
+        target_key: str,
     ) -> Any:
         if isinstance(data, dict):
             if data.get(has_key) == has_value and target_key in data:
@@ -247,7 +239,7 @@ def parse_book_v2(soup: BeautifulSoup) -> Ranobe:
         if aria_label:
 
             def extract_titles_from_children(
-                    data_aria_label: dict[str, Any],
+                data_aria_label: dict[str, Any],
             ) -> list[str]:
                 values = data_aria_label.get("children")
                 assert isinstance(
@@ -261,9 +253,9 @@ def parse_book_v2(soup: BeautifulSoup) -> Ranobe:
 
                     for _, _, _, value in row:
                         if (
-                                isinstance(value, dict)
-                                and "/tag/" in value.get("href", "")
-                                and isinstance(value.get("children"), str)
+                            isinstance(value, dict)
+                            and "/tag/" in value.get("href", "")
+                            and isinstance(value.get("children"), str)
                         ):
                             items.append(value["children"])
 

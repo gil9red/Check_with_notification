@@ -6,7 +6,7 @@
  * [mangalib_me/get_chapters.py](https://github.com/gil9red/SimplePyScripts/blob/fd1adc3dd5df1a52f23dd6f33ef938c7c9e000bb/html_parsing/mangalib_me/get_chapters.py)
  * [price_of_games/app_parser/utils.py (partially)](https://github.com/gil9red/price_of_games/blob/0ba20b658f47be3eba02bab1907aa6fc83ad6d4e/app_parser/utils.py)
  * [python_org/get_release_versions.py](https://github.com/gil9red/SimplePyScripts/blob/052221615911af39bd6d7014af72d85ddb9828c6/html_parsing/python_org/get_release_versions.py)
- * [ranobehub_org/](https://github.com/gil9red/SimplePyScripts/blob/2da7d14b112db385e1ab4b91c7d333f250f244aa/html_parsing/ranobehub_org)
+ * [ranobehub_org/]([https://github.com/gil9red/SimplePyScripts/blob/2da7d14b112db385e1ab4b91c7d333f250f244aa/html_parsing/ranobehub_org](https://github.com/gil9red/SimplePyScripts/blob/01234e33e3795900fbb98caf7174e3e8c6491f71/html_parsing/ranobehub_org))
  * [rutube/](https://github.com/gil9red/SimplePyScripts/blob/c4c424efab26399938c28487ff3cf49597b91161/html_parsing/rutube)
  * [vkvideo/](https://github.com/gil9red/SimplePyScripts/blob/f48ffc7e9031ea2c9b8c51754ed4cf601c4a093e/video_parsers/vkvideo/get_videos.py)
  * [stackoverflow_site__parsing/user_rank_and_reputation.py](https://github.com/gil9red/SimplePyScripts/blob/1d7f58c816db60f6005b9e63b981eeabd1924fc6/stackoverflow_site__parsing/user_rank_and_reputation.py)
