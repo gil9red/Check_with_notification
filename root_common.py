@@ -984,6 +984,7 @@ def run_notification_job_youtube(
     script_dir: Path,
     url_or_playlist_or_func: str | NewItemsFetcher,
     formats: Formats = FORMATS_VIDEO,
+    **kwargs: Any,
 ) -> None:
     title: str = f"{name} [youtube]"
 
@@ -1005,6 +1006,7 @@ def run_notification_job_youtube(
         get_new_items,
         formats=formats,
         save_mode=SavedModeEnum.DATA_ITEM,
+        **kwargs,
     )
 
 
