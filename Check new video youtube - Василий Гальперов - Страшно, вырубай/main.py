@@ -38,4 +38,5 @@ run_notification_job_youtube(
     "Страшно, вырубай! [Василий Гальперов]",
     DIR,
     get_items,
+    notify_when_empty=False,  # Эти видео редко выходят
 )
