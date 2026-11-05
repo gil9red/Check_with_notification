@@ -16,11 +16,9 @@ from pathlib import Path
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
-# Use argument
-sys.argv.append("--single")
-
 from root_common import run_notification_job
 
+# Use default value argument is_single = not IS_LOOP
 run_notification_job(
     "Тест",
     DIR,
@@ -30,7 +28,6 @@ run_notification_job(
 
 print("\n" + "-" * 50 + "\n")
 
-sys.argv.remove("--single")
 run_notification_job(
     "Тест",
     DIR,

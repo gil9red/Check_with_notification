@@ -26,7 +26,7 @@ class Formats:
     on_with_attempts: str = "Попытка #%s\n%s"
     on_next_attempt_timeout: str = "Повторная попытка будет через %s секунд"
     on_finish: str = "Завершение"
-    on_run_is_single: str = "Использование is_single режима"
+    on_run_is_loop: str = "Использование is_loop режима"
     prefix: str = ""
 
     def process(self, text: str) -> str:

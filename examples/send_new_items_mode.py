@@ -29,7 +29,6 @@ run_notification_job(
     "Тест [single message]",
     DIR,
     get_items,
-    is_single=True,
     send_new_items_mode=SendNewItemsModeEnum.SINGLE_MESSAGE,
 )
 
@@ -37,7 +36,6 @@ run_notification_job(
     "Тест [separately]",
     DIR,
     get_items,
-    is_single=True,
     send_new_items_mode=SendNewItemsModeEnum.SEPARATELY,
 )
 
@@ -45,6 +43,5 @@ run_notification_job(
     "Тест [group]",
     DIR,
     get_items,
-    is_single=True,
     send_new_items_mode=SendNewItemsModeEnum.GROUP,
 )

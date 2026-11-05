@@ -357,7 +357,7 @@ def send_telegram_notification_error(name: str, message: str) -> None:
 
 
 IS_CAN_SEND_ERROR_NOTIFICATIONS: bool = False
-IS_SINGLE: bool = "--single" in sys.argv
+IS_LOOP: bool = "--loop" in sys.argv
 
 DEFAULT_NEED_TO_STORE_ITEMS: int = 10_000
 DEFAULT_SEND_NEW_ITEMS_MODE: SendNewItemsModeEnum = SendNewItemsModeEnum.GROUP
@@ -420,7 +420,7 @@ class NotificationJob:
         notify_after_sequence_of_errors: bool = True,
         report_errors_for_first_time_after_attempts: int = 5,  # NOTE: Default after 25 minutes
         report_errors_after_each_attempts: int = 100,  # NOTE: Default every 8 hours
-        is_single: bool = IS_SINGLE,
+        is_single: bool = not IS_LOOP,
         max_attempts_for_is_single: int = 5,  # NOTE: Default after 25 minutes
         debug_logging_current_items: bool = DEBUG_LOGGING_CURRENT_ITEMS,
         debug_logging_get_new_items: bool = DEBUG_LOGGING_GET_NEW_ITEMS,
@@ -554,8 +554,8 @@ class NotificationJob:
         attempts: int = 0
         attempts_for_when_empty: int = 0
 
-        if self.is_single:
-            self.log.debug(self.formats.on_run_is_single)
+        if not self.is_single:
+            self.log.debug(self.formats.on_run_is_loop)
 
         while True:
             try:
@@ -945,7 +945,7 @@ def run_notification_job(
     notify_after_sequence_of_errors: bool = True,
     report_errors_for_first_time_after_attempts: int = 5,  # NOTE: Default after 25 minutes
     report_errors_after_each_attempts: int = 100,  # NOTE: Default every 8 hours
-    is_single: bool = IS_SINGLE,
+    is_single: bool = not IS_LOOP,
     max_attempts_for_is_single: int = 5,  # NOTE: Default after 25 minutes
     debug_logging_current_items: bool = DEBUG_LOGGING_CURRENT_ITEMS,
     debug_logging_get_new_items: bool = DEBUG_LOGGING_GET_NEW_ITEMS,
