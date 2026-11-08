@@ -32,6 +32,8 @@ TARGET_GAMES: list[str] = [
     "Demon's Souls",
     "Astro Bot",
     "Gran Turismo 7",
+    "Ghost of Yōtei",
+    "Marvel’s Wolverine",
 ]
 
 
