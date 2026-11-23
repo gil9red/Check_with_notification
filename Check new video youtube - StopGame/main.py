@@ -16,7 +16,6 @@ from pathlib import Path
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
-from formats import FORMATS_VIDEO
 from root_common import (
     DataItem,
     NotificationJob,
@@ -30,7 +29,14 @@ def get_items(_: NotificationJob) -> list[DataItem]:
     return [
         item
         for item in get_yt_video_list(url)
-        if "Разбор полётов" in item.title or "История серии" in item.title
+        if any(
+            title.lower() in item.title.lower()
+            for title in [
+                "Разбор полётов",
+                "Deep Dive",  # Тот же "Разбор полётов", но в английской локализации
+                "История серии",
+            ]
+        )
     ]
 
 
