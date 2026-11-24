@@ -16,27 +16,10 @@ from pathlib import Path
 DIR = Path(__file__).resolve().parent
 sys.path.append(str(DIR.parent))  # Путь к папке выше
 
-from root_common import (
-    DataItem,
-    NotificationJob,
-    get_yt_video_list,
-    run_notification_job_youtube,
-)
-
-
-def get_items(_: NotificationJob) -> list[DataItem]:
-    # Нет плейлиста
-    url = "https://www.youtube.com/@frank129002/videos"
-    return [
-        item
-        for item in get_yt_video_list(url)
-        if "[Страшно, вырубай!]".upper() in item.title.upper()
-    ]
-
+from root_common import get_yt_playlist_video_list, run_notification_job_youtube
 
 run_notification_job_youtube(
     "Страшно, вырубай! [Василий Гальперов]",
     DIR,
-    get_items,
-    notify_when_empty=False,  # Эти видео редко выходят
+    lambda job: get_yt_playlist_video_list("PLL-xlboKIBBU"),
 )
